@@ -16,7 +16,7 @@
     --blue-deep: #1E4256;
     --blue-light: #9DC3D6;
     --ochre: #D9A441;
-    --clay: #B8562E;
+    --clay: #B5592D;
     --clay-soft: #E7C9B8;
     --line: #DCD2B8;
     --good: #3E7A4F;
@@ -53,7 +53,6 @@
     min-height:100vh;
   }
 
-  /* ---------- Sidebar ---------- */
   .sidebar{
     width: 280px;
     flex-shrink:0;
@@ -96,9 +95,18 @@
     text-decoration:none;
   }
   .back-link:hover{ color:#fff; text-decoration:underline; }
+  .module-label{
+    padding: 14px 24px 4px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color: var(--ochre);
+    opacity:0.85;
+  }
   .nav-list{
     list-style:none;
-    margin:0; padding: 8px 12px;
+    margin:0; padding: 4px 12px;
     flex:1;
   }
   .nav-list li + li{ margin-top:2px; }
@@ -112,8 +120,8 @@
     border:none;
     color: rgba(239,230,212,0.82);
     font-family:'Work Sans', sans-serif;
-    font-size:0.92rem;
-    padding:9px 12px;
+    font-size:0.88rem;
+    padding:8px 12px;
     border-radius:9px;
     cursor:pointer;
     transition: background 0.15s ease, color 0.15s ease;
@@ -122,7 +130,7 @@
   .nav-item.active{ background: var(--ochre); color: var(--blue-deep); font-weight:600; }
   .nav-num{
     font-family:'IBM Plex Mono', monospace;
-    font-size:0.7rem;
+    font-size:0.68rem;
     width:20px; height:20px;
     border-radius:5px;
     display:flex; align-items:center; justify-content:center;
@@ -146,7 +154,6 @@
     margin-top:8px;
   }
 
-  /* ---------- Main ---------- */
   main{
     flex:1;
     min-width:0;
@@ -167,12 +174,12 @@
   }
   .mosaic{
     display:grid;
-    grid-template-columns: repeat(5, 15px);
-    grid-template-rows: repeat(3, 15px);
+    grid-template-columns: repeat(6, 13px);
+    grid-template-rows: repeat(4, 13px);
     gap:3px;
   }
   .mosaic .cell{
-    width:15px; height:15px;
+    width:13px; height:13px;
     border-radius:3px;
     background: #E3D9BC;
     border:1px solid var(--line);
@@ -185,7 +192,6 @@
   .progress-text{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--ink-soft); }
   .progress-text b{ color: var(--blue-deep); }
 
-  /* ---------- Hero / welcome ---------- */
   .hero{
     background: var(--blue-deep);
     color:#F4EEDD;
@@ -226,6 +232,15 @@
     color:#EFE6D4;
   }
   .hero-note b{ color: var(--ochre); }
+  .module-grid{ margin-bottom: 30px; }
+  .module-grid h3{
+    font-size:0.95rem;
+    color: var(--clay);
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin: 26px 0 12px;
+  }
   .start-grid{
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -241,10 +256,9 @@
   }
   .start-card:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(43,36,24,0.08); }
   .start-card .n{ font-family:'IBM Plex Mono', monospace; color: var(--clay); font-size:0.75rem; }
-  .start-card h3{ font-size:1.02rem; margin-top:4px; }
+  .start-card h3.title{ font-size:1.02rem; margin-top:4px; font-family:'Fraunces', serif; text-transform:none; letter-spacing:0; color: var(--ink); }
   .start-card .es{ color: var(--blue); font-style:italic; font-size:0.85rem; }
 
-  /* ---------- Unit view ---------- */
   .unit-head{ margin-bottom: 26px; }
   .unit-head .eyebrow{
     font-family:'IBM Plex Mono', monospace;
@@ -265,12 +279,12 @@
 
   .vocab-grid{
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     gap:12px;
   }
   .flip-card{
     perspective: 900px;
-    height: 100px;
+    height: 108px;
     cursor:pointer;
   }
   .flip-inner{
@@ -292,14 +306,14 @@
     background: var(--card);
     border: 1px solid var(--line);
   }
-  .flip-front .es{ font-family:'Fraunces', serif; font-size:1.15rem; color: var(--blue-deep); font-weight:600; }
-  .flip-front .hint{ font-size:0.68rem; color: var(--ink-soft); margin-top:6px; }
+  .flip-front .es{ font-family:'Fraunces', serif; font-size:1.02rem; color: var(--blue-deep); font-weight:600; }
+  .flip-front .hint{ font-size:0.66rem; color: var(--ink-soft); margin-top:6px; }
   .flip-back{
     background: var(--blue);
     color:#fff;
     transform: rotateY(180deg);
   }
-  .flip-back .en{ font-size:1.02rem; font-weight:600; }
+  .flip-back .en{ font-size:0.9rem; font-weight:600; line-height:1.3; }
   .speak-btn{
     position:absolute; top:6px; right:6px;
     width:26px; height:26px;
@@ -324,6 +338,7 @@
     border:1px solid var(--line);
     border-radius: 10px;
     padding: 12px 14px;
+    flex-wrap: wrap;
   }
   .phrase-row .es{ font-family:'Fraunces', serif; color: var(--blue-deep); font-weight:600; min-width:230px; }
   .phrase-row .en{ color: var(--ink-soft); font-size:0.92rem; flex:1; }
@@ -392,6 +407,7 @@
     border-radius: 12px;
     background: rgba(217,164,65,0.14);
     border: 1px dashed var(--ochre);
+    flex-wrap: wrap;
   }
   .complete-row label{ font-weight:600; cursor:pointer; display:flex; align-items:center; gap:10px; }
   .complete-row input{ width:18px; height:18px; accent-color: var(--clay); }
@@ -406,6 +422,7 @@
     .sidebar{ position:relative; width:100%; height:auto; padding:18px 0; }
     .nav-list{ display:flex; overflow-x:auto; padding:6px 12px; gap:4px; }
     .nav-list li{ flex-shrink:0; }
+    .module-label{ display:none; }
     main{ padding: 26px 18px 60px; }
     .hero{ padding: 26px; }
     .hero h2{ font-size:1.5rem; }
@@ -428,7 +445,7 @@
     </div>
     <a class="back-link" href="index.html">&larr; All subjects</a>
     <ul class="nav-list" id="navList"></ul>
-    <div class="sidebar-footer">Keyed to the topics most Irish 1st‑year Spanish classes cover first — check the actual order against your child's book if it differs.</div>
+    <div class="sidebar-footer">24 units across 8 topic modules, spanning the full three years — not just first-year basics. Check the actual order against your child's book if it differs, since schools sequence themes differently.</div>
   </nav>
 
   <main>
@@ -436,7 +453,7 @@
       <div id="crumb"></div>
       <div class="progress-wrap">
         <div class="mosaic" id="mosaic"></div>
-        <div class="progress-text"><b id="progressCount">0</b>/15 units done together</div>
+        <div class="progress-text"><b id="progressCount">0</b>/24 units done together</div>
       </div>
     </div>
     <div id="content"></div>
@@ -445,22 +462,29 @@
 
 <script>
 /* ---------------- Data ---------------- */
+const MODULES = [
+  {name:"Cimientos — Foundations", units:[1,2,3,4,5]},
+  {name:"El Colegio y la Vida Diaria — School & Daily Life", units:[6,7,8]},
+  {name:"La Casa y el Entorno — Home & Environment", units:[9,10,11,12]},
+  {name:"La Comida — Food", units:[13,14]},
+  {name:"El Tiempo Libre — Free Time", units:[15,16,17]},
+  {name:"El Cuerpo y la Ropa — Body & Clothes", units:[18,19]},
+  {name:"Viajes y Celebraciones — Travel & Celebrations", units:[20,21]},
+  {name:"Mirando al Futuro — Looking Ahead", units:[22,23,24]}
+];
+
 const UNITS = [
   {
-    id:1, es:"Saludos y presentaciones", en:"Greetings & introductions",
-    intro:"The very first thing any Spanish class covers — how to say hello, goodbye, and introduce yourself. Small phrases, used every single class.",
+    id:1, es:"Saludos y presentaciones", en:"Greetings & introductions", module:"Cimientos — Foundations",
+    intro:"The very first thing any Spanish class covers — how to say hello, goodbye, and introduce yourself.",
     vocab:[
       {es:"Hola",en:"Hello"},{es:"Adiós",en:"Goodbye"},{es:"Buenos días",en:"Good morning"},
       {es:"Buenas tardes",en:"Good afternoon"},{es:"Buenas noches",en:"Good night"},
-      {es:"Bien",en:"Good / well"},{es:"Mal",en:"Bad"},{es:"Por favor",en:"Please"},
-      {es:"Gracias",en:"Thank you"},{es:"De nada",en:"You're welcome"}
+      {es:"Por favor",en:"Please"},{es:"Gracias",en:"Thank you"},{es:"De nada",en:"You're welcome"}
     ],
     phrases:[
       {es:"¿Cómo te llamas?",en:"What's your name?"},
-      {es:"Me llamo Aoife.",en:"My name is Aoife."},
-      {es:"¿Cómo estás?",en:"How are you?"},
-      {es:"Estoy bien, gracias.",en:"I'm well, thanks."},
-      {es:"Mucho gusto.",en:"Nice to meet you."}
+      {es:"Me llamo Aoife.",en:"My name is Aoife."}
     ],
     quiz:[
       {q:"How do you say 'Good morning' in Spanish?", opts:["Buenas noches","Buenos días","Buenas tardes","Adiós"], a:1},
@@ -468,362 +492,585 @@ const UNITS = [
       {q:"How would you reply to 'Gracias'?", opts:["Hola","De nada","Mal","Adiós"], a:1},
       {q:"'Me llamo…' means…", opts:["I am… years old","My name is…","I live in…","I like…"], a:1},
       {q:"Which word means 'please'?", opts:["Gracias","De nada","Por favor","Bien"], a:2},
-      {q:"'Buenas noches' means…", opts:["Good afternoon","Good night","Good morning","Goodbye"], a:1},
-      {q:"'Buenas tardes' means…", opts:["Good morning","Good afternoon","Good night","Goodbye"], a:1},
-      {q:"Which greeting suits first thing in the morning?", opts:["Buenas noches","Buenos días","Buenas tardes","Adiós"], a:1}
+      {q:"'Buenas noches' means…", opts:["Good afternoon","Good night","Good morning","Goodbye"], a:1}
     ]
   },
   {
-    id:2, es:"Los números y la edad", en:"Numbers & age",
-    intro:"Numbers 1–20, plus how to ask and say someone's age — used constantly from week one, in everything from dates to phone numbers.",
+    id:2, es:"Los números, la fecha y la hora", en:"Numbers, dates & telling time", module:"Cimientos — Foundations",
+    intro:"Numbers up to 100, giving the date, and telling the time — used constantly from the very first weeks of class.",
     vocab:[
-      {es:"uno",en:"one"},{es:"dos",en:"two"},{es:"tres",en:"three"},{es:"cuatro",en:"four"},
-      {es:"cinco",en:"five"},{es:"seis",en:"six"},{es:"siete",en:"seven"},{es:"ocho",en:"eight"},
-      {es:"nueve",en:"nine"},{es:"diez",en:"ten"},{es:"quince",en:"fifteen"},{es:"veinte",en:"twenty"}
+      {es:"cero",en:"zero"},{es:"veinte",en:"twenty"},{es:"treinta",en:"thirty"},
+      {es:"cincuenta",en:"fifty"},{es:"cien",en:"one hundred"},
+      {es:"Es la una",en:"It's one o'clock"},{es:"Son las dos y media",en:"It's half past two"},
+      {es:"¿Qué hora es?",en:"What time is it?"}
     ],
     phrases:[
-      {es:"¿Cuántos años tienes?",en:"How old are you?"},
-      {es:"Tengo trece años.",en:"I am thirteen years old."},
-      {es:"¿Cuántos son?",en:"How many are there?"},
-      {es:"Mi hermano tiene dieciséis años.",en:"My brother is sixteen years old."}
+      {es:"¿Qué fecha es hoy?",en:"What's the date today?"},
+      {es:"Hoy es el quince de mayo.",en:"Today is the 15th of May."}
     ],
     quiz:[
-      {q:"'Tengo trece años' means…", opts:["I have thirteen books","I am thirteen years old","I live at number thirteen","I have thirteen cousins"], a:1},
-      {q:"What number is 'siete'?", opts:["6","7","8","9"], a:1},
-      {q:"'¿Cuántos años tienes?' asks…", opts:["What's your name?","Where do you live?","How old are you?","How are you?"], a:2},
-      {q:"What is 'diez' in English?", opts:["Nine","Ten","Eleven","Twelve"], a:1},
-      {q:"Which is 'four'?", opts:["cuatro","cinco","cuarenta","catorce"], a:0},
-      {q:"What number is 'quince'?", opts:["10","15","20","5"], a:1},
-      {q:"'veinte' is the number…", opts:["10","15","20","12"], a:2},
-      {q:"Which is 'six'?", opts:["seis","siete","cinco","nueve"], a:0}
+      {q:"'cien' is the number…", opts:["10","100","1,000","50"], a:1},
+      {q:"'treinta' is the number…", opts:["13","20","30","300"], a:2},
+      {q:"'Es la una' means…", opts:["It's one o'clock","It's one day","It's the first","It's one time"], a:0},
+      {q:"'Son las dos y media' means…", opts:["It's two o'clock","It's half past two","It's quarter past two","It's two thirty-one"], a:1},
+      {q:"'¿Qué hora es?' asks…", opts:["What day is it?","What time is it?","What year is it?","What's the weather?"], a:1},
+      {q:"'cincuenta' is the number…", opts:["15","50","500","5"], a:1}
     ]
   },
   {
-    id:3, es:"La familia", en:"Family",
-    intro:"Family members — one of the earliest 'describe yourself and your life' topics, and one you'll keep coming back to all through school.",
+    id:3, es:"Datos personales y nacionalidades", en:"Personal details & nationalities", module:"Cimientos — Foundations",
+    intro:"Saying where you're from, spelling your name, and giving contact details — the next layer after basic greetings.",
     vocab:[
-      {es:"la madre",en:"mother"},{es:"el padre",en:"father"},{es:"el hermano",en:"brother"},
-      {es:"la hermana",en:"sister"},{es:"la abuela",en:"grandmother"},{es:"el abuelo",en:"grandfather"},
-      {es:"el hijo",en:"son"},{es:"la hija",en:"daughter"},{es:"la tía",en:"aunt"},
-      {es:"el tío",en:"uncle"},{es:"el primo / la prima",en:"cousin"}
+      {es:"¿De dónde eres?",en:"Where are you from?"},
+      {es:"Soy de Irlanda",en:"I am from Ireland"},
+      {es:"irlandés / irlandesa",en:"Irish (nationality)"},
+      {es:"español / española",en:"Spanish (nationality)"},
+      {es:"¿Cómo se escribe?",en:"How do you spell it?"},
+      {es:"el número de teléfono",en:"phone number"},
+      {es:"el correo electrónico",en:"email address"},
+      {es:"Nací en…",en:"I was born in…"}
     ],
     phrases:[
-      {es:"Tengo dos hermanos.",en:"I have two siblings."},
-      {es:"¿Tienes hermanos?",en:"Do you have siblings?"},
-      {es:"Esta es mi familia.",en:"This is my family."},
-      {es:"Vivo con mis padres.",en:"I live with my parents."}
+      {es:"Soy irlandesa y vivo en Dublín.",en:"I am Irish and I live in Dublin."},
+      {es:"¿Cuál es tu número de teléfono?",en:"What's your phone number?"}
     ],
     quiz:[
-      {q:"'La hermana' means…", opts:["Mother","Sister","Aunt","Grandmother"], a:1},
-      {q:"'El abuelo' means…", opts:["Uncle","Father","Grandfather","Cousin"], a:2},
-      {q:"'Tengo dos hermanos' means…", opts:["I have two cousins","I have two siblings","I am two years old","I have two children"], a:1},
-      {q:"Which word means 'aunt'?", opts:["la tía","el tío","la hija","la prima"], a:0},
-      {q:"'¿Tienes hermanos?' asks…", opts:["Do you have pets?","Do you have siblings?","Are you tired?","Do you have homework?"], a:1},
-      {q:"'el primo' means…", opts:["Uncle","Cousin (male)","Nephew","Grandfather"], a:1},
-      {q:"'el hijo' means…", opts:["Daughter","Son","Brother","Father"], a:1},
-      {q:"'Vivo con mis padres' means…", opts:["I live with my parents","I live alone","I live with my grandparents","I visit my parents"], a:0}
+      {q:"'¿De dónde eres?' asks…", opts:["What's your name?","Where are you from?","How old are you?","Where do you live?"], a:1},
+      {q:"'irlandesa' describes…", opts:["A female Irish person","A male Irish person","A country","A language only"], a:0},
+      {q:"'Soy de Irlanda' means…", opts:["I live in Ireland","I am from Ireland","I love Ireland","I am Irish (nationality word)"], a:1},
+      {q:"'el correo electrónico' means…", opts:["Phone number","Email address","Home address","Passport number"], a:1},
+      {q:"'¿Cómo se escribe?' asks…", opts:["How do you say it?","How do you spell it?","How old are you?","Where is it?"], a:1},
+      {q:"'Nací en…' means…", opts:["I live in…","I study in…","I was born in…","I travel to…"], a:2}
     ]
   },
   {
-    id:4, es:"Los colores", en:"Colours & describing",
-    intro:"Colours, used to describe schoolbags, eyes, hair, and just about everything else — small words with huge everyday mileage.",
+    id:4, es:"La familia y la descripción física", en:"Family & physical description", module:"Cimientos — Foundations",
+    intro:"Family members plus describing what people look like and what they're like — building on the basic family vocabulary with real descriptive detail.",
     vocab:[
-      {es:"rojo",en:"red"},{es:"azul",en:"blue"},{es:"verde",en:"green"},{es:"amarillo",en:"yellow"},
-      {es:"negro",en:"black"},{es:"blanco",en:"white"},{es:"rosa",en:"pink"},{es:"naranja",en:"orange"},
-      {es:"morado",en:"purple"},{es:"gris",en:"grey"}
+      {es:"la madre / el padre",en:"mother / father"},
+      {es:"el hermano / la hermana",en:"brother / sister"},
+      {es:"alto/a",en:"tall"},
+      {es:"bajo/a",en:"short"},
+      {es:"delgado/a",en:"slim"},
+      {es:"Tiene el pelo rizado.",en:"He/She has curly hair."},
+      {es:"Tiene los ojos verdes.",en:"He/She has green eyes."},
+      {es:"simpático/a",en:"nice / friendly"}
     ],
     phrases:[
-      {es:"¿De qué color es?",en:"What colour is it?"},
-      {es:"Mi mochila es azul.",en:"My schoolbag is blue."},
-      {es:"Tengo los ojos verdes.",en:"I have green eyes."},
-      {es:"Me gustan los colores brillantes.",en:"I like bright colours."}
+      {es:"Mi hermana es alta y tiene el pelo largo.",en:"My sister is tall and has long hair."},
+      {es:"Mi padre es muy simpático.",en:"My father is very nice."}
     ],
     quiz:[
-      {q:"'Mi mochila es azul' means…", opts:["My bag is red","My bag is blue","My bag is heavy","My bag is new"], a:1},
-      {q:"Which word means 'yellow'?", opts:["amarillo","morado","naranja","rosa"], a:0},
-      {q:"'Verde' means…", opts:["Green","Grey","Black","Pink"], a:0},
-      {q:"'¿De qué color es?' asks…", opts:["How big is it?","What colour is it?","How much is it?","Where is it?"], a:1},
-      {q:"Which is 'black'?", opts:["blanco","negro","gris","azul"], a:1},
-      {q:"Which word means 'orange' (the colour)?", opts:["naranja","rosa","morado","gris"], a:0},
-      {q:"'morado' means…", opts:["Pink","Purple","Orange","Grey"], a:1},
-      {q:"'blanco' means…", opts:["Black","White","Grey","Yellow"], a:1}
+      {q:"'alto/a' means…", opts:["Short","Tall","Slim","Old"], a:1},
+      {q:"'bajo/a' means…", opts:["Tall","Young","Short","Friendly"], a:2},
+      {q:"'Tiene el pelo rizado' means…", opts:["Has short hair","Has curly hair","Has no hair","Has straight hair"], a:1},
+      {q:"'simpático/a' means…", opts:["Shy","Nice/friendly","Strict","Tired"], a:1},
+      {q:"'Tiene los ojos verdes' means…", opts:["Has blue eyes","Has green eyes","Has brown hair","Has big eyes"], a:1},
+      {q:"'Mi hermana es alta' means…", opts:["My sister is short","My sister is tall","My brother is tall","My mother is tall"], a:1}
     ]
   },
   {
-    id:5, es:"Los días, meses y la fecha", en:"Days, months & the date",
-    intro:"Days of the week, months, and how to give the date — a staple of every early homework sheet, and needed for every diary or calendar exercise.",
+    id:5, es:"Los colores y los adjetivos", en:"Colours & adjective agreement", module:"Cimientos — Foundations",
+    intro:"Colours as a way into a genuinely important grammar rule: adjectives in Spanish must agree with the noun they describe.",
     vocab:[
-      {es:"lunes",en:"Monday"},{es:"martes",en:"Tuesday"},{es:"miércoles",en:"Wednesday"},
-      {es:"jueves",en:"Thursday"},{es:"viernes",en:"Friday"},{es:"sábado",en:"Saturday"},
-      {es:"domingo",en:"Sunday"},{es:"enero",en:"January"},{es:"octubre",en:"October"},
-      {es:"hoy",en:"today"},{es:"mañana",en:"tomorrow"}
+      {es:"rojo / roja",en:"red — changes for feminine nouns"},
+      {es:"azul",en:"blue — stays the same for masculine and feminine"},
+      {es:"Adjetivos en -o",en:"Change to -a for feminine nouns: rojo → roja"},
+      {es:"Adjetivos en -e",en:"Stay the same for both genders: verde, verde"},
+      {es:"Plural de adjetivos",en:"Add -s: rojos, rojas"},
+      {es:"la concordancia",en:"Agreement — the adjective must match the noun in gender and number"},
+      {es:"una camisa roja",en:"a red shirt (feminine agreement)"},
+      {es:"unos zapatos negros",en:"some black shoes (plural agreement)"}
     ],
     phrases:[
-      {es:"¿Qué día es hoy?",en:"What day is it today?"},
-      {es:"Hoy es lunes.",en:"Today is Monday."},
-      {es:"¿Cuál es la fecha?",en:"What's the date?"},
-      {es:"Es el tres de octubre.",en:"It's the third of October."}
+      {es:"Tengo una mochila azul y unos libros rojos.",en:"I have a blue bag and some red books."},
+      {es:"La casa es blanca y grande.",en:"The house is white and big."}
     ],
     quiz:[
-      {q:"'Hoy es lunes' means…", opts:["Today is Sunday","Today is Monday","Tomorrow is Monday","Today is Friday"], a:1},
-      {q:"Which day is 'viernes'?", opts:["Wednesday","Thursday","Friday","Saturday"], a:2},
-      {q:"'¿Qué día es hoy?' asks…", opts:["What time is it?","What day is it today?","What's the weather?","What month is it?"], a:1},
-      {q:"'Mañana' means…", opts:["Morning only","Yesterday","Tomorrow","Today"], a:2},
-      {q:"Which is 'Sunday'?", opts:["sábado","domingo","lunes","martes"], a:1},
-      {q:"Which month is 'enero'?", opts:["December","January","October","February"], a:1},
-      {q:"'Es el tres de octubre' means…", opts:["It's the third of October","It's October","It's the tenth of March","It's the third day"], a:0},
-      {q:"Which day is 'miércoles'?", opts:["Tuesday","Wednesday","Thursday","Monday"], a:1}
+      {q:"Before a feminine noun, 'rojo' becomes…", opts:["rojo","roja","rojos","rojoa"], a:1},
+      {q:"'verde' doesn't change for feminine nouns because it ends in…", opts:["-o","-a","-e","-s"], a:2},
+      {q:"The masculine plural of 'rojo' is…", opts:["roja","rojos","rojas","rojoas"], a:1},
+      {q:"In 'una camisa roja', 'roja' agrees with 'camisa' because camisa is…", opts:["Masculine","Feminine","Plural","Neutral"], a:1},
+      {q:"'la concordancia' means…", opts:["Colour","Agreement","Plural","Description"], a:1},
+      {q:"'unos zapatos negros' means…", opts:["A black shoe","Some black shoes","One black shoe","Black shoes (singular)"], a:1}
     ]
   },
   {
-    id:6, es:"El instituto", en:"School",
-    intro:"Classroom objects, subjects, and saying what you do and don't like — directly useful in their actual classroom, since this vocabulary describes the room they're sitting in.",
+    id:6, es:"El instituto: asignaturas y horario", en:"School: subjects & timetable", module:"El Colegio y la Vida Diaria — School & Daily Life",
+    intro:"Talking about your timetable and school subjects — well beyond just naming them, into when classes start and finish.",
     vocab:[
-      {es:"el aula",en:"classroom"},{es:"el profesor / la profesora",en:"teacher"},
-      {es:"el libro",en:"book"},{es:"el cuaderno",en:"copybook"},{es:"la mochila",en:"schoolbag"},
-      {es:"el lápiz",en:"pencil"},{es:"el bolígrafo",en:"pen"},{es:"las matemáticas",en:"maths"},
-      {es:"el español",en:"Spanish"},{es:"la educación física",en:"P.E."}
+      {es:"la asignatura",en:"subject"},
+      {es:"el horario",en:"timetable"},
+      {es:"la ciencia",en:"science"},
+      {es:"la historia",en:"history"},
+      {es:"Las clases empiezan a las nueve.",en:"Classes start at nine."},
+      {es:"Las clases terminan a las cuatro.",en:"Classes finish at four."},
+      {es:"Tengo cinco clases hoy.",en:"I have five classes today."},
+      {es:"el recreo",en:"break / recess"}
     ],
     phrases:[
-      {es:"Me gusta el español.",en:"I like Spanish."},
-      {es:"No me gusta la geografía.",en:"I don't like geography."},
-      {es:"¿Qué asignatura te gusta?",en:"What subject do you like?"},
-      {es:"Tengo clase de matemáticas a las nueve.",en:"I have maths class at nine o'clock."}
+      {es:"¿A qué hora empiezan las clases?",en:"What time do classes start?"},
+      {es:"Mi asignatura favorita es la historia.",en:"My favourite subject is history."}
     ],
     quiz:[
-      {q:"'Me gusta el español' means…", opts:["I speak Spanish","I like Spanish","I study Spanish only","I dislike Spanish"], a:1},
-      {q:"'El cuaderno' means…", opts:["Pencil case","Copybook","Classroom","Timetable"], a:1},
-      {q:"'No me gusta la geografía' means…", opts:["I love geography","I don't have geography","I don't like geography","I'm good at geography"], a:2},
-      {q:"Which word means 'teacher'?", opts:["el/la estudiante","el profesor / la profesora","el aula","el libro"], a:1},
-      {q:"'Las matemáticas' means…", opts:["Science","Maths","Music","History"], a:1},
-      {q:"'el bolígrafo' means…", opts:["Pencil","Pen","Book","Ruler"], a:1},
-      {q:"'la mochila' means…", opts:["Schoolbag","Classroom","Copybook","Teacher"], a:0},
-      {q:"'la educación física' means…", opts:["Art","P.E.","Music","Science"], a:1}
+      {q:"'la asignatura' means…", opts:["Timetable","Subject","Break","Teacher"], a:1},
+      {q:"'el horario' means…", opts:["Subject","Classroom","Timetable","Homework"], a:2},
+      {q:"'Las clases empiezan a las nueve' means…", opts:["Classes finish at nine","Classes start at nine","Classes start at ten","Break is at nine"], a:1},
+      {q:"'el recreo' means…", opts:["Homework","Break/recess","Exam","Subject"], a:1},
+      {q:"'la ciencia' means…", opts:["History","Science","Geography","Art"], a:1},
+      {q:"'¿A qué hora empiezan las clases?' asks…", opts:["What time do classes start?","What time is break?","What subject is next?","How many classes today?"], a:0}
     ]
   },
   {
-    id:7, es:"El cuerpo y las emociones", en:"Body & feelings",
-    intro:"Parts of the body and how to say how you're feeling — pairs nicely with 'estar' (to be), and gives you the vocabulary to answer 'how are you?' with more than just 'bien'.",
+    id:7, es:"La rutina diaria y los verbos reflexivos", en:"Daily routine & reflexive verbs", module:"El Colegio y la Vida Diaria — School & Daily Life",
+    intro:"A genuinely new grammar structure: reflexive verbs, used for actions you do to yourself — getting up, showering, getting dressed.",
     vocab:[
-      {es:"la cabeza",en:"head"},{es:"los ojos",en:"eyes"},{es:"la mano",en:"hand"},{es:"el pie",en:"foot"},
-      {es:"contento/a",en:"happy"},{es:"triste",en:"sad"},{es:"cansado/a",en:"tired"},
-      {es:"enfadado/a",en:"angry"},{es:"nervioso/a",en:"nervous"}
+      {es:"levantarse",en:"to get up"},
+      {es:"ducharse",en:"to shower"},
+      {es:"vestirse",en:"to get dressed"},
+      {es:"desayunar",en:"to have breakfast"},
+      {es:"acostarse",en:"to go to bed"},
+      {es:"Me levanto a las siete.",en:"I get up at seven."},
+      {es:"Se viste rápidamente.",en:"He/She gets dressed quickly."},
+      {es:"los pronombres reflexivos",en:"reflexive pronouns: me, te, se, nos, os, se"}
     ],
     phrases:[
-      {es:"Estoy cansado/a.",en:"I am tired."},
-      {es:"¿Cómo te sientes?",en:"How do you feel?"},
-      {es:"Me duele la cabeza.",en:"My head hurts."},
-      {es:"Tengo las manos frías.",en:"My hands are cold."}
+      {es:"Me levanto, me ducho y desayuno.",en:"I get up, shower, and have breakfast."},
+      {es:"¿A qué hora te acuestas?",en:"What time do you go to bed?"}
     ],
     quiz:[
-      {q:"'Estoy cansado/a' means…", opts:["I am happy","I am tired","I am angry","I am nervous"], a:1},
-      {q:"Which word means 'sad'?", opts:["contento/a","triste","nervioso/a","cansado/a"], a:1},
-      {q:"'¿Cómo te sientes?' asks…", opts:["What's your name?","How do you feel?","Where does it hurt?","How old are you?"], a:1},
-      {q:"'Me duele la cabeza' means…", opts:["I like my head","My head is big","My head hurts","I lost my head(!)"], a:2},
-      {q:"'Los ojos' means…", opts:["Hands","Feet","Eyes","Ears"], a:2},
-      {q:"'enfadado/a' means…", opts:["Happy","Angry","Nervous","Tired"], a:1},
-      {q:"'la mano' means…", opts:["Foot","Hand","Head","Eye"], a:1},
-      {q:"'contento/a' means…", opts:["Sad","Happy","Angry","Tired"], a:1}
+      {q:"'levantarse' means…", opts:["To go to bed","To get up","To shower","To get dressed"], a:1},
+      {q:"'Me levanto a las siete' means…", opts:["I go to bed at seven","I get up at seven","I shower at seven","I eat at seven"], a:1},
+      {q:"The reflexive pronoun for 'yo' is…", opts:["te","se","me","nos"], a:2},
+      {q:"'ducharse' means…", opts:["To get dressed","To shower","To sleep","To eat"], a:1},
+      {q:"'acostarse' means…", opts:["To wake up","To get dressed","To go to bed","To shower"], a:2},
+      {q:"The reflexive pronoun for 'él/ella' is…", opts:["me","te","se","os"], a:2}
     ]
   },
   {
-    id:8, es:"La casa", en:"House & home",
-    intro:"Rooms of the house and simple furniture — a common 'describe your home' writing task, and useful vocabulary for giving directions around your own house too.",
+    id:8, es:"El aula y las capacidades", en:"The classroom & expressing ability", module:"El Colegio y la Vida Diaria — School & Daily Life",
+    intro:"Classroom objects, plus the important difference between 'poder' (can/be able to) and 'saber' (know how to do something).",
     vocab:[
-      {es:"la casa",en:"house"},{es:"el dormitorio",en:"bedroom"},{es:"la cocina",en:"kitchen"},
-      {es:"el baño",en:"bathroom"},{es:"el salón",en:"living room"},{es:"el jardín",en:"garden"},
-      {es:"la cama",en:"bed"},{es:"la ventana",en:"window"},{es:"la puerta",en:"door"}
+      {es:"el aula",en:"classroom"},
+      {es:"poder",en:"to be able to / can"},
+      {es:"saber",en:"to know how to (a skill)"},
+      {es:"Puedo hablar español.",en:"I can speak Spanish."},
+      {es:"Sé nadar.",en:"I know how to swim."},
+      {es:"No puedo venir hoy.",en:"I can't come today."},
+      {es:"el bolígrafo",en:"pen"},
+      {es:"el diccionario",en:"dictionary"}
     ],
     phrases:[
-      {es:"Mi casa es grande.",en:"My house is big."},
-      {es:"¿Dónde está la cocina?",en:"Where's the kitchen?"},
-      {es:"Mi dormitorio está arriba.",en:"My bedroom is upstairs."},
-      {es:"Hay un jardín detrás de la casa.",en:"There's a garden behind the house."}
+      {es:"¿Puedes ayudarme con los deberes?",en:"Can you help me with my homework?"},
+      {es:"Sé tocar la guitarra.",en:"I know how to play the guitar."}
     ],
     quiz:[
-      {q:"'La cocina' means…", opts:["Bathroom","Kitchen","Bedroom","Garden"], a:1},
-      {q:"'Mi casa es grande' means…", opts:["My house is small","My house is old","My house is big","My house is new"], a:2},
-      {q:"'¿Dónde está la cocina?' asks…", opts:["What's for dinner?","Where's the kitchen?","Is the kitchen clean?","How big is the kitchen?"], a:1},
-      {q:"Which word means 'garden'?", opts:["el jardín","el salón","el baño","la ventana"], a:0},
-      {q:"'La puerta' means…", opts:["Window","Wall","Door","Roof"], a:2},
-      {q:"'el dormitorio' means…", opts:["Kitchen","Bedroom","Bathroom","Living room"], a:1},
-      {q:"'la ventana' means…", opts:["Door","Window","Wall","Roof"], a:1},
-      {q:"'Mi dormitorio está arriba' means…", opts:["My bedroom is upstairs","My bedroom is big","My bedroom is downstairs","My bedroom is new"], a:0}
+      {q:"'poder' means…", opts:["To know how to","To be able to / can","To want","To need"], a:1},
+      {q:"'saber' (with a skill) means…", opts:["To be able to","To know how to","To like","To need"], a:1},
+      {q:"'Puedo hablar español' means…", opts:["I speak Spanish","I can speak Spanish","I know Spanish","I studied Spanish"], a:1},
+      {q:"'Sé nadar' means…", opts:["I can swim (permission)","I know how to swim (skill)","I like swimming","I swam yesterday"], a:1},
+      {q:"'el diccionario' means…", opts:["Pen","Dictionary","Classroom","Notebook"], a:1},
+      {q:"'¿Puedes ayudarme?' asks…", opts:["Do you know me?","Can you help me?","Do you like me?","Where are you?"], a:1}
     ]
   },
   {
-    id:9, es:"La comida y la bebida", en:"Food & drink",
-    intro:"Everyday food, drink, and the three meals of the day — reliable, high-frequency vocabulary that comes up in almost every conversation topic.",
+    id:9, es:"La casa: habitaciones y muebles", en:"The house: rooms & furniture", module:"La Casa y el Entorno — Home & Environment",
+    intro:"Rooms of the house and the furniture inside them — a step up from just naming rooms into describing them.",
     vocab:[
-      {es:"el pan",en:"bread"},{es:"el agua",en:"water"},{es:"la leche",en:"milk"},
-      {es:"la manzana",en:"apple"},{es:"el pollo",en:"chicken"},{es:"el arroz",en:"rice"},
-      {es:"la ensalada",en:"salad"},{es:"el desayuno",en:"breakfast"},{es:"el almuerzo",en:"lunch"},
-      {es:"la cena",en:"dinner"}
+      {es:"el dormitorio",en:"bedroom"},
+      {es:"la cocina",en:"kitchen"},
+      {es:"el sofá",en:"sofa/couch"},
+      {es:"la mesa",en:"table"},
+      {es:"la silla",en:"chair"},
+      {es:"el armario",en:"wardrobe"},
+      {es:"la estantería",en:"bookshelf/shelving"},
+      {es:"la cama",en:"bed"}
     ],
     phrases:[
-      {es:"Tengo hambre.",en:"I'm hungry."},
-      {es:"Tengo sed.",en:"I'm thirsty."},
-      {es:"Me gusta la pizza.",en:"I like pizza."},
-      {es:"¿Qué comes para el desayuno?",en:"What do you eat for breakfast?"}
+      {es:"Hay un sofá grande en el salón.",en:"There's a big sofa in the living room."},
+      {es:"Mi cama está al lado de la ventana.",en:"My bed is next to the window."}
     ],
     quiz:[
-      {q:"'Tengo hambre' means…", opts:["I'm thirsty","I'm hungry","I'm full","I'm cooking"], a:1},
-      {q:"'La cena' means…", opts:["Breakfast","Lunch","Dinner","Snack"], a:2},
-      {q:"Which word means 'apple'?", opts:["la manzana","el pan","el pollo","el arroz"], a:0},
-      {q:"'Tengo sed' means…", opts:["I'm hungry","I'm tired","I'm thirsty","I'm cold"], a:2},
-      {q:"'El pollo' means…", opts:["Rice","Chicken","Salad","Bread"], a:1},
-      {q:"'el desayuno' means…", opts:["Lunch","Breakfast","Dinner","Snack"], a:1},
-      {q:"'la leche' means…", opts:["Water","Milk","Juice","Bread"], a:1},
-      {q:"'el almuerzo' means…", opts:["Breakfast","Lunch","Dinner","Snack"], a:1}
+      {q:"'el sofá' means…", opts:["Table","Chair","Sofa/couch","Bed"], a:2},
+      {q:"'el armario' means…", opts:["Bookshelf","Wardrobe","Table","Bed"], a:1},
+      {q:"'la estantería' means…", opts:["Wardrobe","Bookshelf/shelving","Sofa","Chair"], a:1},
+      {q:"'la mesa' means…", opts:["Table","Chair","Bed","Sofa"], a:0},
+      {q:"'Hay un sofá grande en el salón' means…", opts:["There's a small chair","There's a big sofa in the living room","The living room is big","There's no sofa"], a:1},
+      {q:"'la silla' means…", opts:["Table","Bed","Chair","Wardrobe"], a:2}
     ]
   },
   {
-    id:10, es:"El pueblo y las direcciones", en:"Town & directions",
-    intro:"Places around town and basic directions — left, right, straight ahead — the vocabulary behind almost every 'how do I get to…' conversation.",
+    id:10, es:"Las tareas domésticas y las obligaciones", en:"Chores & saying what you have to do", module:"La Casa y el Entorno — Home & Environment",
+    intro:"Household chores, paired with 'tener que' — the everyday way to say you have to do something.",
     vocab:[
-      {es:"el pueblo",en:"town"},{es:"la ciudad",en:"city"},{es:"la tienda",en:"shop"},
-      {es:"el parque",en:"park"},{es:"la calle",en:"street"},{es:"la iglesia",en:"church"},
-      {es:"a la derecha",en:"to the right"},{es:"a la izquierda",en:"to the left"},{es:"todo recto",en:"straight ahead"}
+      {es:"tener que + infinitivo",en:"to have to do something"},
+      {es:"limpiar",en:"to clean"},
+      {es:"lavar los platos",en:"to wash the dishes"},
+      {es:"hacer la cama",en:"to make the bed"},
+      {es:"pasar la aspiradora",en:"to vacuum"},
+      {es:"sacar la basura",en:"to take out the rubbish"},
+      {es:"planchar la ropa",en:"to iron clothes"},
+      {es:"Tengo que limpiar mi dormitorio.",en:"I have to clean my bedroom."}
+    ],
+    phrases:[
+      {es:"Tengo que lavar los platos todos los días.",en:"I have to wash the dishes every day."},
+      {es:"¿Qué tareas domésticas haces?",en:"What chores do you do?"}
+    ],
+    quiz:[
+      {q:"'tener que' + infinitive means…", opts:["To like doing something","To have to do something","To know how to do something","To want to do something"], a:1},
+      {q:"'lavar los platos' means…", opts:["To make the bed","To wash the dishes","To vacuum","To clean the bathroom"], a:1},
+      {q:"'hacer la cama' means…", opts:["To make the bed","To wash the dishes","To take out the rubbish","To iron"], a:0},
+      {q:"'sacar la basura' means…", opts:["To vacuum","To take out the rubbish","To wash up","To clean windows"], a:1},
+      {q:"'Tengo que limpiar mi dormitorio' means…", opts:["I cleaned my bedroom","I have to clean my bedroom","I like cleaning my bedroom","My bedroom is clean"], a:1},
+      {q:"'pasar la aspiradora' means…", opts:["To sweep","To vacuum","To dust","To mop"], a:1}
+    ]
+  },
+  {
+    id:11, es:"El pueblo, la ciudad y las direcciones", en:"Town, city & directions", module:"La Casa y el Entorno — Home & Environment",
+    intro:"Places around town, plus directions and describing distance — where things are relative to each other.",
+    vocab:[
+      {es:"el pueblo",en:"town"},
+      {es:"la ciudad",en:"city"},
+      {es:"la tienda",en:"shop"},
+      {es:"el parque",en:"park"},
+      {es:"a la derecha",en:"to the right"},
+      {es:"a la izquierda",en:"to the left"},
+      {es:"todo recto",en:"straight ahead"},
+      {es:"cerca de / lejos de",en:"near to / far from"}
     ],
     phrases:[
       {es:"¿Dónde está el parque?",en:"Where is the park?"},
-      {es:"Está a la derecha.",en:"It's on the right."},
-      {es:"Sigue todo recto.",en:"Keep going straight ahead."},
-      {es:"La tienda está cerca de la iglesia.",en:"The shop is near the church."}
+      {es:"Está cerca del colegio.",en:"It's near the school."}
     ],
     quiz:[
-      {q:"'¿Dónde está el parque?' asks…", opts:["What time is it?","Where is the park?","Is the park open?","How far is the park?"], a:1},
-      {q:"'A la izquierda' means…", opts:["To the right","Straight ahead","To the left","Nearby"], a:2},
-      {q:"Which word means 'shop'?", opts:["la tienda","la iglesia","la calle","el parque"], a:0},
-      {q:"'Todo recto' means…", opts:["Turn around","Straight ahead","Stop here","Go back"], a:1},
-      {q:"'La ciudad' means…", opts:["Town","City","Village","Street"], a:1},
-      {q:"'la calle' means…", opts:["Park","Street","Church","Shop"], a:1},
-      {q:"'la iglesia' means…", opts:["Shop","Church","Park","Street"], a:1},
-      {q:"'La tienda está cerca de la iglesia' means…", opts:["The shop is near the church","The church is far from the shop","The shop is in the church","The park is near the shop"], a:0}
+      {q:"'a la derecha' means…", opts:["To the left","To the right","Straight ahead","Nearby"], a:1},
+      {q:"'cerca de' means…", opts:["Far from","Near to","Behind","In front of"], a:1},
+      {q:"'lejos de' means…", opts:["Near to","Far from","Next to","Opposite"], a:1},
+      {q:"'todo recto' means…", opts:["Turn around","Straight ahead","Stop here","Turn left"], a:1},
+      {q:"'la tienda' means…", opts:["Park","Shop","Street","Church"], a:1},
+      {q:"'¿Dónde está el parque?' asks…", opts:["What time is it?","Where is the park?","How big is the park?","Is the park open?"], a:1}
     ]
   },
   {
-    id:11, es:"El tiempo libre", en:"Free time & hobbies",
-    intro:"What you do for fun — sport, music, reading — great for real conversation, and one of the topics you'll use most in an actual chat with a Spanish speaker.",
+    id:12, es:"El tiempo y las estaciones", en:"Weather & the seasons", module:"La Casa y el Entorno — Home & Environment",
+    intro:"Weather vocabulary paired with the four seasons — a natural combination that comes up constantly in descriptive writing.",
     vocab:[
-      {es:"jugar al fútbol",en:"to play football"},{es:"leer",en:"to read"},{es:"nadar",en:"to swim"},
-      {es:"bailar",en:"to dance"},{es:"escuchar música",en:"to listen to music"},
-      {es:"ver la tele",en:"to watch TV"},{es:"montar en bici",en:"to cycle"}
+      {es:"Hace sol",en:"It's sunny"},
+      {es:"Hace frío",en:"It's cold"},
+      {es:"Hace calor",en:"It's hot"},
+      {es:"Llueve",en:"It rains / it's raining"},
+      {es:"Nieva",en:"It snows / it's snowing"},
+      {es:"la primavera",en:"spring"},
+      {es:"el verano",en:"summer"},
+      {es:"el otoño / el invierno",en:"autumn / winter"}
     ],
     phrases:[
-      {es:"Me gusta jugar al fútbol.",en:"I like playing football."},
-      {es:"¿Qué haces en tu tiempo libre?",en:"What do you do in your free time?"},
-      {es:"Los fines de semana, nado.",en:"At weekends, I swim."},
-      {es:"Los sábados, monto en bici con mis amigos.",en:"On Saturdays, I cycle with my friends."}
+      {es:"En verano hace mucho calor.",en:"In summer it's very hot."},
+      {es:"En invierno nieva a veces.",en:"In winter it sometimes snows."}
     ],
     quiz:[
-      {q:"'Me gusta jugar al fútbol' means…", opts:["I dislike football","I like playing football","I watch football","I coach football"], a:1},
-      {q:"Which word means 'to read'?", opts:["leer","ver","nadar","bailar"], a:0},
-      {q:"'¿Qué haces en tu tiempo libre?' asks…", opts:["What's your favourite subject?","What do you do in your free time?","Where do you live?","What time is it?"], a:1},
-      {q:"'Montar en bici' means…", opts:["To drive a car","To cycle","To walk","To run"], a:1},
-      {q:"'Escuchar música' means…", opts:["To play music","To listen to music","To sing","To dance"], a:1},
-      {q:"'bailar' means…", opts:["To sing","To dance","To swim","To read"], a:1},
-      {q:"'ver la tele' means…", opts:["To watch TV","To listen to music","To play football","To read"], a:0},
-      {q:"'Los sábados, monto en bici con mis amigos' means…", opts:["On Saturdays, I cycle with my friends","I never cycle","I cycle alone","I cycle to school"], a:0}
+      {q:"'la primavera' means…", opts:["Summer","Spring","Autumn","Winter"], a:1},
+      {q:"'el otoño' means…", opts:["Spring","Summer","Autumn","Winter"], a:2},
+      {q:"'Hace sol' means…", opts:["It's cold","It's sunny","It's raining","It's windy"], a:1},
+      {q:"'Nieva' means…", opts:["It's raining","It's sunny","It's snowing","It's windy"], a:2},
+      {q:"'el invierno' means…", opts:["Spring","Summer","Autumn","Winter"], a:3},
+      {q:"'En verano hace mucho calor' means…", opts:["In summer it's very cold","In summer it's very hot","In winter it's hot","It's always hot"], a:1}
     ]
   },
   {
-    id:12, es:"El tiempo", en:"Weather",
-    intro:"Talking about the weather — a short topic, but it comes up in almost every conversation task and pairs naturally with talking about seasons and holidays.",
+    id:13, es:"La comida y las comidas del día", en:"Food & the meals of the day", module:"La Comida — Food",
+    intro:"Everyday food vocabulary, the three meals, and the key phrases for hunger and thirst.",
     vocab:[
-      {es:"Hace sol",en:"It's sunny"},{es:"Hace frío",en:"It's cold"},{es:"Hace calor",en:"It's hot"},
-      {es:"Llueve",en:"It rains / it's raining"},{es:"Nieva",en:"It snows / it's snowing"},
-      {es:"Hace viento",en:"It's windy"},{es:"Está nublado",en:"It's cloudy"}
+      {es:"el desayuno",en:"breakfast"},
+      {es:"el almuerzo",en:"lunch"},
+      {es:"la cena",en:"dinner"},
+      {es:"el pan",en:"bread"},
+      {es:"la fruta",en:"fruit"},
+      {es:"la verdura",en:"vegetable"},
+      {es:"tener hambre",en:"to be hungry"},
+      {es:"tener sed",en:"to be thirsty"}
     ],
     phrases:[
-      {es:"¿Qué tiempo hace hoy?",en:"What's the weather like today?"},
-      {es:"Hace sol y calor.",en:"It's sunny and hot."},
-      {es:"En Irlanda, llueve mucho.",en:"In Ireland, it rains a lot."},
-      {es:"Hace viento y está nublado.",en:"It's windy and cloudy."}
+      {es:"Para el desayuno como cereales.",en:"For breakfast I eat cereal."},
+      {es:"Tengo mucha hambre.",en:"I'm very hungry."}
     ],
     quiz:[
-      {q:"'¿Qué tiempo hace hoy?' asks…", opts:["What time is it?","What's the weather like today?","What day is it?","What season is it?"], a:1},
-      {q:"'Hace frío' means…", opts:["It's hot","It's cold","It's windy","It's sunny"], a:1},
-      {q:"'Llueve' means…", opts:["It's snowing","It's windy","It's raining","It's cloudy"], a:2},
-      {q:"'En Irlanda, llueve mucho' means…", opts:["In Ireland, it's always sunny","In Ireland, it rains a lot","In Ireland, it's very cold","In Ireland, it snows a lot"], a:1},
-      {q:"Which word means 'sunny'?", opts:["Hace sol","Hace calor","Está nublado","Hace viento"], a:0},
-      {q:"'Está nublado' means…", opts:["It's sunny","It's cloudy","It's raining","It's cold"], a:1},
-      {q:"'Nieva' means…", opts:["It's raining","It's windy","It's snowing","It's sunny"], a:2},
-      {q:"'Hace viento y está nublado' means…", opts:["It's windy and cloudy","It's sunny and hot","It's cold and rainy","It's snowing and windy"], a:0}
+      {q:"'la verdura' means…", opts:["Fruit","Vegetable","Bread","Meat"], a:1},
+      {q:"'la fruta' means…", opts:["Vegetable","Fruit","Bread","Rice"], a:1},
+      {q:"'tener hambre' means…", opts:["To be thirsty","To be hungry","To be full","To be cold"], a:1},
+      {q:"'el almuerzo' means…", opts:["Breakfast","Lunch","Dinner","Snack"], a:1},
+      {q:"'tener sed' means…", opts:["To be hungry","To be tired","To be thirsty","To be cold"], a:2},
+      {q:"'Para el desayuno como cereales' means…", opts:["I never eat breakfast","For breakfast I eat cereal","I eat cereal for dinner","I don't like cereal"], a:1}
     ]
   },
   {
-    id:13, es:"Los animales", en:"Animals & pets",
-    intro:"Pets and farm animals — a favourite early topic, and handy vocabulary for describing family life beyond just people.",
+    id:14, es:"De compras: comida y cantidades", en:"Food shopping & quantities", module:"La Comida — Food",
+    intro:"Buying food specifically — quantities, prices, and the phrases used at a market or shop counter.",
     vocab:[
-      {es:"el perro",en:"dog"},{es:"el gato",en:"cat"},{es:"el caballo",en:"horse"},
-      {es:"el pájaro",en:"bird"},{es:"el pez",en:"fish"},{es:"la vaca",en:"cow"},
-      {es:"el conejo",en:"rabbit"},{es:"la oveja",en:"sheep"},{es:"el ratón",en:"mouse"},
-      {es:"la serpiente",en:"snake"}
+      {es:"un kilo de",en:"a kilo of"},
+      {es:"medio kilo de",en:"half a kilo of"},
+      {es:"una botella de",en:"a bottle of"},
+      {es:"una docena de",en:"a dozen"},
+      {es:"¿Cuánto cuesta?",en:"How much does it cost?"},
+      {es:"¿Algo más?",en:"Anything else?"},
+      {es:"barato/a",en:"cheap"},
+      {es:"caro/a",en:"expensive"}
     ],
     phrases:[
-      {es:"Tengo un perro y un gato.",en:"I have a dog and a cat."},
-      {es:"¿Tienes mascotas?",en:"Do you have pets?"},
-      {es:"Mi perro se llama Rex.",en:"My dog is called Rex."}
+      {es:"Quisiera un kilo de manzanas, por favor.",en:"I would like a kilo of apples, please."},
+      {es:"¿Cuánto cuesta este queso?",en:"How much does this cheese cost?"}
     ],
     quiz:[
-      {q:"'el perro' means…", opts:["Cat","Dog","Horse","Bird"], a:1},
-      {q:"'el gato' means…", opts:["Dog","Cat","Fish","Cow"], a:1},
-      {q:"'Tengo un perro y un gato' means…", opts:["I have a dog and a cat","I want a dog","I had a cat","I like dogs"], a:0},
-      {q:"'¿Tienes mascotas?' asks…", opts:["Do you have pets?","Do you have siblings?","Do you like animals?","Do you have a garden?"], a:0},
-      {q:"Which word means 'horse'?", opts:["el caballo","la vaca","el conejo","la oveja"], a:0},
-      {q:"'el pájaro' means…", opts:["Fish","Bird","Snake","Mouse"], a:1},
-      {q:"'la oveja' means…", opts:["Cow","Sheep","Rabbit","Horse"], a:1},
-      {q:"'la serpiente' means…", opts:["Mouse","Rabbit","Snake","Bird"], a:2}
+      {q:"'un kilo de' means…", opts:["A bottle of","A kilo of","A dozen of","Half of"], a:1},
+      {q:"'¿Cuánto cuesta?' asks…", opts:["What is it?","How much does it cost?","Where is it?","Do you like it?"], a:1},
+      {q:"'una docena de' means…", opts:["A kilo of","A bottle of","A dozen of","A piece of"], a:2},
+      {q:"'barato/a' means…", opts:["Expensive","Cheap","Fresh","Heavy"], a:1},
+      {q:"'caro/a' means…", opts:["Cheap","Expensive","Small","Large"], a:1},
+      {q:"'¿Algo más?' asks…", opts:["How much is it?","Anything else?","What's your name?","Is it fresh?"], a:1}
     ]
   },
   {
-    id:14, es:"La ropa", en:"Clothes",
-    intro:"Everyday clothing vocabulary — useful for describing what you're wearing, shopping role-plays, and packing for a trip.",
+    id:15, es:"Los pasatiempos, los deportes y 'gustar'", en:"Hobbies, sports & the verb 'gustar'", module:"El Tiempo Libre — Free Time",
+    intro:"Free time and sport vocabulary, alongside a deeper look at 'gustar' — including the tricky singular/plural agreement.",
     vocab:[
-      {es:"la camiseta",en:"t-shirt"},{es:"los pantalones",en:"trousers"},{es:"el vestido",en:"dress"},
-      {es:"la falda",en:"skirt"},{es:"los zapatos",en:"shoes"},{es:"la chaqueta",en:"jacket"},
-      {es:"el jersey",en:"jumper / sweater"},{es:"las botas",en:"boots"},{es:"el sombrero",en:"hat"}
+      {es:"me gusta + singular/infinitivo",en:"I like (a singular thing or activity)"},
+      {es:"me gustan + plural",en:"I like (plural things)"},
+      {es:"le gusta",en:"he/she likes"},
+      {es:"jugar al baloncesto",en:"to play basketball"},
+      {es:"hacer atletismo",en:"to do athletics"},
+      {es:"me encanta",en:"I love (stronger than gusta)"},
+      {es:"no me gusta nada",en:"I don't like it at all"},
+      {es:"el equipo",en:"team"}
     ],
     phrases:[
-      {es:"Llevo una camiseta azul.",en:"I'm wearing a blue t-shirt."},
-      {es:"¿Qué llevas hoy?",en:"What are you wearing today?"},
-      {es:"Necesito unos zapatos nuevos.",en:"I need new shoes."}
+      {es:"Me gustan los deportes, pero no me gusta el fútbol.",en:"I like sports, but I don't like football."},
+      {es:"A mi hermano le gusta jugar al baloncesto.",en:"My brother likes playing basketball."}
     ],
     quiz:[
-      {q:"'la camiseta' means…", opts:["Jacket","T-shirt","Dress","Skirt"], a:1},
-      {q:"'los pantalones' means…", opts:["Shoes","Trousers","Boots","Hat"], a:1},
-      {q:"'Llevo una camiseta azul' means…", opts:["I'm wearing a blue t-shirt","I bought a blue t-shirt","I like blue","I want a t-shirt"], a:0},
-      {q:"'¿Qué llevas hoy?' asks…", opts:["What are you wearing today?","What are you eating today?","Where are you going?","What time is it?"], a:0},
-      {q:"Which word means 'shoes'?", opts:["los zapatos","las botas","el sombrero","el jersey"], a:0},
-      {q:"'el jersey' means…", opts:["Jacket","Jumper / sweater","Dress","Hat"], a:1},
-      {q:"'la falda' means…", opts:["Skirt","Dress","Jacket","Trousers"], a:0},
-      {q:"'las botas' means…", opts:["Shoes","Boots","Socks","Hat"], a:1}
+      {q:"'me gusta' is used before…", opts:["A plural noun","A singular thing or an infinitive","Only verbs","Only people"], a:1},
+      {q:"'me gustan' is used before…", opts:["A singular thing","A plural noun","An infinitive only","A person's name"], a:1},
+      {q:"'le gusta' means…", opts:["I like","You like","He/She likes","We like"], a:2},
+      {q:"'me encanta' is…", opts:["Weaker than 'me gusta'","Stronger than 'me gusta'","The same as 'me gusta'","Negative"], a:1},
+      {q:"'jugar al baloncesto' means…", opts:["To play football","To play basketball","To play tennis","To do athletics"], a:1},
+      {q:"'el equipo' means…", opts:["Player","Team","Match","Coach"], a:1}
     ]
   },
   {
-    id:15, es:"Las profesiones", en:"Jobs & professions",
-    intro:"Talking about jobs — what people do for work, and what you'd like to be — a natural topic once you can talk about school and the future.",
+    id:16, es:"La tecnología y las redes sociales", en:"Technology & social media", module:"El Tiempo Libre — Free Time",
+    intro:"Everyday tech vocabulary — phones, apps, and messaging — for a topic that comes up in almost every free-time conversation now.",
     vocab:[
-      {es:"el médico / la médica",en:"doctor"},{es:"el profesor / la profesora",en:"teacher"},
-      {es:"el policía / la mujer policía",en:"police officer"},{es:"el/la cantante",en:"singer"},
-      {es:"el/la cocinero/a",en:"cook / chef"},{es:"el bombero / la bombera",en:"firefighter"},
-      {es:"el/la abogado/a",en:"lawyer"},{es:"el/la futbolista",en:"footballer"}
+      {es:"el móvil",en:"mobile phone"},
+      {es:"las redes sociales",en:"social media"},
+      {es:"mandar un mensaje",en:"to send a message"},
+      {es:"la aplicación",en:"app"},
+      {es:"la contraseña",en:"password"},
+      {es:"navegar por internet",en:"to browse the internet"}
     ],
     phrases:[
-      {es:"Quiero ser médico.",en:"I want to be a doctor."},
-      {es:"¿Qué quieres ser de mayor?",en:"What do you want to be when you grow up?"},
-      {es:"Mi madre es profesora.",en:"My mother is a teacher."}
+      {es:"Paso mucho tiempo en el móvil.",en:"I spend a lot of time on my phone."},
+      {es:"Mando mensajes a mis amigos todos los días.",en:"I send messages to my friends every day."}
     ],
     quiz:[
-      {q:"'el médico' means…", opts:["Teacher","Doctor","Lawyer","Cook"], a:1},
-      {q:"'Quiero ser médico' means…", opts:["I want to be a doctor","I am a doctor","I saw a doctor","I need a doctor"], a:0},
-      {q:"'¿Qué quieres ser de mayor?' asks…", opts:["What do you want to be when you grow up?","What's your favourite subject?","Where do you work?","How old are you?"], a:0},
-      {q:"Which word means 'firefighter'?", opts:["el bombero","el policía","el abogado","el cocinero"], a:0},
-      {q:"'el/la cantante' means…", opts:["Dancer","Singer","Actor","Cook"], a:1},
-      {q:"'Mi madre es profesora' means…", opts:["My mother is a teacher","My mother is a doctor","My teacher is my mother","My mother likes teaching"], a:0},
-      {q:"'el/la abogado/a' means…", opts:["Doctor","Lawyer","Police officer","Firefighter"], a:1},
-      {q:"'el/la futbolista' means…", opts:["Swimmer","Footballer","Singer","Teacher"], a:1}
+      {q:"'el móvil' means…", opts:["Computer","Mobile phone","Tablet","Television"], a:1},
+      {q:"'mandar un mensaje' means…", opts:["To receive a message","To send a message","To delete a message","To read a message"], a:1},
+      {q:"'la contraseña' means…", opts:["App","Password","Screen","Username"], a:1},
+      {q:"'navegar por internet' means…", opts:["To download an app","To browse the internet","To send a message","To call someone"], a:1},
+      {q:"'la aplicación' means…", opts:["Password","App","Screen","Charger"], a:1},
+      {q:"'las redes sociales' means…", opts:["Video games","Social media","Phone contracts","Emails"], a:1}
+    ]
+  },
+  {
+    id:17, es:"La música, el cine y la televisión", en:"Music, film & television", module:"El Tiempo Libre — Free Time",
+    intro:"Entertainment vocabulary — films, songs, and TV — useful for describing what you watch and listen to.",
+    vocab:[
+      {es:"la película",en:"film / movie"},
+      {es:"la canción",en:"song"},
+      {es:"el/la cantante",en:"singer"},
+      {es:"la serie",en:"TV series"},
+      {es:"tocar un instrumento",en:"to play an instrument"},
+      {es:"ver la tele",en:"to watch TV"}
+    ],
+    phrases:[
+      {es:"Mi cantante favorito es muy famoso.",en:"My favourite singer is very famous."},
+      {es:"Veo la tele por la noche.",en:"I watch TV at night."}
+    ],
+    quiz:[
+      {q:"'la película' means…", opts:["Song","Film/movie","Series","Concert"], a:1},
+      {q:"'la canción' means…", opts:["Film","Song","Singer","Instrument"], a:1},
+      {q:"'tocar un instrumento' means…", opts:["To sing","To play an instrument","To dance","To watch"], a:1},
+      {q:"'la serie' means…", opts:["Film","Song","TV series","Concert"], a:2},
+      {q:"'ver la tele' means…", opts:["To listen to music","To watch TV","To play an instrument","To read"], a:1},
+      {q:"'el/la cantante' means…", opts:["Actor","Singer","Director","Writer"], a:1}
+    ]
+  },
+  {
+    id:18, es:"El cuerpo y la salud", en:"The body & health", module:"El Cuerpo y la Ropa — Body & Clothes",
+    intro:"Parts of the body combined with illness vocabulary — how to say what hurts and how you're feeling unwell.",
+    vocab:[
+      {es:"la cabeza",en:"head"},
+      {es:"el estómago",en:"stomach"},
+      {es:"doler (me duele…)",en:"to hurt (my … hurts)"},
+      {es:"tener fiebre",en:"to have a fever"},
+      {es:"estar enfermo/a",en:"to be sick/ill"},
+      {es:"ir al médico",en:"to go to the doctor"},
+      {es:"la garganta",en:"throat"}
+    ],
+    phrases:[
+      {es:"Me duele la cabeza.",en:"My head hurts."},
+      {es:"Tengo fiebre y me duele la garganta.",en:"I have a fever and my throat hurts."}
+    ],
+    quiz:[
+      {q:"'Me duele la cabeza' means…", opts:["I like my head","My head hurts","My head is big","I have a headache pill"], a:1},
+      {q:"'tener fiebre' means…", opts:["To be cold","To have a fever","To be hungry","To be tired"], a:1},
+      {q:"'estar enfermo/a' means…", opts:["To be healthy","To be sick/ill","To be happy","To be tired"], a:1},
+      {q:"'ir al médico' means…", opts:["To go to school","To go to the doctor","To go home","To go shopping"], a:1},
+      {q:"'la garganta' means…", opts:["Stomach","Head","Throat","Hand"], a:2},
+      {q:"'el estómago' means…", opts:["Head","Throat","Stomach","Foot"], a:2}
+    ]
+  },
+  {
+    id:19, es:"La ropa y las compras", en:"Clothes & shopping", module:"El Cuerpo y la Ropa — Body & Clothes",
+    intro:"Clothing vocabulary for shopping situations — trying things on and asking about size.",
+    vocab:[
+      {es:"la camiseta",en:"t-shirt"},
+      {es:"los pantalones",en:"trousers"},
+      {es:"el vestido",en:"dress"},
+      {es:"los zapatos",en:"shoes"},
+      {es:"probarse",en:"to try on"},
+      {es:"la talla",en:"size"}
+    ],
+    phrases:[
+      {es:"¿Puedo probarme esta camisa?",en:"Can I try on this shirt?"},
+      {es:"¿Qué talla usas?",en:"What size do you wear?"}
+    ],
+    quiz:[
+      {q:"'probarse' means…", opts:["To buy","To try on","To return","To wash"], a:1},
+      {q:"'la talla' means…", opts:["Colour","Price","Size","Fabric"], a:2},
+      {q:"'¿Puedo probarme esta camisa?' asks…", opts:["Can I buy this shirt?","Can I try on this shirt?","Is this shirt clean?","Where is this shirt?"], a:1},
+      {q:"'los pantalones' means…", opts:["Shoes","Trousers","Dress","Jacket"], a:1},
+      {q:"'el vestido' means…", opts:["Skirt","Dress","Jacket","Shoes"], a:1},
+      {q:"'los zapatos' means…", opts:["Shirts","Shoes","Trousers","Hats"], a:1}
+    ]
+  },
+  {
+    id:20, es:"Las vacaciones, el transporte y el alojamiento", en:"Holidays, transport & accommodation", module:"Viajes y Celebraciones — Travel & Celebrations",
+    intro:"Travel vocabulary — how you get somewhere and where you stay — for describing holidays and trips.",
+    vocab:[
+      {es:"el avión",en:"plane"},
+      {es:"el tren",en:"train"},
+      {es:"el autobús",en:"bus"},
+      {es:"el hotel",en:"hotel"},
+      {es:"la reserva",en:"booking/reservation"},
+      {es:"hacer las maletas",en:"to pack (suitcases)"},
+      {es:"el pasaporte",en:"passport"}
+    ],
+    phrases:[
+      {es:"Vamos a viajar en avión.",en:"We are going to travel by plane."},
+      {es:"Hice una reserva en un hotel.",en:"I made a booking at a hotel."}
+    ],
+    quiz:[
+      {q:"'el avión' means…", opts:["Train","Bus","Plane","Car"], a:2},
+      {q:"'hacer las maletas' means…", opts:["To unpack","To pack (suitcases)","To book a hotel","To buy tickets"], a:1},
+      {q:"'la reserva' means…", opts:["Passport","Booking/reservation","Ticket","Luggage"], a:1},
+      {q:"'el pasaporte' means…", opts:["Ticket","Passport","Suitcase","Map"], a:1},
+      {q:"'el hotel' means…", opts:["Airport","Train station","Hotel","Campsite"], a:2},
+      {q:"'el tren' means…", opts:["Plane","Bus","Train","Boat"], a:2}
+    ]
+  },
+  {
+    id:21, es:"Las celebraciones y las fiestas", en:"Celebrations & festivals", module:"Viajes y Celebraciones — Travel & Celebrations",
+    intro:"Birthdays and festivals — vocabulary for describing how families celebrate special occasions.",
+    vocab:[
+      {es:"el cumpleaños",en:"birthday"},
+      {es:"la Navidad",en:"Christmas"},
+      {es:"celebrar",en:"to celebrate"},
+      {es:"el regalo",en:"gift"},
+      {es:"la fiesta sorpresa",en:"surprise party"},
+      {es:"felicitar",en:"to congratulate / wish well"}
+    ],
+    phrases:[
+      {es:"¡Feliz cumpleaños!",en:"Happy birthday!"},
+      {es:"Celebramos la Navidad con la familia.",en:"We celebrate Christmas with the family."}
+    ],
+    quiz:[
+      {q:"'el cumpleaños' means…", opts:["Christmas","Birthday","Wedding","Holiday"], a:1},
+      {q:"'la Navidad' means…", opts:["New Year","Easter","Christmas","Birthday"], a:2},
+      {q:"'el regalo' means…", opts:["Party","Gift","Cake","Card"], a:1},
+      {q:"'celebrar' means…", opts:["To organise","To celebrate","To invite","To forget"], a:1},
+      {q:"'la fiesta sorpresa' means…", opts:["Birthday cake","Surprise party","Christmas gift","Family dinner"], a:1},
+      {q:"'felicitar' means…", opts:["To argue","To congratulate/wish well","To forget","To cancel"], a:1}
+    ]
+  },
+  {
+    id:22, es:"Los animales y la naturaleza", en:"Animals, nature & the environment", module:"Mirando al Futuro — Looking Ahead",
+    intro:"Animals and pets, extended into nature and environmental vocabulary — protecting the natural world.",
+    vocab:[
+      {es:"el perro / el gato",en:"dog / cat"},
+      {es:"el bosque",en:"forest"},
+      {es:"el río",en:"river"},
+      {es:"la montaña",en:"mountain"},
+      {es:"proteger la naturaleza",en:"to protect nature"},
+      {es:"contaminar",en:"to pollute"}
+    ],
+    phrases:[
+      {es:"Me gustan mucho los animales.",en:"I really like animals."},
+      {es:"Es importante proteger la naturaleza.",en:"It's important to protect nature."}
+    ],
+    quiz:[
+      {q:"'el bosque' means…", opts:["River","Mountain","Forest","Beach"], a:2},
+      {q:"'el río' means…", opts:["Forest","Mountain","River","Lake"], a:2},
+      {q:"'la montaña' means…", opts:["River","Mountain","Forest","Valley"], a:1},
+      {q:"'proteger' means…", opts:["To pollute","To protect","To destroy","To visit"], a:1},
+      {q:"'contaminar' means…", opts:["To protect","To clean","To pollute","To recycle"], a:2},
+      {q:"'Es importante proteger la naturaleza' means…", opts:["Nature isn't important","It's important to protect nature","Nature protects itself","Nature is beautiful"], a:1}
+    ]
+  },
+  {
+    id:23, es:"Las profesiones y 'ir a + infinitivo'", en:"Jobs & the near future tense", module:"Mirando al Futuro — Looking Ahead",
+    intro:"Jobs and career vocabulary, paired with 'ir a + infinitivo' — the easiest way to talk about the future in Spanish.",
+    vocab:[
+      {es:"ir a + infinitivo",en:"going to do something (near future)"},
+      {es:"Voy a estudiar medicina.",en:"I am going to study medicine."},
+      {es:"el médico / la médica",en:"doctor"},
+      {es:"el profesor / la profesora",en:"teacher"},
+      {es:"Quiero ser…",en:"I want to be…"},
+      {es:"de mayor",en:"when I grow up"}
+    ],
+    phrases:[
+      {es:"¿Qué vas a ser de mayor?",en:"What are you going to be when you grow up?"},
+      {es:"Voy a trabajar en un hospital.",en:"I am going to work in a hospital."}
+    ],
+    quiz:[
+      {q:"'ir a' + infinitive is used to talk about…", opts:["The past","The near future","A habit","A wish only"], a:1},
+      {q:"'Voy a estudiar medicina' means…", opts:["I studied medicine","I am going to study medicine","I like medicine","I want to study medicine"], a:1},
+      {q:"'¿Qué vas a ser de mayor?' asks…", opts:["What's your job now?","What are you going to be when you grow up?","What did you study?","Where do you work?"], a:1},
+      {q:"'Quiero ser…' means…", opts:["I am…","I was…","I want to be…","I will be…"], a:2},
+      {q:"'de mayor' means…", opts:["In the past","Right now","When I grow up","Never"], a:2},
+      {q:"'el médico' means…", opts:["Teacher","Doctor","Lawyer","Nurse"], a:1}
+    ]
+  },
+  {
+    id:24, es:"El pretérito: hablar del pasado", en:"The preterite: talking about the past", module:"Mirando al Futuro — Looking Ahead",
+    intro:"A first, careful introduction to the simple past tense (pretérito) — used for completed actions, and a real step up in complexity.",
+    vocab:[
+      {es:"el pretérito",en:"simple past tense, for completed actions"},
+      {es:"-ar: hablé, hablaste, habló",en:"regular -ar preterite endings (yo, tú, él/ella)"},
+      {es:"-er/-ir: comí, comiste, comió",en:"regular -er/-ir preterite endings (yo, tú, él/ella)"},
+      {es:"Ayer fui al cine.",en:"Yesterday I went to the cinema. (irregular: ir)"},
+      {es:"Comí pizza anoche.",en:"I ate pizza last night."},
+      {es:"el fin de semana pasado",en:"last weekend"}
+    ],
+    phrases:[
+      {es:"El verano pasado fui a España.",en:"Last summer I went to Spain."},
+      {es:"¿Qué hiciste el fin de semana pasado?",en:"What did you do last weekend?"}
+    ],
+    quiz:[
+      {q:"The pretérito is used for…", opts:["Habits","Completed actions in the past","The future","Ongoing actions"], a:1},
+      {q:"'hablé' means…", opts:["I speak","I spoke","I will speak","I was speaking"], a:1},
+      {q:"'comí' means…", opts:["I eat","I ate","I will eat","I was eating"], a:1},
+      {q:"'Ayer fui al cine' means…", opts:["Today I go to the cinema","Yesterday I went to the cinema","Tomorrow I'll go to the cinema","I never go to the cinema"], a:1},
+      {q:"'el fin de semana pasado' means…", opts:["Next weekend","This weekend","Last weekend","Every weekend"], a:2},
+      {q:"'¿Qué hiciste el fin de semana pasado?' asks…", opts:["What will you do next weekend?","What do you do every weekend?","What did you do last weekend?","Where do you go at weekends?"], a:2}
     ]
   }
 ];
@@ -836,12 +1083,12 @@ let currentView = "home";  // "home" or unit id
 /* ---------------- Storage ---------------- */
 async function loadProgress(){
   try{
-    const r = await window.storage.get('spanish-para-dos-progress');
+    const r = await window.storage.get('spanish-para-dos-progress-v2');
     if(r && r.value) progress = JSON.parse(r.value);
   }catch(e){ progress = {}; }
 }
 async function saveProgress(){
-  try{ await window.storage.set('spanish-para-dos-progress', JSON.stringify(progress)); }
+  try{ await window.storage.set('spanish-para-dos-progress-v2', JSON.stringify(progress)); }
   catch(e){ console.error('Could not save progress', e); }
 }
 
@@ -863,13 +1110,17 @@ function renderNav(){
   const list = document.getElementById('navList');
   let html = `<li><button class="nav-item ${currentView==='home'?'active':''}" onclick="goTo('home')">
     <span class="nav-num">·</span> Start here</button></li>`;
-  UNITS.forEach(u => {
-    const active = currentView === u.id;
-    html += `<li><button class="nav-item ${active?'active':''}" onclick="goTo(${u.id})">
-      <span class="nav-num">${String(u.id).padStart(2,'0')}</span>
-      <span>${u.en}</span>
-      ${progress[u.id] ? '<span class="done-dot"></span>' : ''}
-    </button></li>`;
+  MODULES.forEach(mod => {
+    html += `<div class="module-label">${mod.name}</div>`;
+    mod.units.forEach(uid => {
+      const u = UNITS.find(x => x.id === uid);
+      const active = currentView === u.id;
+      html += `<li><button class="nav-item ${active?'active':''}" onclick="goTo(${u.id})">
+        <span class="nav-num">${String(u.id).padStart(2,'0')}</span>
+        <span>${u.en}</span>
+        ${progress[u.id] ? '<span class="done-dot"></span>' : ''}
+      </button></li>`;
+    });
   });
   list.innerHTML = html;
 }
@@ -888,26 +1139,30 @@ function renderMosaic(){
 /* ---------------- Render: home ---------------- */
 function renderHome(){
   document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Start here</h2>`;
-  let cards = '';
-  UNITS.forEach(u => {
-    cards += `<div class="start-card" onclick="goTo(${u.id})">
-      <div class="n">${String(u.id).padStart(2,'0')} ${progress[u.id] ? '· done' : ''}</div>
-      <h3>${u.en}</h3>
-      <div class="es">${u.es}</div>
-    </div>`;
+  let modulesHtml = '';
+  MODULES.forEach(mod => {
+    let cards = '';
+    mod.units.forEach(uid => {
+      const u = UNITS.find(x => x.id === uid);
+      cards += `<div class="start-card" onclick="goTo(${u.id})">
+        <div class="n">${String(u.id).padStart(2,'0')} ${progress[u.id] ? '· done' : ''}</div>
+        <h3 class="title">${u.en}</h3>
+        <div class="es">${u.es}</div>
+      </div>`;
+    });
+    modulesHtml += `<div class="module-grid"><h3>${mod.name}</h3><div class="start-grid">${cards}</div></div>`;
   });
 
   document.getElementById('content').innerHTML = `
     <div class="hero">
       <div class="eyebrow">A path for two, at one pace</div>
-      <h2>Learn Spanish alongside your child — in the same order their class will meet it.</h2>
-      <p>These fifteen units follow the topics almost every Irish first-year Spanish class covers early on: greetings, numbers, family, colours, school life, and on through food, town, weather, animals, clothes and jobs. Work through one unit together each week or two, and you'll rarely be more than a step away from what they're doing in class.</p>
+      <h2>The full three-year breadth of Junior Cycle Spanish, together.</h2>
+      <p>These 24 units are organised into eight life-topic modules rather than strict year labels — starting with survival basics, then building up through the grammar structures (reflexive verbs, "tener que", "poder" vs "saber", "gustar", the near future, and a first look at the past tense) that a student genuinely meets across the three years.</p>
       <div class="hero-note">
-        <b>Worth checking:</b> the official Junior Cycle specification lets each school choose its own theme order and textbook, so the exact sequence your child meets these in may differ slightly. If their book jumps straight to school or family first, just use the sidebar to jump to that unit instead of unit 1.
+        <b>Worth checking:</b> schools and textbooks sequence these themes differently, and Junior Cycle Spanish doesn't follow one fixed national order. Use the module groupings below as a guide, and jump around with the sidebar to match whatever her class is covering.
       </div>
     </div>
-    <div class="section-title">All fifteen units</div>
-    <div class="start-grid">${cards}</div>
+    ${modulesHtml}
   `;
 }
 
@@ -977,13 +1232,13 @@ function renderUnit(id){
 
   document.getElementById('content').innerHTML = `
     <div class="unit-head">
-      <div class="eyebrow">Unit ${String(id).padStart(2,'0')} of 12</div>
+      <div class="eyebrow">${u.module}</div>
       <h2>${u.en}</h2>
       <div class="es-title">${u.es}</div>
       <p class="intro">${u.intro}</p>
     </div>
 
-    <div class="section-title">Vocabulary — tap a card to flip, tap &#128266; to hear it</div>
+    <div class="section-title">Vocabulary &amp; grammar — tap a card to flip, tap &#128266; to hear it</div>
     <div class="vocab-grid">${vocabHtml}</div>
 
     <div class="section-title">Key phrases</div>
@@ -1009,7 +1264,7 @@ function renderUnit(id){
 
     <div class="unit-footer-nav">
       <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
-      <button class="ghost" ${id===15?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+      <button class="ghost" ${id===24?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
     </div>
   `;
 }
