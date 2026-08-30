@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Together — Family Curriculum Companions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2ECDD; --card:#FBF8F1; --ink:#2B2418; --ink-soft:#6B6152; --line:#DCD2B8;
+    --ochre:#D9A441; --clay:#B5592D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Work Sans',sans-serif; -webkit-font-smoothing:antialiased; }
+  body::before{ content:""; position:fixed; inset:0; pointer-events:none; opacity:0.5;
+    background-image: radial-gradient(circle at 1px 1px, rgba(43,36,24,0.06) 1px, transparent 1.6px);
+    background-size:22px 22px; z-index:0; }
+  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:600; margin:0; color:#2B2418; }
+  main{ position:relative; z-index:1; max-width:1080px; margin:0 auto; padding: 56px 32px 90px; }
+
+  .hero{ text-align:left; margin-bottom:46px; }
+  .hero .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--clay); margin-bottom:14px; }
+  .hero h1{ font-size:2.6rem; max-width:720px; line-height:1.12; }
+  .hero p{ max-width:640px; color:var(--ink-soft); line-height:1.6; margin-top:16px; font-size:1.05rem; }
+
+  .legend{ display:flex; gap:22px; margin:30px 0 8px; flex-wrap:wrap; font-size:0.85rem; color:var(--ink-soft); }
+  .legend span{ display:inline-flex; align-items:center; gap:7px; }
+  .dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .dot.live{ background:#3E7A4F; }
+  .dot.soon{ background:#C9BE9C; }
+
+  .level-title{ font-family:'Fraunces',serif; font-size:1.3rem; margin: 40px 0 16px; display:flex; align-items:center; gap:12px; }
+  .level-title .tag{ font-family:'IBM Plex Mono',monospace; font-size:0.7rem; background:var(--clay); color:#fff; padding:3px 9px; border-radius:20px; }
+  .level-title::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap:14px; }
+  .card{ position:relative; border-radius:14px; padding:18px 18px 16px; border:1px solid var(--line); background:var(--card);
+    transition: transform 0.15s ease, box-shadow 0.15s ease; text-decoration:none; color:inherit; display:block; }
+  .card.live{ cursor:pointer; }
+  .card.live:hover{ transform: translateY(-3px); box-shadow: 0 10px 24px rgba(43,36,24,0.1); }
+  .card.soon{ opacity:0.6; }
+  .swatch{ width:26px; height:26px; border-radius:7px; margin-bottom:12px; }
+  .card h3{ font-size:1.02rem; }
+  .card .status{ margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; display:flex; align-items:center; gap:6px; color:var(--ink-soft); }
+  .card.live .status{ color:#3E7A4F; }
+
+  .note-box{ margin-top:56px; background:#fff; border:1px dashed var(--ochre); border-radius:14px; padding:22px 26px; }
+  .note-box h3{ font-size:1.05rem; margin-bottom:8px; }
+  .note-box p{ color:var(--ink-soft); line-height:1.6; margin:0; font-size:0.95rem; }
+</style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <div class="eyebrow">A shared curriculum, one subject at a time</div>
+    <h1>Study Together</h1>
+    <p>A growing set of companions for parents and guardians who want to work through their child's Junior Cycle and Leaving Certificate subjects alongside them — same curriculum, same pace, no need to remember it all from school yourself.</p>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot live"></span> Live now</span>
+    <span><span class="dot soon"></span> Coming soon</span>
+  </div>
+
+  <div class="level-title"><span class="tag">Junior Cycle</span></div>
+  <div class="grid" id="jcGrid"></div>
+
+  <div class="level-title"><span class="tag">Leaving Certificate</span></div>
+  <div class="grid" id="lcGrid"></div>
+
+  <div class="note-box">
+    <h3>How this is being built</h3>
+    <p>Each subject is built from the real NCCA / State Examinations Commission specification rather than a general summary, so the sequence and content match what's actually taught — with a note wherever a school's own order might differ. New subjects are added a couple at a time; this page will update as each one goes live.</p>
+  </div>
+</main>
+
+<script>
+const PALETTE = ["#2C5F7C","#3B6E4F","#7A2E3D","#3B3F7A","#2A6F72","#6B4A2B","#4B6B3A","#26415C","#5B4B8A","#1F4E4A","#C0603D","#1F6E52"];
+
+const JC = [
+  {name:"English", live:true, href:"junior-cycle-english.html"},
+  {name:"Irish", live:true, href:"junior-cycle-irish.html"},
+  {name:"Mathematics", live:true, href:"junior-cycle-maths.html"},
+  {name:"Science", live:false},
+  {name:"French", live:false},
+  {name:"History", live:false},
+  {name:"Geography", live:false},
+  {name:"Business Studies", live:false},
+  {name:"Home Economics", live:false},
+  {name:"Art, Craft & Design", live:false},
+  {name:"Spanish (bonus)", live:true, href:"spanish-para-dos.html"}
+];
+
+const LC = [
+  {name:"English", live:false},
+  {name:"Irish", live:false},
+  {name:"Mathematics", live:false},
+  {name:"Biology", live:false},
+  {name:"Business", live:false},
+  {name:"French", live:false},
+  {name:"Geography", live:false},
+  {name:"Home Economics", live:false},
+  {name:"Chemistry", live:false},
+  {name:"Accounting", live:false}
+];
+
+function renderGrid(elId, subjects){
+  const el = document.getElementById(elId);
+  let html = '';
+  subjects.forEach((s, i) => {
+    const color = PALETTE[i % PALETTE.length];
+    if(s.live){
+      html += `<a class="card live" href="${s.href}">
+        <div class="swatch" style="background:${color}"></div>
+        <h3>${s.name}</h3>
+        <div class="status">&#9679; Live now</div>
+      </a>`;
+    } else {
+      html += `<div class="card soon">
+        <div class="swatch" style="background:${color}; opacity:0.45"></div>
+        <h3>${s.name}</h3>
+        <div class="status">Coming soon</div>
+      </div>`;
+    }
+  });
+  el.innerHTML = html;
+}
+
+renderGrid('jcGrid', JC);
+renderGrid('lcGrid', LC);
+</script>
+</body>
+</html>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maths, Step by Step — Junior Cycle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F2ECDD;
+    --card: #FBF8F1;
+    --ink: #2B2418;
+    --ink-soft: #6B6152;
+    --accent: #3B6E4F;
+    --accent-deep: #23422F;
+    --accent-light: #A9CBB4;
+    --ochre: #D9A441;
+    --clay: #B5592D;
+    --line: #DCD2B8;
+    --good: #3E7A4F;
+    --bad: #B8412E;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background: var(--paper); color: var(--ink); font-family:'Work Sans', sans-serif; -webkit-font-smoothing:antialiased; }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:0.5;
+    background-image: radial-gradient(circle at 1px 1px, rgba(59,110,79,0.07) 1px, transparent 1.6px);
+    background-size: 22px 22px; z-index:0;
+  }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; color: var(--accent-deep); }
+  .app{ position:relative; z-index:1; display:flex; min-height:100vh; }
+
+  .sidebar{ width:280px; flex-shrink:0; background: var(--accent-deep); color:#EFE6D4; padding:28px 0 20px;
+    display:flex; flex-direction:column; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  .brand{ padding:0 24px 20px; border-bottom:1px solid rgba(239,230,212,0.15); margin-bottom:10px; }
+  .brand svg{ width:34px; height:34px; margin-bottom:10px; display:block; }
+  .brand h1{ color:#F4EEDD; font-size:1.4rem; line-height:1.15; }
+  .brand p{ margin:6px 0 0; font-size:0.78rem; color: var(--accent-light); letter-spacing:0.03em; }
+  .nav-list{ list-style:none; margin:0; padding:8px 12px; flex:1; }
+  .nav-list li + li{ margin-top:2px; }
+  .nav-item{ display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:none; border:none;
+    color: rgba(239,230,212,0.82); font-family:'Work Sans', sans-serif; font-size:0.9rem; padding:9px 12px;
+    border-radius:9px; cursor:pointer; transition: background 0.15s ease, color 0.15s ease; }
+  .nav-item:hover{ background: rgba(239,230,212,0.08); color:#fff; }
+  .nav-item.active{ background: var(--ochre); color: var(--accent-deep); font-weight:600; }
+  .nav-num{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; width:20px; height:20px; border-radius:5px;
+    display:flex; align-items:center; justify-content:center; background: rgba(239,230,212,0.12); flex-shrink:0; }
+  .nav-item.active .nav-num{ background: var(--accent-deep); color: var(--ochre); }
+  .nav-item .done-dot{ margin-left:auto; width:8px; height:8px; border-radius:50%; background: var(--ochre); flex-shrink:0; }
+  .nav-item.active .done-dot{ background: var(--accent-deep); }
+  .sidebar-footer{ padding:14px 24px 4px; font-size:0.72rem; color: var(--accent-light); border-top:1px solid rgba(239,230,212,0.15); margin-top:8px; }
+
+  main{ flex:1; min-width:0; padding: 40px 56px 80px; }
+  .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
+  .progress-wrap{ display:flex; align-items:center; gap:14px; }
+  .mosaic{ display:grid; grid-template-columns: repeat(6,15px); grid-template-rows: repeat(2,15px); gap:3px; }
+  .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition: background 0.3s ease; }
+  .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color: var(--accent-deep); }
+  .progress-text{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--ink-soft); }
+  .progress-text b{ color: var(--accent-deep); }
+
+  .hero{ background: var(--accent-deep); color:#F4EEDD; border-radius:20px; padding:40px; position:relative; overflow:hidden; margin-bottom:34px; }
+  .hero::after{ content:""; position:absolute; right:-40px; bottom:-40px; width:220px; height:220px;
+    background-image: repeating-linear-gradient(45deg, rgba(217,164,65,0.18) 0 10px, transparent 10px 20px),
+                       repeating-linear-gradient(-45deg, rgba(169,203,180,0.18) 0 10px, transparent 10px 20px);
+    border-radius:50%; opacity:0.9; }
+  .hero .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--ochre); margin-bottom:12px; }
+  .hero h2{ color:#F8F2E4; font-size:2rem; max-width:640px; }
+  .hero p{ max-width:600px; color:#D8CCB3; line-height:1.55; margin-top:14px; font-size:1rem; }
+  .hero-note{ margin-top:22px; background: rgba(244,238,221,0.08); border:1px solid rgba(244,238,221,0.2); border-radius:12px;
+    padding:16px 18px; max-width:600px; font-size:0.9rem; line-height:1.5; color:#EFE6D4; }
+  .hero-note b{ color: var(--ochre); }
+  .start-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:14px; }
+  .start-card{ background: var(--card); border:1px solid var(--line); border-radius: var(--radius); padding:16px 18px; cursor:pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .start-card:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(43,36,24,0.08); }
+  .start-card .n{ font-family:'IBM Plex Mono', monospace; color: var(--clay); font-size:0.75rem; }
+  .start-card h3{ font-size:1.0rem; margin-top:4px; }
+  .start-card .strand{ color: var(--accent); font-style:italic; font-size:0.83rem; }
+
+  .unit-head{ margin-bottom:26px; }
+  .unit-head .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color: var(--clay); text-transform:uppercase; letter-spacing:0.06em; }
+  .unit-head h2{ font-size:1.85rem; margin-top:6px; }
+  .unit-head .strand-title{ color: var(--accent); font-style:italic; font-size:1.05rem; margin-top:2px; }
+  .unit-head .intro{ margin-top:12px; max-width:680px; color: var(--ink-soft); line-height:1.55; }
+
+  .section-title{ font-family:'Fraunces', serif; font-size:1.12rem; color: var(--accent-deep); margin:34px 0 14px; display:flex; align-items:center; gap:10px; }
+  .section-title::after{ content:""; flex:1; height:1px; background: var(--line); }
+
+  .vocab-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:12px; }
+  .flip-card{ perspective:900px; height:112px; cursor:pointer; }
+  .flip-inner{ position:relative; width:100%; height:100%; transition: transform 0.5s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d; }
+  .flip-card.flipped .flip-inner{ transform: rotateY(180deg); }
+  .flip-face{ position:absolute; inset:0; border-radius: var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; backface-visibility:hidden; padding:12px; text-align:center; }
+  .flip-front{ background: var(--card); border:1px solid var(--line); }
+  .flip-front .es{ font-family:'Fraunces', serif; font-size:1.05rem; color: var(--accent-deep); font-weight:600; }
+  .flip-front .hint{ font-size:0.66rem; color: var(--ink-soft); margin-top:6px; }
+  .flip-back{ background: var(--accent); color:#fff; transform: rotateY(180deg); }
+  .flip-back .en{ font-size:0.88rem; font-weight:500; line-height:1.35; }
+
+  .phrase-list{ display:flex; flex-direction:column; gap:8px; }
+  .phrase-row{ display:flex; align-items:flex-start; gap:14px; background: var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; flex-wrap:wrap; }
+  .phrase-row .es{ font-family:'IBM Plex Mono', monospace; color: var(--accent-deep); font-weight:600; min-width:230px; }
+  .phrase-row .en{ color: var(--ink-soft); font-size:0.92rem; flex:1; }
+
+  .quiz-box{ background: var(--card); border:1px solid var(--line); border-radius: var(--radius); padding:22px 24px; }
+  .q-item{ margin-bottom:22px; }
+  .q-item:last-child{ margin-bottom:0; }
+  .q-prompt{ font-weight:600; margin-bottom:10px; }
+  .q-options{ display:flex; flex-direction:column; gap:8px; }
+  .q-option{ display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--line); border-radius:9px; cursor:pointer; background:#fff; font-size:0.92rem; transition: border-color 0.15s ease, background 0.15s ease; }
+  .q-option:hover{ border-color: var(--accent-light); }
+  .q-option.selected{ border-color: var(--accent); background: rgba(59,110,79,0.06); }
+  .q-option.correct{ border-color: var(--good); background: rgba(62,122,79,0.1); }
+  .q-option.incorrect{ border-color: var(--bad); background: rgba(184,65,46,0.08); }
+  .q-option input{ accent-color: var(--accent); }
+
+  .quiz-actions{ display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap; }
+  button.primary{ background: var(--accent-deep); color:#F4EEDD; border:none; padding:11px 20px; border-radius:9px; font-family:'Work Sans', sans-serif; font-weight:600; font-size:0.92rem; cursor:pointer; transition: background 0.15s ease; }
+  button.primary:hover{ background: var(--accent); }
+  button.ghost{ background:none; border:1px solid var(--line); color: var(--ink); padding:10px 18px; border-radius:9px; font-family:'Work Sans', sans-serif; font-size:0.92rem; cursor:pointer; }
+  button.ghost:hover{ border-color: var(--accent); color: var(--accent-deep); }
+  .quiz-score{ font-family:'IBM Plex Mono', monospace; font-size:0.9rem; color: var(--accent-deep); }
+
+  .complete-row{ margin-top:30px; display:flex; align-items:center; gap:12px; padding:16px 18px; border-radius:12px; background: rgba(217,164,65,0.14); border:1px dashed var(--ochre); flex-wrap:wrap; }
+  .complete-row label{ font-weight:600; cursor:pointer; display:flex; align-items:center; gap:10px; }
+  .complete-row input{ width:18px; height:18px; accent-color: var(--clay); }
+  .complete-row .note{ font-size:0.82rem; color: var(--ink-soft); margin-left:auto; }
+
+  .unit-footer-nav{ display:flex; justify-content:space-between; margin-top:36px; }
+
+  @media (max-width:860px){
+    .app{ flex-direction:column; }
+    .sidebar{ position:relative; width:100%; height:auto; padding:18px 0; }
+    .nav-list{ display:flex; overflow-x:auto; padding:6px 12px; gap:4px; }
+    .nav-list li{ flex-shrink:0; }
+    main{ padding:26px 18px 60px; }
+    .hero{ padding:26px; }
+    .hero h2{ font-size:1.4rem; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="1" width="38" height="38" rx="6" stroke="#D9A441" stroke-width="2"/>
+        <path d="M8 30 L20 10 L32 30 Z" stroke="#A9CBB4" stroke-width="1.6" fill="none"/>
+        <path d="M14 25 h4 v-4 h-4 Z" fill="#D9A441" opacity="0.85"/>
+      </svg>
+      <h1>Maths, Step by Step</h1>
+      <p>A shared Junior Cycle Maths path</p>
+    </div>
+    <ul class="nav-list" id="navList"></ul>
+    <div class="sidebar-footer">Covers the four Junior Cycle strands — Number, Algebra &amp; Functions, Geometry &amp; Trigonometry, Statistics &amp; Probability — with the core building blocks from each. Check her copybook for the order her teacher is covering them in.</div>
+  </nav>
+
+  <main>
+    <div class="top-row">
+      <div id="crumb"></div>
+      <div class="progress-wrap">
+        <div class="mosaic" id="mosaic"></div>
+        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+      </div>
+    </div>
+    <div id="content"></div>
+  </main>
+</div>
+
+<script>
+const UNITS = [
+  {
+    id:1, en:"Directed Numbers & Order of Operations", strand:"Number",
+    intro:"Working confidently with positive and negative numbers, and knowing what order to do things in — the foundation everything else in maths builds on.",
+    vocab:[
+      {es:"Directed number", en:"A number with a + or − sign showing direction, e.g. −7 or +3"},
+      {es:"Order of operations", en:"Brackets, then Indices, then Multiplication/Division, then Addition/Subtraction"},
+      {es:"Adding a negative", en:"Same as subtracting: 5 + (−3) = 5 − 3 = 2"},
+      {es:"Subtracting a negative", en:"Same as adding: 5 − (−3) = 5 + 3 = 8"},
+      {es:"Multiplying signs", en:"Same signs → positive. Different signs → negative"}
+    ],
+    phrases:[
+      {es:"Evaluate −8 + 3 × (−2)", en:"Multiply first: 3×(−2) = −6, then −8 + (−6) = −14"},
+      {es:"Evaluate (4 − 9) + 2 × 3", en:"Brackets first: 4−9 = −5, then 2×3 = 6, so −5+6 = 1"}
+    ],
+    quiz:[
+      {q:"What is −7 + 3?", opts:["−4","4","−10","10"], a:0},
+      {q:"Evaluate 2 + 3 × 4", opts:["20","14","9","24"], a:1},
+      {q:"What is (−5) × (−2)?", opts:["−10","10","−7","7"], a:1},
+      {q:"Evaluate 10 − (−4)", opts:["6","14","−6","−14"], a:1},
+      {q:"In 3 × (2 + 5), what do you do first?", opts:["3 × 2","2 + 5","3 × 5","Nothing, work left to right"], a:1}
+    ]
+  },
+  {
+    id:2, en:"Fractions, Decimals & Percentages", strand:"Number",
+    intro:"Converting fluently between the three ways of writing a part of a whole — and using percentages in everyday situations.",
+    vocab:[
+      {es:"Equivalent fractions", en:"Fractions that represent the same value, e.g. 1/2 = 2/4"},
+      {es:"Fraction → decimal", en:"Divide the numerator by the denominator, e.g. 3/4 = 0.75"},
+      {es:"Decimal → percentage", en:"Multiply by 100 and add %, e.g. 0.6 = 60%"},
+      {es:"Percentage of an amount", en:"Multiply the amount by the percentage as a decimal, e.g. 20% of 50 = 0.2×50 = 10"},
+      {es:"Percentage increase", en:"Multiply by (1 + the % as a decimal), e.g. +25% → ×1.25"}
+    ],
+    phrases:[
+      {es:"Find 15% of 60", en:"15% = 0.15, so 0.15 × 60 = 9"},
+      {es:"Increase 80 by 25%", en:"80 × 1.25 = 100"}
+    ],
+    quiz:[
+      {q:"What is 3/4 as a decimal?", opts:["0.34","0.75","0.43","0.57"], a:1},
+      {q:"What is 0.6 as a percentage?", opts:["6%","60%","0.6%","16%"], a:1},
+      {q:"What is 20% of 150?", opts:["20","30","15","35"], a:1},
+      {q:"Increase 40 by 10%", opts:["44","4","50","41"], a:0},
+      {q:"Which fraction equals 2/4?", opts:["1/3","1/2","3/4","1/5"], a:1}
+    ]
+  },
+  {
+    id:3, en:"Ratio & Proportion", strand:"Number",
+    intro:"Comparing quantities fairly, sharing amounts in a given ratio, and reasoning about direct proportion.",
+    vocab:[
+      {es:"Ratio", en:"Compares two or more quantities, e.g. 3:2"},
+      {es:"Simplifying a ratio", en:"Divide all parts by their highest common factor, e.g. 8:12 = 2:3"},
+      {es:"Direct proportion", en:"As one quantity increases, the other increases at the same rate"},
+      {es:"Sharing in a ratio", en:"Split the total into the number of parts the ratio describes"},
+      {es:"Unit rate", en:"The amount of one quantity per single unit of another, e.g. price per kg"}
+    ],
+    phrases:[
+      {es:"Share €60 in the ratio 2:3", en:"5 parts total, €12 per part → €24 and €36"},
+      {es:"Simplify 15:20", en:"Divide by 5 → 3:4"}
+    ],
+    quiz:[
+      {q:"Simplify 10:15", opts:["2:3","3:2","1:2","5:10"], a:0},
+      {q:"Share €50 in the ratio 2:3 — what's the larger share?", opts:["€20","€30","€25","€35"], a:1},
+      {q:"A ratio compares…", opts:["Two unrelated things","Two or more quantities","Only percentages","Only decimals"], a:1},
+      {q:"Simplify 8:12", opts:["2:3","4:6","1:2","3:4"], a:0},
+      {q:"3 pens cost €6. What do 5 pens cost (direct proportion)?", opts:["€8","€10","€12","€15"], a:1}
+    ]
+  },
+  {
+    id:4, en:"Indices & Standard Form", strand:"Number",
+    intro:"Powers, the index laws, and writing very large or small numbers compactly.",
+    vocab:[
+      {es:"Index (power)", en:"Shows how many times to multiply a number by itself, e.g. 2³ = 2×2×2 = 8"},
+      {es:"Multiplying powers", en:"Same base, add the indices: 2²×2³ = 2⁵"},
+      {es:"Dividing powers", en:"Same base, subtract the indices: 2⁵÷2² = 2³"},
+      {es:"Power of zero", en:"Any (non-zero) number to the power 0 equals 1"},
+      {es:"Standard form", en:"Writing a number as A×10ⁿ where 1≤A<10, e.g. 3,400 = 3.4×10³"}
+    ],
+    phrases:[
+      {es:"Write 45,000 in standard form", en:"4.5 × 10⁴"},
+      {es:"Simplify 3² × 3⁴", en:"3⁶"}
+    ],
+    quiz:[
+      {q:"What is 2³?", opts:["6","8","9","4"], a:1},
+      {q:"Simplify 5² × 5³", opts:["5⁵","5⁶","25⁵","5¹"], a:0},
+      {q:"What is 7⁰?", opts:["0","7","1","70"], a:2},
+      {q:"Write 6,200 in standard form", opts:["6.2×10²","6.2×10³","62×10²","0.62×10⁴"], a:1},
+      {q:"Simplify 4⁵ ÷ 4²", opts:["4³","4⁷","4¹⁰","4²"], a:0}
+    ]
+  },
+  {
+    id:5, en:"Expressions & Substitution", strand:"Algebra & Functions",
+    intro:"Reading and simplifying algebraic expressions, and substituting numbers in for letters.",
+    vocab:[
+      {es:"Term", en:"A single number, variable, or product of numbers/variables, e.g. 3x"},
+      {es:"Like terms", en:"Terms with the same variable part — they can be combined, e.g. 3x+2x=5x"},
+      {es:"Expression", en:"A collection of terms with no equals sign, e.g. 2x+5"},
+      {es:"Substitution", en:"Replacing a letter with a given number to find a value"},
+      {es:"Expanding brackets", en:"Multiply each term inside by what's outside: 2(x+3) = 2x+6"}
+    ],
+    phrases:[
+      {es:"Simplify 4x + 3x − x", en:"6x"},
+      {es:"If x=3, find 2x+5", en:"2(3)+5 = 11"}
+    ],
+    quiz:[
+      {q:"Simplify 5x + 2x", opts:["7x","10x","3x","7x²"], a:0},
+      {q:"Expand 3(x+4)", opts:["3x+4","3x+12","x+12","3x+7"], a:1},
+      {q:"If x=2, evaluate 4x−1", opts:["7","6","9","8"], a:0},
+      {q:"Simplify 6y − 2y + y", opts:["3y","5y","4y","9y"], a:1},
+      {q:"Which is a like term to 3x?", opts:["3x²","5x","3y","x³"], a:1}
+    ]
+  },
+  {
+    id:6, en:"Solving Equations", strand:"Algebra & Functions",
+    intro:"Using inverse operations to find the value of an unknown, keeping the equation balanced.",
+    vocab:[
+      {es:"Equation", en:"A statement that two expressions are equal — it has an ="},
+      {es:"Inverse operation", en:"The operation that undoes another, e.g. −3 undoes +3"},
+      {es:"Balancing", en:"Whatever you do to one side of the equation, you must do to the other"},
+      {es:"Two-step equation", en:"Undo addition/subtraction first, then multiplication/division"}
+    ],
+    phrases:[
+      {es:"Solve x+7=12", en:"x = 5"},
+      {es:"Solve 3x−4=11", en:"3x=15, so x=5"}
+    ],
+    quiz:[
+      {q:"Solve x+9=15", opts:["x=6","x=24","x=5","x=4"], a:0},
+      {q:"Solve 2x=18", opts:["x=9","x=16","x=36","x=20"], a:0},
+      {q:"Solve 4x+1=13", opts:["x=3","x=4","x=12","x=2"], a:0},
+      {q:"Solve x−5=2", opts:["x=7","x=3","x=−3","x=10"], a:0},
+      {q:"Solve 5x−3=22", opts:["x=5","x=4","x=19","x=25"], a:0}
+    ]
+  },
+  {
+    id:7, en:"Patterns & Sequences", strand:"Algebra & Functions",
+    intro:"Spotting the rule in a sequence of numbers, and using an nth-term formula to jump straight to any term.",
+    vocab:[
+      {es:"Sequence", en:"A list of numbers following a rule"},
+      {es:"Common difference", en:"The amount added or subtracted between terms in a linear sequence"},
+      {es:"nth term rule", en:"A formula giving any term from its position, e.g. Tₙ=3n+1"},
+      {es:"Linear sequence", en:"One with a constant common difference (arithmetic)"}
+    ],
+    phrases:[
+      {es:"Find the next term: 2, 5, 8, 11, __", en:"14 — add 3 each time"},
+      {es:"nth term = 3n+1, find the 4th term", en:"3(4)+1 = 13"}
+    ],
+    quiz:[
+      {q:"What comes next: 4, 7, 10, 13, __?", opts:["15","16","17","14"], a:1},
+      {q:"Common difference in 2, 5, 8, 11?", opts:["2","3","4","5"], a:1},
+      {q:"nth term = 2n+3. Find the 5th term.", opts:["13","10","11","15"], a:0},
+      {q:"Which sequence is linear (constant difference)?", opts:["1, 2, 4, 8","3, 6, 9, 12","1, 4, 9, 16","2, 4, 8, 16"], a:1},
+      {q:"Find the next term: 20, 17, 14, 11, __", opts:["9","8","7","10"], a:1}
+    ]
+  },
+  {
+    id:8, en:"Angles & Triangles", strand:"Geometry & Trigonometry",
+    intro:"The core angle facts used to find missing angles on lines, around points, and in triangles.",
+    vocab:[
+      {es:"Angles on a straight line", en:"Add up to 180°"},
+      {es:"Angles around a point", en:"Add up to 360°"},
+      {es:"Angles in a triangle", en:"Add up to 180°"},
+      {es:"Isosceles triangle", en:"Two equal sides and two equal base angles"},
+      {es:"Exterior angle of a triangle", en:"Equals the sum of the two opposite interior angles"}
+    ],
+    phrases:[
+      {es:"Two angles on a line are 70° and x. Find x.", en:"180−70 = 110°"},
+      {es:"A triangle has angles 50° and 60°. Find the third.", en:"180−50−60 = 70°"}
+    ],
+    quiz:[
+      {q:"Angles on a straight line add to…", opts:["90°","180°","270°","360°"], a:1},
+      {q:"Angles in a triangle add to…", opts:["90°","180°","270°","360°"], a:1},
+      {q:"Two angles of a triangle are 40° and 90°. The third?", opts:["40°","50°","60°","70°"], a:1},
+      {q:"Angles around a point add to…", opts:["180°","270°","360°","90°"], a:2},
+      {q:"An isosceles triangle has at least how many equal angles?", opts:["1","2","3","0"], a:1}
+    ]
+  },
+  {
+    id:9, en:"Area & Volume", strand:"Geometry & Trigonometry",
+    intro:"The key formulas for rectangles, triangles, circles, and cuboids.",
+    vocab:[
+      {es:"Area of a rectangle", en:"length × width"},
+      {es:"Area of a triangle", en:"½ × base × height"},
+      {es:"Area of a circle", en:"π × r²"},
+      {es:"Volume of a cuboid", en:"length × width × height"},
+      {es:"Circumference of a circle", en:"2 × π × r"}
+    ],
+    phrases:[
+      {es:"Triangle: base 8cm, height 5cm", en:"½×8×5 = 20cm²"},
+      {es:"Cuboid: 4cm × 3cm × 2cm", en:"4×3×2 = 24cm³"}
+    ],
+    quiz:[
+      {q:"Area of a rectangle 6cm × 4cm?", opts:["24cm²","10cm²","20cm²","12cm²"], a:0},
+      {q:"Area of a triangle, base 10cm, height 6cm?", opts:["60cm²","30cm²","16cm²","40cm²"], a:1},
+      {q:"Volume of a cuboid 2×3×5?", opts:["10","30","15","20"], a:1},
+      {q:"Formula for the area of a circle?", opts:["πd","2πr","πr²","πr"], a:2},
+      {q:"Formula for circumference?", opts:["πr²","2πr","πr","πd²"], a:1}
+    ]
+  },
+  {
+    id:10, en:"Coordinate Geometry", strand:"Geometry & Trigonometry",
+    intro:"Plotting and describing points on the x–y plane, and finding the midpoint of a line segment.",
+    vocab:[
+      {es:"Coordinates", en:"An (x,y) pair showing a point's position on a grid"},
+      {es:"x-axis", en:"The horizontal axis"},
+      {es:"y-axis", en:"The vertical axis"},
+      {es:"Origin", en:"The point (0,0) where the axes meet"},
+      {es:"Midpoint", en:"Average the x-coordinates and average the y-coordinates"}
+    ],
+    phrases:[
+      {es:"Midpoint of (2,4) and (6,8)", en:"((2+6)/2, (4+8)/2) = (4,6)"},
+      {es:"Plot the point (3,−2)", en:"3 right of the origin, 2 down"}
+    ],
+    quiz:[
+      {q:"What is the origin?", opts:["(1,1)","(0,0)","(−1,−1)","Any point"], a:1},
+      {q:"Midpoint of (0,0) and (4,4)?", opts:["(2,2)","(4,4)","(1,1)","(0,4)"], a:0},
+      {q:"Which axis is horizontal?", opts:["y-axis","x-axis","z-axis","origin"], a:1},
+      {q:"Midpoint of (2,6) and (8,2)?", opts:["(5,4)","(4,5)","(10,8)","(6,4)"], a:0},
+      {q:"In (x,y), which value comes first?", opts:["The y-value","The x-value","Neither","Both together"], a:1}
+    ]
+  },
+  {
+    id:11, en:"Right-Angled Triangles", strand:"Geometry & Trigonometry",
+    intro:"Pythagoras' theorem and the SOHCAHTOA ratios for right-angled triangles — the start of trigonometry.",
+    vocab:[
+      {es:"Hypotenuse", en:"The longest side, opposite the right angle"},
+      {es:"SOH", en:"sin(angle) = Opposite / Hypotenuse"},
+      {es:"CAH", en:"cos(angle) = Adjacent / Hypotenuse"},
+      {es:"TOA", en:"tan(angle) = Opposite / Adjacent"},
+      {es:"Pythagoras' theorem", en:"a² + b² = c², where c is the hypotenuse"}
+    ],
+    phrases:[
+      {es:"Legs 3cm and 4cm — find the hypotenuse", en:"3²+4² = 25, √25 = 5cm"},
+      {es:"Find sin(30°)", en:"0.5, using a calculator"}
+    ],
+    quiz:[
+      {q:"Pythagoras' theorem is…", opts:["a+b=c","a²+b²=c²","a²−b²=c²","a×b=c"], a:1},
+      {q:"The hypotenuse is…", opts:["The shortest side","The side opposite the right angle","Always horizontal","Always vertical"], a:1},
+      {q:"SOH stands for…", opts:["Sin=Opp/Hyp","Sin=Opp/Adj","Sin=Hyp/Opp","Sin=Adj/Hyp"], a:0},
+      {q:"Legs 6cm and 8cm — the hypotenuse?", opts:["10cm","14cm","48cm","12cm"], a:0},
+      {q:"CAH stands for…", opts:["Cos=Adj/Hyp","Cos=Opp/Hyp","Cos=Hyp/Adj","Cos=Opp/Adj"], a:0}
+    ]
+  },
+  {
+    id:12, en:"Statistics & Probability", strand:"Statistics & Probability",
+    intro:"Describing a set of data with an average and a spread, and the basics of probability.",
+    vocab:[
+      {es:"Mean", en:"Add all the values and divide by how many there are"},
+      {es:"Median", en:"The middle value once the data is placed in order"},
+      {es:"Mode", en:"The most frequently occurring value"},
+      {es:"Range", en:"The largest value minus the smallest"},
+      {es:"Probability", en:"The chance of an event, from 0 (impossible) to 1 (certain)"}
+    ],
+    phrases:[
+      {es:"Mean of 4, 6, 8, 10", en:"(4+6+8+10)/4 = 7"},
+      {es:"3 red, 2 blue balls — P(red)?", en:"3/5"}
+    ],
+    quiz:[
+      {q:"Mean of 2, 4, 6, 8?", opts:["4","5","6","20"], a:1},
+      {q:"Median of 1, 3, 5, 7, 9?", opts:["3","5","7","9"], a:1},
+      {q:"Mode of 2, 2, 3, 4, 5?", opts:["2","3","4","5"], a:0},
+      {q:"Range of 3, 8, 10, 15?", opts:["12","7","15","18"], a:0},
+      {q:"Probability of a certain event?", opts:["0","0.5","1","undefined"], a:2}
+    ]
+  }
+];
+
+let progress = {};
+let quizState = {};
+let currentView = "home";
+
+async function loadProgress(){
+  try{ const r = await window.storage.get('jc-maths-progress'); if(r && r.value) progress = JSON.parse(r.value); }
+  catch(e){ progress = {}; }
+}
+async function saveProgress(){
+  try{ await window.storage.set('jc-maths-progress', JSON.stringify(progress)); }
+  catch(e){ console.error('Could not save progress', e); }
+}
+
+function renderNav(){
+  const list = document.getElementById('navList');
+  let html = `<li><button class="nav-item ${currentView==='home'?'active':''}" onclick="goTo('home')"><span class="nav-num">·</span> Start here</button></li>`;
+  UNITS.forEach(u => {
+    const active = currentView === u.id;
+    html += `<li><button class="nav-item ${active?'active':''}" onclick="goTo(${u.id})">
+      <span class="nav-num">${String(u.id).padStart(2,'0')}</span>
+      <span>${u.en}</span>
+      ${progress[u.id] ? '<span class="done-dot"></span>' : ''}
+    </button></li>`;
+  });
+  list.innerHTML = html;
+}
+
+function renderMosaic(){
+  const mosaic = document.getElementById('mosaic');
+  let html = '';
+  UNITS.forEach(u => { html += `<div class="cell ${progress[u.id]?'on':''}"></div>`; });
+  mosaic.innerHTML = html;
+  document.getElementById('progressCount').textContent = UNITS.filter(u => progress[u.id]).length;
+}
+
+function renderHome(){
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Start here</h2>`;
+  let cards = '';
+  UNITS.forEach(u => {
+    cards += `<div class="start-card" onclick="goTo(${u.id})">
+      <div class="n">${String(u.id).padStart(2,'0')} ${progress[u.id] ? '· done' : ''}</div>
+      <h3>${u.en}</h3>
+      <div class="strand">${u.strand}</div>
+    </div>`;
+  });
+  document.getElementById('content').innerHTML = `
+    <div class="hero">
+      <div class="eyebrow">A path for two, at one pace</div>
+      <h2>Work through the building blocks of Junior Cycle Maths, together.</h2>
+      <p>These twelve units draw the core ideas from all four Junior Cycle strands — Number, Algebra &amp; Functions, Geometry &amp; Trigonometry, and Statistics &amp; Probability — starting from the basics each later topic depends on.</p>
+      <div class="hero-note">
+        <b>Worth knowing:</b> this covers the foundations, not the full three-year course — Junior Cycle Maths is a big subject. Use these units to get comfortable with the core ideas so homework and revision make more sense, and lean on her teacher or textbook for what's coming up next in class.
+      </div>
+    </div>
+    <div class="section-title">All twelve units</div>
+    <div class="start-grid">${cards}</div>
+  `;
+}
+
+function renderUnit(id){
+  const u = UNITS.find(x => x.id === id);
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Unit ${String(id).padStart(2,'0')}</h2>`;
+
+  let vocabHtml = '';
+  u.vocab.forEach((v,i) => {
+    vocabHtml += `
+      <div class="flip-card" id="fc-${id}-${i}" onclick="flipCard(${id},${i})">
+        <div class="flip-inner">
+          <div class="flip-face flip-front"><div class="es">${v.es}</div><div class="hint">tap to flip</div></div>
+          <div class="flip-face flip-back"><div class="en">${v.en}</div></div>
+        </div>
+      </div>`;
+  });
+
+  let phraseHtml = '';
+  u.phrases.forEach(p => {
+    phraseHtml += `<div class="phrase-row"><div class="es">${p.es}</div><div class="en">${p.en}</div></div>`;
+  });
+
+  if(!quizState[id]) quizState[id] = { answers:{}, checked:false };
+  let quizHtml = '';
+  u.quiz.forEach((q, qi) => {
+    const st = quizState[id];
+    let optsHtml = '';
+    q.opts.forEach((opt, oi) => {
+      let cls = 'q-option';
+      if(st.answers[qi] === oi) cls += ' selected';
+      if(st.checked){
+        if(oi === q.a) cls += ' correct';
+        else if(st.answers[qi] === oi && oi !== q.a) cls += ' incorrect';
+      }
+      optsHtml += `<label class="${cls}" onclick="selectAnswer(${id},${qi},${oi})">
+        <input type="radio" name="q-${id}-${qi}" ${st.answers[qi]===oi?'checked':''} ${st.checked?'disabled':''}> ${opt}
+      </label>`;
+    });
+    quizHtml += `<div class="q-item"><div class="q-prompt">${qi+1}. ${q.q}</div><div class="q-options">${optsHtml}</div></div>`;
+  });
+
+  let scoreHtml = '';
+  if(quizState[id].checked){
+    let correctCount = 0;
+    u.quiz.forEach((q,qi) => { if(quizState[id].answers[qi] === q.a) correctCount++; });
+    scoreHtml = `<div class="quiz-score">Score: ${correctCount} / ${u.quiz.length}</div>`;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="unit-head">
+      <div class="eyebrow">Unit ${String(id).padStart(2,'0')} of 12</div>
+      <h2>${u.en}</h2>
+      <div class="strand-title">${u.strand}</div>
+      <p class="intro">${u.intro}</p>
+    </div>
+
+    <div class="section-title">Key concepts — tap a card to flip</div>
+    <div class="vocab-grid">${vocabHtml}</div>
+
+    <div class="section-title">Worked examples</div>
+    <div class="phrase-list">${phraseHtml}</div>
+
+    <div class="section-title">Quick quiz</div>
+    <div class="quiz-box">
+      ${quizHtml}
+      <div class="quiz-actions">
+        <button class="primary" onclick="checkQuiz(${id})">${quizState[id].checked ? 'Re-check' : 'Check answers'}</button>
+        <button class="ghost" onclick="resetQuiz(${id})">Try again</button>
+        ${scoreHtml}
+      </div>
+    </div>
+
+    <div class="complete-row">
+      <label><input type="checkbox" ${progress[id] ? 'checked' : ''} onchange="toggleComplete(${id}, this.checked)"> Mark this unit as done together</label>
+      <span class="note">Ticking this just tracks your own progress here — it isn't linked to her school.</span>
+    </div>
+
+    <div class="unit-footer-nav">
+      <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
+      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+    </div>
+  `;
+}
+
+function goTo(view){
+  currentView = view;
+  renderNav();
+  if(view === 'home') renderHome(); else renderUnit(view);
+  window.scrollTo({top:0, behavior:'instant'});
+}
+function flipCard(unitId, idx){ document.getElementById(`fc-${unitId}-${idx}`).classList.toggle('flipped'); }
+function selectAnswer(unitId, qi, oi){ if(quizState[unitId].checked) return; quizState[unitId].answers[qi] = oi; renderUnit(unitId); }
+function checkQuiz(unitId){ quizState[unitId].checked = true; renderUnit(unitId); }
+function resetQuiz(unitId){ quizState[unitId] = { answers:{}, checked:false }; renderUnit(unitId); }
+async function toggleComplete(unitId, val){ progress[unitId] = val; await saveProgress(); renderNav(); renderMosaic(); }
+
+(async function init(){
+  await loadProgress();
+  renderNav();
+  renderMosaic();
+  renderHome();
+})();
+</script>
+</body>
+</html>

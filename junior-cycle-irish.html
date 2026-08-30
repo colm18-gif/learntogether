@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaeilge le Chéile — Junior Cycle Irish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2ECDD; --card:#FBF8F1; --ink:#2B2418; --ink-soft:#6B6152;
+    --accent:#1F6E52; --accent-deep:#123F2F; --accent-light:#9FCDB9;
+    --ochre:#D9A441; --clay:#B5592D; --line:#DCD2B8; --good:#3E7A4F; --bad:#B8412E; --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Work Sans',sans-serif; -webkit-font-smoothing:antialiased; }
+  body::before{ content:""; position:fixed; inset:0; pointer-events:none; opacity:0.5;
+    background-image: radial-gradient(circle at 1px 1px, rgba(31,110,82,0.07) 1px, transparent 1.6px); background-size:22px 22px; z-index:0; }
+  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:600; margin:0; color:var(--accent-deep); }
+  .app{ position:relative; z-index:1; display:flex; min-height:100vh; }
+
+  .sidebar{ width:280px; flex-shrink:0; background:var(--accent-deep); color:#EFE6D4; padding:28px 0 20px;
+    display:flex; flex-direction:column; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  .brand{ padding:0 24px 20px; border-bottom:1px solid rgba(239,230,212,0.15); margin-bottom:10px; }
+  .brand svg{ width:34px; height:34px; margin-bottom:10px; display:block; }
+  .brand h1{ color:#F4EEDD; font-size:1.4rem; line-height:1.15; }
+  .brand p{ margin:6px 0 0; font-size:0.78rem; color:var(--accent-light); letter-spacing:0.03em; }
+  .nav-list{ list-style:none; margin:0; padding:8px 12px; flex:1; }
+  .nav-list li + li{ margin-top:2px; }
+  .nav-item{ display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:none; border:none;
+    color:rgba(239,230,212,0.82); font-family:'Work Sans',sans-serif; font-size:0.9rem; padding:9px 12px; border-radius:9px; cursor:pointer; transition:background 0.15s ease, color 0.15s ease; }
+  .nav-item:hover{ background:rgba(239,230,212,0.08); color:#fff; }
+  .nav-item.active{ background:var(--ochre); color:var(--accent-deep); font-weight:600; }
+  .nav-num{ font-family:'IBM Plex Mono',monospace; font-size:0.68rem; width:20px; height:20px; border-radius:5px; display:flex; align-items:center; justify-content:center; background:rgba(239,230,212,0.12); flex-shrink:0; }
+  .nav-item.active .nav-num{ background:var(--accent-deep); color:var(--ochre); }
+  .nav-item .done-dot{ margin-left:auto; width:8px; height:8px; border-radius:50%; background:var(--ochre); flex-shrink:0; }
+  .nav-item.active .done-dot{ background:var(--accent-deep); }
+  .sidebar-footer{ padding:14px 24px 4px; font-size:0.72rem; color:var(--accent-light); border-top:1px solid rgba(239,230,212,0.15); margin-top:8px; }
+
+  main{ flex:1; min-width:0; padding:40px 56px 80px; }
+  .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
+  .progress-wrap{ display:flex; align-items:center; gap:14px; }
+  .mosaic{ display:grid; grid-template-columns:repeat(6,15px); grid-template-rows:repeat(2,15px); gap:3px; }
+  .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition:background 0.3s ease; }
+  .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color:var(--accent-deep); }
+  .progress-text{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--ink-soft); }
+  .progress-text b{ color:var(--accent-deep); }
+
+  .hero{ background:var(--accent-deep); color:#F4EEDD; border-radius:20px; padding:40px; position:relative; overflow:hidden; margin-bottom:34px; }
+  .hero::after{ content:""; position:absolute; right:-40px; bottom:-40px; width:220px; height:220px;
+    background-image: repeating-linear-gradient(45deg, rgba(217,164,65,0.18) 0 10px, transparent 10px 20px),
+                       repeating-linear-gradient(-45deg, rgba(159,205,185,0.18) 0 10px, transparent 10px 20px);
+    border-radius:50%; opacity:0.9; }
+  .hero .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ochre); margin-bottom:12px; }
+  .hero h2{ color:#F8F2E4; font-size:2rem; max-width:640px; }
+  .hero p{ max-width:600px; color:#D8CCB3; line-height:1.55; margin-top:14px; font-size:1rem; }
+  .hero-note{ margin-top:22px; background:rgba(244,238,221,0.08); border:1px solid rgba(244,238,221,0.2); border-radius:12px; padding:16px 18px; max-width:600px; font-size:0.9rem; line-height:1.5; color:#EFE6D4; }
+  .hero-note b{ color:var(--ochre); }
+  .start-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:14px; }
+  .start-card{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; cursor:pointer; transition:transform 0.15s ease, box-shadow 0.15s ease; }
+  .start-card:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(43,36,24,0.08); }
+  .start-card .n{ font-family:'IBM Plex Mono',monospace; color:var(--clay); font-size:0.75rem; }
+  .start-card h3{ font-size:1.0rem; margin-top:4px; }
+  .start-card .es{ color:var(--accent); font-style:italic; font-size:0.85rem; }
+
+  .unit-head{ margin-bottom:26px; }
+  .unit-head .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--clay); text-transform:uppercase; letter-spacing:0.06em; }
+  .unit-head h2{ font-size:1.9rem; margin-top:6px; }
+  .unit-head .es-title{ color:var(--accent); font-style:italic; font-size:1.1rem; margin-top:2px; }
+  .unit-head .intro{ margin-top:12px; max-width:680px; color:var(--ink-soft); line-height:1.55; }
+
+  .section-title{ font-family:'Fraunces',serif; font-size:1.15rem; color:var(--accent-deep); margin:34px 0 14px; display:flex; align-items:center; gap:10px; }
+  .section-title::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .vocab-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px; }
+  .flip-card{ perspective:900px; height:100px; cursor:pointer; }
+  .flip-inner{ position:relative; width:100%; height:100%; transition:transform 0.5s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d; }
+  .flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+  .flip-face{ position:absolute; inset:0; border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; backface-visibility:hidden; padding:10px; text-align:center; }
+  .flip-front{ background:var(--card); border:1px solid var(--line); }
+  .flip-front .es{ font-family:'Fraunces',serif; font-size:1.1rem; color:var(--accent-deep); font-weight:600; }
+  .flip-front .hint{ font-size:0.68rem; color:var(--ink-soft); margin-top:6px; }
+  .flip-back{ background:var(--accent); color:#fff; transform:rotateY(180deg); }
+  .flip-back .en{ font-size:1.0rem; font-weight:600; }
+  .speak-btn{ position:absolute; top:6px; right:6px; width:26px; height:26px; border-radius:50%; border:none;
+    background:rgba(31,110,82,0.1); color:var(--accent-deep); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.85rem; z-index:2; }
+  .flip-back .speak-btn{ background:rgba(255,255,255,0.18); color:#fff; }
+  .speak-btn:hover{ background:var(--ochre); color:var(--accent-deep); }
+
+  .phrase-list{ display:flex; flex-direction:column; gap:8px; }
+  .phrase-row{ display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; flex-wrap:wrap; }
+  .phrase-row .es{ font-family:'Fraunces',serif; color:var(--accent-deep); font-weight:600; min-width:230px; }
+  .phrase-row .en{ color:var(--ink-soft); font-size:0.92rem; flex:1; }
+  .phrase-row .speak-btn{ position:static; background:var(--accent-light); color:var(--accent-deep); }
+
+  .quiz-box{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px 24px; }
+  .q-item{ margin-bottom:22px; }
+  .q-item:last-child{ margin-bottom:0; }
+  .q-prompt{ font-weight:600; margin-bottom:10px; }
+  .q-options{ display:flex; flex-direction:column; gap:8px; }
+  .q-option{ display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--line); border-radius:9px; cursor:pointer; background:#fff; font-size:0.92rem; transition:border-color 0.15s ease, background 0.15s ease; }
+  .q-option:hover{ border-color:var(--accent-light); }
+  .q-option.selected{ border-color:var(--accent); background:rgba(31,110,82,0.06); }
+  .q-option.correct{ border-color:var(--good); background:rgba(62,122,79,0.1); }
+  .q-option.incorrect{ border-color:var(--bad); background:rgba(184,65,46,0.08); }
+  .q-option input{ accent-color:var(--accent); }
+
+  .quiz-actions{ display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap; }
+  button.primary{ background:var(--accent-deep); color:#F4EEDD; border:none; padding:11px 20px; border-radius:9px; font-family:'Work Sans',sans-serif; font-weight:600; font-size:0.92rem; cursor:pointer; transition:background 0.15s ease; }
+  button.primary:hover{ background:var(--accent); }
+  button.ghost{ background:none; border:1px solid var(--line); color:var(--ink); padding:10px 18px; border-radius:9px; font-family:'Work Sans',sans-serif; font-size:0.92rem; cursor:pointer; }
+  button.ghost:hover{ border-color:var(--accent); color:var(--accent-deep); }
+  .quiz-score{ font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--accent-deep); }
+
+  .complete-row{ margin-top:30px; display:flex; align-items:center; gap:12px; padding:16px 18px; border-radius:12px; background:rgba(217,164,65,0.14); border:1px dashed var(--ochre); flex-wrap:wrap; }
+  .complete-row label{ font-weight:600; cursor:pointer; display:flex; align-items:center; gap:10px; }
+  .complete-row input{ width:18px; height:18px; accent-color:var(--clay); }
+  .complete-row .note{ font-size:0.82rem; color:var(--ink-soft); margin-left:auto; }
+
+  .unit-footer-nav{ display:flex; justify-content:space-between; margin-top:36px; }
+
+  @media (max-width:860px){
+    .app{ flex-direction:column; }
+    .sidebar{ position:relative; width:100%; height:auto; padding:18px 0; }
+    .nav-list{ display:flex; overflow-x:auto; padding:6px 12px; gap:4px; }
+    .nav-list li{ flex-shrink:0; }
+    main{ padding:26px 18px 60px; }
+    .hero{ padding:26px; }
+    .hero h2{ font-size:1.5rem; }
+    .phrase-row{ flex-wrap:wrap; }
+    .phrase-row .es{ min-width:0; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="1" width="38" height="38" rx="6" stroke="#D9A441" stroke-width="2"/>
+        <path d="M20 4 C10 4 4 12 4 20 C4 28 10 36 20 36 C30 36 36 28 36 20" stroke="#9FCDB9" stroke-width="1.6" fill="none"/>
+        <circle cx="20" cy="20" r="5" fill="#D9A441" opacity="0.85"/>
+      </svg>
+      <h1>Gaeilge le Chéile</h1>
+      <p>A shared Junior Cycle Irish path</p>
+    </div>
+    <ul class="nav-list" id="navList"></ul>
+    <div class="sidebar-footer">Built for T2 (the course taken in English-medium schools — most students). If her school is Irish-medium and she's doing T1, the level and pace will be quite different from this.</div>
+  </nav>
+
+  <main>
+    <div class="top-row">
+      <div id="crumb"></div>
+      <div class="progress-wrap">
+        <div class="mosaic" id="mosaic"></div>
+        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+      </div>
+    </div>
+    <div id="content"></div>
+  </main>
+</div>
+
+<script>
+const UNITS = [
+  {
+    id:1, es:"Mé Féin", en:"Myself — greetings & introductions",
+    intro:"The everyday greetings and introductions that open almost every Irish class and exam answer.",
+    vocab:[
+      {es:"Dia duit", en:"Hello (to one person)"},{es:"Dia is Muire duit", en:"Hello (reply)"},
+      {es:"Slán", en:"Goodbye"},{es:"Conas atá tú?", en:"How are you?"},
+      {es:"Táim go maith", en:"I am well"},{es:"Cad is ainm duit?", en:"What is your name?"},
+      {es:"Is mise…", en:"I am… / My name is…"},{es:"Le do thoil", en:"Please"},
+      {es:"Go raibh maith agat", en:"Thank you"},{es:"Tá fáilte romhat", en:"You're welcome"}
+    ],
+    phrases:[
+      {es:"Cad is ainm duit?", en:"What is your name?"},
+      {es:"Is mise Aoife.", en:"I am Aoife."},
+      {es:"Conas atá tú?", en:"How are you?"},
+      {es:"Táim go maith, go raibh maith agat.", en:"I am well, thank you."}
+    ],
+    quiz:[
+      {q:"'Dia duit' means…", opts:["Goodbye","Hello","Thank you","Please"], a:1},
+      {q:"'Slán' means…", opts:["Hello","Goodbye","Sorry","Yes"], a:1},
+      {q:"'Cad is ainm duit?' asks…", opts:["How are you?","What is your name?","Where do you live?","How old are you?"], a:1},
+      {q:"Correct reply to 'Conas atá tú?'", opts:["Is mise Seán","Táim go maith","Slán","Le do thoil"], a:1},
+      {q:"'Go raibh maith agat' means…", opts:["Please","You're welcome","Thank you","Goodbye"], a:2}
+    ]
+  },
+  {
+    id:2, es:"An Teaghlach", en:"Family",
+    intro:"Talking about family members — a topic that comes up constantly in oral and written Irish.",
+    vocab:[
+      {es:"máthair", en:"mother"},{es:"athair", en:"father"},{es:"deartháir", en:"brother"},
+      {es:"deirfiúr", en:"sister"},{es:"seanmháthair", en:"grandmother"},{es:"seanathair", en:"grandfather"},
+      {es:"mac", en:"son"},{es:"iníon", en:"daughter"},{es:"aintín", en:"aunt"},{es:"uncail", en:"uncle"}
+    ],
+    phrases:[
+      {es:"Tá beirt deartháireacha agam.", en:"I have two brothers."},
+      {es:"An bhfuil deirfiúracha agat?", en:"Do you have sisters?"},
+      {es:"Seo mo theaghlach.", en:"This is my family."}
+    ],
+    quiz:[
+      {q:"'deirfiúr' means…", opts:["Brother","Sister","Mother","Aunt"], a:1},
+      {q:"'seanathair' means…", opts:["Uncle","Father","Grandfather","Cousin"], a:2},
+      {q:"'Tá beirt deartháireacha agam' means…", opts:["I have two sisters","I have two brothers","I am two years old","I have two cousins"], a:1},
+      {q:"Which word means 'aunt'?", opts:["aintín","uncail","iníon","mac"], a:0},
+      {q:"'An bhfuil deirfiúracha agat?' asks…", opts:["Do you have pets?","Do you have sisters?","Are you tired?","Do you have homework?"], a:1}
+    ]
+  },
+  {
+    id:3, es:"Dathanna", en:"Colours & describing",
+    intro:"Colours, used constantly to describe schoolbags, eyes, and everyday objects.",
+    vocab:[
+      {es:"dearg", en:"red"},{es:"gorm", en:"blue"},{es:"glas", en:"green"},{es:"buí", en:"yellow"},
+      {es:"dubh", en:"black"},{es:"bán", en:"white"},{es:"bándearg", en:"pink"},{es:"oráiste", en:"orange"},
+      {es:"corcra", en:"purple"},{es:"liath", en:"grey"}
+    ],
+    phrases:[
+      {es:"Cén dath atá air?", en:"What colour is it?"},
+      {es:"Tá mo mhála gorm.", en:"My bag is blue."},
+      {es:"Tá súile glasa agam.", en:"I have green eyes."}
+    ],
+    quiz:[
+      {q:"'gorm' means…", opts:["Red","Blue","Green","Yellow"], a:1},
+      {q:"'Tá mo mhála gorm' means…", opts:["My bag is red","My bag is blue","My bag is heavy","My bag is new"], a:1},
+      {q:"Which word means 'yellow'?", opts:["buí","glas","dubh","bán"], a:0},
+      {q:"'dubh' means…", opts:["White","Black","Grey","Purple"], a:1},
+      {q:"'Cén dath atá air?' asks…", opts:["How big is it?","What colour is it?","How much does it cost?","Where is it?"], a:1}
+    ]
+  },
+  {
+    id:4, es:"Uimhreacha agus Aois", en:"Numbers & age",
+    intro:"Counting and asking someone's age — a building block for dozens of other topics.",
+    vocab:[
+      {es:"a haon", en:"one"},{es:"a dó", en:"two"},{es:"a trí", en:"three"},{es:"a ceathair", en:"four"},
+      {es:"a cúig", en:"five"},{es:"a sé", en:"six"},{es:"a seacht", en:"seven"},{es:"a hocht", en:"eight"},
+      {es:"a naoi", en:"nine"},{es:"a deich", en:"ten"}
+    ],
+    phrases:[
+      {es:"Cén aois thú?", en:"What age are you?"},
+      {es:"Táim trí bliana déag d'aois.", en:"I am thirteen years old."}
+    ],
+    quiz:[
+      {q:"'a cúig' is the number…", opts:["3","4","5","6"], a:2},
+      {q:"'Cén aois thú?' asks…", opts:["What's your name?","What age are you?","Where do you live?","How are you?"], a:1},
+      {q:"'a hocht' is the number…", opts:["7","8","9","10"], a:1},
+      {q:"'Táim ___ bliana déag d'aois' is used to say…", opts:["I am ___ years old","I have ___ siblings","I live at number ___","I have ___ euro"], a:0},
+      {q:"'a naoi' is the number…", opts:["7","8","9","10"], a:2}
+    ]
+  },
+  {
+    id:5, es:"An Scoil", en:"School",
+    intro:"Classroom vocabulary and saying what subjects you like — directly usable in her actual Irish class.",
+    vocab:[
+      {es:"an scoil", en:"school"},{es:"an múinteoir", en:"teacher"},{es:"an dalta", en:"pupil"},
+      {es:"an leabhar", en:"book"},{es:"an cóipleabhar", en:"copybook"},{es:"an mála scoile", en:"schoolbag"},
+      {es:"an peann luaidhe", en:"pencil"},{es:"an peann", en:"pen"},{es:"an Ghaeilge", en:"Irish (the subject)"},
+      {es:"an mhatamaitic", en:"maths"}
+    ],
+    phrases:[
+      {es:"Is maith liom an Ghaeilge.", en:"I like Irish."},
+      {es:"Ní maith liom an tíreolaíocht.", en:"I don't like geography."},
+      {es:"Cén t-ábhar is fearr leat?", en:"What's your favourite subject?"}
+    ],
+    quiz:[
+      {q:"'an múinteoir' means…", opts:["Pupil","Teacher","School","Book"], a:1},
+      {q:"'Is maith liom an Ghaeilge' means…", opts:["I speak Irish","I like Irish","I study Irish only","I dislike Irish"], a:1},
+      {q:"'an cóipleabhar' means…", opts:["Pencil case","Copybook","Classroom","Timetable"], a:1},
+      {q:"'Ní maith liom an tíreolaíocht' means…", opts:["I love geography","I don't have geography","I don't like geography","I'm good at geography"], a:2},
+      {q:"'an mhatamaitic' means…", opts:["Science","Maths","Music","History"], a:1}
+    ]
+  },
+  {
+    id:6, es:"An Teach", en:"House & home",
+    intro:"Rooms of the house — useful for describing your home, a very common written task.",
+    vocab:[
+      {es:"an teach", en:"house"},{es:"an seomra leapa", en:"bedroom"},{es:"an chistin", en:"kitchen"},
+      {es:"an seomra folctha", en:"bathroom"},{es:"an seomra suí", en:"living room"},{es:"an gairdín", en:"garden"},
+      {es:"an leaba", en:"bed"},{es:"an fhuinneog", en:"window"},{es:"an doras", en:"door"}
+    ],
+    phrases:[
+      {es:"Tá mo theach mór.", en:"My house is big."},
+      {es:"Cá bhfuil an chistin?", en:"Where is the kitchen?"}
+    ],
+    quiz:[
+      {q:"'an chistin' means…", opts:["Bathroom","Kitchen","Bedroom","Garden"], a:1},
+      {q:"'Tá mo theach mór' means…", opts:["My house is small","My house is old","My house is big","My house is new"], a:2},
+      {q:"'Cá bhfuil an chistin?' asks…", opts:["What's for dinner?","Where is the kitchen?","Is the kitchen clean?","How big is the kitchen?"], a:1},
+      {q:"Which word means 'garden'?", opts:["an gairdín","an seomra suí","an seomra folctha","an fhuinneog"], a:0},
+      {q:"'an doras' means…", opts:["Window","Wall","Door","Roof"], a:2}
+    ]
+  },
+  {
+    id:7, es:"Bia agus Deoch", en:"Food & drink",
+    intro:"Everyday food and drink vocabulary, plus the three meals of the day.",
+    vocab:[
+      {es:"arán", en:"bread"},{es:"uisce", en:"water"},{es:"bainne", en:"milk"},{es:"úll", en:"apple"},
+      {es:"sicín", en:"chicken"},{es:"rís", en:"rice"},{es:"sailéad", en:"salad"},
+      {es:"bricfeasta", en:"breakfast"},{es:"lón", en:"lunch"},{es:"dinnéar", en:"dinner"}
+    ],
+    phrases:[
+      {es:"Tá ocras orm.", en:"I'm hungry."},
+      {es:"Tá tart orm.", en:"I'm thirsty."},
+      {es:"Is maith liom pizza.", en:"I like pizza."}
+    ],
+    quiz:[
+      {q:"'Tá ocras orm' means…", opts:["I'm thirsty","I'm hungry","I'm full","I'm cooking"], a:1},
+      {q:"'dinnéar' means…", opts:["Breakfast","Lunch","Dinner","Snack"], a:2},
+      {q:"Which word means 'apple'?", opts:["úll","arán","sicín","rís"], a:0},
+      {q:"'Tá tart orm' means…", opts:["I'm hungry","I'm tired","I'm thirsty","I'm cold"], a:2},
+      {q:"'sicín' means…", opts:["Rice","Chicken","Salad","Bread"], a:1}
+    ]
+  },
+  {
+    id:8, es:"An Aimsir", en:"Weather",
+    intro:"Talking about the weather — short, but comes up in almost every conversation task.",
+    vocab:[
+      {es:"Tá sé grianmhar", en:"It's sunny"},{es:"Tá sé fuar", en:"It's cold"},{es:"Tá sé te", en:"It's hot"},
+      {es:"Tá sé ag cur báistí", en:"It's raining"},{es:"Tá sé ag cur sneachta", en:"It's snowing"},
+      {es:"Tá sé gaofar", en:"It's windy"},{es:"Tá sé scamallach", en:"It's cloudy"}
+    ],
+    phrases:[
+      {es:"Cén sórt lae atá ann?", en:"What's the weather like today?"},
+      {es:"Tá sé grianmhar agus te.", en:"It's sunny and hot."},
+      {es:"In Éirinn, bíonn sé ag cur báistí go minic.", en:"In Ireland, it often rains."}
+    ],
+    quiz:[
+      {q:"'Cén sórt lae atá ann?' asks…", opts:["What time is it?","What's the weather like today?","What day is it?","What season is it?"], a:1},
+      {q:"'Tá sé fuar' means…", opts:["It's hot","It's cold","It's windy","It's sunny"], a:1},
+      {q:"'Tá sé ag cur báistí' means…", opts:["It's snowing","It's windy","It's raining","It's cloudy"], a:2},
+      {q:"'bíonn sé ag cur báistí go minic' means…", opts:["it's always sunny","it often rains","it's very cold","it often snows"], a:1},
+      {q:"Which phrase means 'sunny'?", opts:["Tá sé grianmhar","Tá sé te","Tá sé scamallach","Tá sé gaofar"], a:0}
+    ]
+  },
+  {
+    id:9, es:"Laethanta agus Míonna", en:"Days & months",
+    intro:"The days of the week and simple date phrases.",
+    vocab:[
+      {es:"Dé Luain", en:"Monday"},{es:"Dé Máirt", en:"Tuesday"},{es:"Dé Céadaoin", en:"Wednesday"},
+      {es:"Déardaoin", en:"Thursday"},{es:"Dé hAoine", en:"Friday"},{es:"Dé Sathairn", en:"Saturday"},
+      {es:"Dé Domhnaigh", en:"Sunday"},{es:"inniu", en:"today"},{es:"amárach", en:"tomorrow"}
+    ],
+    phrases:[
+      {es:"Cén lá atá ann inniu?", en:"What day is it today?"},
+      {es:"Dé Luain atá ann inniu.", en:"Today is Monday."}
+    ],
+    quiz:[
+      {q:"'Dé Luain' is…", opts:["Sunday","Monday","Tuesday","Friday"], a:1},
+      {q:"'Cén lá atá ann inniu?' asks…", opts:["What time is it?","What day is it today?","What's the weather?","What month is it?"], a:1},
+      {q:"'amárach' means…", opts:["Yesterday","Today","Tomorrow","Now"], a:2},
+      {q:"Which day is 'Dé hAoine'?", opts:["Wednesday","Thursday","Friday","Saturday"], a:2},
+      {q:"Which is 'Sunday'?", opts:["Dé Sathairn","Dé Domhnaigh","Dé Luain","Dé Máirt"], a:1}
+    ]
+  },
+  {
+    id:10, es:"Caithimh Aimsire", en:"Hobbies & free time",
+    intro:"What you do for fun — great for building real conversation confidence.",
+    vocab:[
+      {es:"peil a imirt", en:"to play football"},{es:"léamh", en:"to read"},{es:"snámh", en:"to swim"},
+      {es:"damhsa", en:"to dance"},{es:"éisteacht le ceol", en:"to listen to music"},
+      {es:"féachaint ar an teilifís", en:"to watch television"},{es:"rothaíocht", en:"cycling"}
+    ],
+    phrases:[
+      {es:"Is maith liom peil a imirt.", en:"I like playing football."},
+      {es:"Cad a dhéanann tú i do chuid ama saor?", en:"What do you do in your free time?"}
+    ],
+    quiz:[
+      {q:"'Is maith liom peil a imirt' means…", opts:["I dislike football","I like playing football","I watch football","I coach football"], a:1},
+      {q:"Which word means 'to read'?", opts:["léamh","snámh","damhsa","rothaíocht"], a:0},
+      {q:"'Cad a dhéanann tú i do chuid ama saor?' asks…", opts:["What's your favourite subject?","What do you do in your free time?","Where do you live?","What time is it?"], a:1},
+      {q:"'rothaíocht' means…", opts:["Driving","Cycling","Walking","Running"], a:1},
+      {q:"'éisteacht le ceol' means…", opts:["To play music","To listen to music","To sing","To dance"], a:1}
+    ]
+  },
+  {
+    id:11, es:"An Baile", en:"Town & directions",
+    intro:"Places around town, and giving simple directions.",
+    vocab:[
+      {es:"an baile mór", en:"town"},{es:"an chathair", en:"city"},{es:"an siopa", en:"shop"},
+      {es:"an pháirc", en:"park"},{es:"an tsráid", en:"street"},{es:"an eaglais", en:"church"},
+      {es:"ar dheis", en:"to the right"},{es:"ar chlé", en:"to the left"},{es:"díreach ar aghaidh", en:"straight ahead"}
+    ],
+    phrases:[
+      {es:"Cá bhfuil an pháirc?", en:"Where is the park?"},
+      {es:"Tá sé ar dheis.", en:"It's on the right."}
+    ],
+    quiz:[
+      {q:"'Cá bhfuil an pháirc?' asks…", opts:["What time is it?","Where is the park?","Is the park open?","How far is the park?"], a:1},
+      {q:"'ar chlé' means…", opts:["To the right","Straight ahead","To the left","Nearby"], a:2},
+      {q:"Which word means 'shop'?", opts:["an siopa","an eaglais","an tsráid","an pháirc"], a:0},
+      {q:"'díreach ar aghaidh' means…", opts:["Turn around","Straight ahead","Stop here","Go back"], a:1},
+      {q:"'an chathair' means…", opts:["Town","City","Village","Street"], a:1}
+    ]
+  },
+  {
+    id:12, es:"Mothúcháin", en:"Feelings & the body",
+    intro:"Saying how you feel, and a few basic parts of the body.",
+    vocab:[
+      {es:"sásta", en:"happy"},{es:"brónach", en:"sad"},{es:"tuirseach", en:"tired"},
+      {es:"feargach", en:"angry"},{es:"neirbhíseach", en:"nervous"},{es:"an ceann", en:"head"},
+      {es:"na súile", en:"eyes"},{es:"an lámh", en:"hand"},{es:"an chos", en:"foot"}
+    ],
+    phrases:[
+      {es:"Táim tuirseach.", en:"I am tired."},
+      {es:"Conas atá tú ag mothú?", en:"How are you feeling?"},
+      {es:"Tá tinneas cinn orm.", en:"I have a headache."}
+    ],
+    quiz:[
+      {q:"'Táim tuirseach' means…", opts:["I am happy","I am tired","I am angry","I am nervous"], a:1},
+      {q:"Which word means 'sad'?", opts:["sásta","brónach","neirbhíseach","tuirseach"], a:1},
+      {q:"'Conas atá tú ag mothú?' asks…", opts:["What's your name?","How are you feeling?","Where does it hurt?","How old are you?"], a:1},
+      {q:"'Tá tinneas cinn orm' means…", opts:["I like my head","My head is big","I have a headache","I lost my head"], a:2},
+      {q:"'na súile' means…", opts:["Hands","Feet","Eyes","Ears"], a:2}
+    ]
+  }
+];
+
+let progress = {};
+let quizState = {};
+let currentView = "home";
+
+async function loadProgress(){
+  try{ const r = await window.storage.get('jc-irish-progress'); if(r && r.value) progress = JSON.parse(r.value); }
+  catch(e){ progress = {}; }
+}
+async function saveProgress(){
+  try{ await window.storage.set('jc-irish-progress', JSON.stringify(progress)); }
+  catch(e){ console.error('Could not save progress', e); }
+}
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ga-IE';
+  u.rate = 0.9;
+  const voices = window.speechSynthesis.getVoices();
+  const gaVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ga'));
+  if(gaVoice) u.voice = gaVoice;
+  window.speechSynthesis.speak(u);
+}
+function renderNav(){
+  const list = document.getElementById('navList');
+  let html = `<li><button class="nav-item ${currentView==='home'?'active':''}" onclick="goTo('home')"><span class="nav-num">·</span> Start here</button></li>`;
+  UNITS.forEach(u => {
+    const active = currentView === u.id;
+    html += `<li><button class="nav-item ${active?'active':''}" onclick="goTo(${u.id})">
+      <span class="nav-num">${String(u.id).padStart(2,'0')}</span>
+      <span>${u.en}</span>
+      ${progress[u.id] ? '<span class="done-dot"></span>' : ''}
+    </button></li>`;
+  });
+  list.innerHTML = html;
+}
+function renderMosaic(){
+  const mosaic = document.getElementById('mosaic');
+  let html = '';
+  UNITS.forEach(u => { html += `<div class="cell ${progress[u.id]?'on':''}"></div>`; });
+  mosaic.innerHTML = html;
+  document.getElementById('progressCount').textContent = UNITS.filter(u => progress[u.id]).length;
+}
+function renderHome(){
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Start here</h2>`;
+  let cards = '';
+  UNITS.forEach(u => {
+    cards += `<div class="start-card" onclick="goTo(${u.id})">
+      <div class="n">${String(u.id).padStart(2,'0')} ${progress[u.id] ? '· done' : ''}</div>
+      <h3>${u.en}</h3>
+      <div class="es">${u.es}</div>
+    </div>`;
+  });
+  document.getElementById('content').innerHTML = `
+    <div class="hero">
+      <div class="eyebrow">A path for two, at one pace</div>
+      <h2>Build Irish back up together, one everyday topic at a time.</h2>
+      <p>These twelve units cover the everyday topics that come up constantly in Junior Cycle Irish — greetings, family, school, the house, food, the weather, and more — as a refresher, alongside whatever she's covering in class.</p>
+      <div class="hero-note">
+        <b>Worth knowing:</b> this is built for T2, the specification taught in English-medium schools, which is what the vast majority of students follow. If her school is Irish-medium (a Gaelscoil or Gaeltacht school) and she's on T1, the pace and depth expected there is considerably higher than what's here.
+      </div>
+    </div>
+    <div class="section-title">All twelve units</div>
+    <div class="start-grid">${cards}</div>
+  `;
+}
+function renderUnit(id){
+  const u = UNITS.find(x => x.id === id);
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Unit ${String(id).padStart(2,'0')}</h2>`;
+
+  let vocabHtml = '';
+  u.vocab.forEach((v, i) => {
+    vocabHtml += `
+      <div class="flip-card" id="fc-${id}-${i}" onclick="flipCard(${id},${i})">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <button class="speak-btn" onclick="event.stopPropagation(); speak('${v.es.replace(/'/g,"\\'")}')">&#128266;</button>
+            <div class="es">${v.es}</div>
+            <div class="hint">tap to flip</div>
+          </div>
+          <div class="flip-face flip-back">
+            <button class="speak-btn" onclick="event.stopPropagation(); speak('${v.es.replace(/'/g,"\\'")}')">&#128266;</button>
+            <div class="en">${v.en}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  let phraseHtml = '';
+  u.phrases.forEach(p => {
+    phraseHtml += `
+      <div class="phrase-row">
+        <button class="speak-btn" onclick="speak('${p.es.replace(/'/g,"\\'")}')">&#128266;</button>
+        <div class="es">${p.es}</div>
+        <div class="en">${p.en}</div>
+      </div>`;
+  });
+
+  if(!quizState[id]) quizState[id] = { answers:{}, checked:false };
+  let quizHtml = '';
+  u.quiz.forEach((q, qi) => {
+    const st = quizState[id];
+    let optsHtml = '';
+    q.opts.forEach((opt, oi) => {
+      let cls = 'q-option';
+      if(st.answers[qi] === oi) cls += ' selected';
+      if(st.checked){
+        if(oi === q.a) cls += ' correct';
+        else if(st.answers[qi] === oi && oi !== q.a) cls += ' incorrect';
+      }
+      optsHtml += `<label class="${cls}" onclick="selectAnswer(${id},${qi},${oi})">
+        <input type="radio" name="q-${id}-${qi}" ${st.answers[qi]===oi?'checked':''} ${st.checked?'disabled':''}> ${opt}
+      </label>`;
+    });
+    quizHtml += `<div class="q-item"><div class="q-prompt">${qi+1}. ${q.q}</div><div class="q-options">${optsHtml}</div></div>`;
+  });
+
+  let scoreHtml = '';
+  if(quizState[id].checked){
+    let correctCount = 0;
+    u.quiz.forEach((q,qi) => { if(quizState[id].answers[qi] === q.a) correctCount++; });
+    scoreHtml = `<div class="quiz-score">Score: ${correctCount} / ${u.quiz.length}</div>`;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="unit-head">
+      <div class="eyebrow">Unit ${String(id).padStart(2,'0')} of 12</div>
+      <h2>${u.en}</h2>
+      <div class="es-title">${u.es}</div>
+      <p class="intro">${u.intro}</p>
+    </div>
+
+    <div class="section-title">Vocabulary — tap a card to flip, tap &#128266; to hear it</div>
+    <div class="vocab-grid">${vocabHtml}</div>
+
+    <div class="section-title">Key phrases</div>
+    <div class="phrase-list">${phraseHtml}</div>
+
+    <div class="section-title">Quick quiz</div>
+    <div class="quiz-box">
+      ${quizHtml}
+      <div class="quiz-actions">
+        <button class="primary" onclick="checkQuiz(${id})">${quizState[id].checked ? 'Re-check' : 'Check answers'}</button>
+        <button class="ghost" onclick="resetQuiz(${id})">Try again</button>
+        ${scoreHtml}
+      </div>
+    </div>
+
+    <div class="complete-row">
+      <label><input type="checkbox" ${progress[id] ? 'checked' : ''} onchange="toggleComplete(${id}, this.checked)"> Mark this unit as done together</label>
+      <span class="note">Ticking this just tracks your own progress here — it isn't linked to her school.</span>
+    </div>
+
+    <div class="unit-footer-nav">
+      <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
+      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+    </div>
+  `;
+}
+function goTo(view){ currentView = view; renderNav(); if(view==='home') renderHome(); else renderUnit(view); window.scrollTo({top:0, behavior:'instant'}); }
+function flipCard(unitId, idx){ document.getElementById(`fc-${unitId}-${idx}`).classList.toggle('flipped'); }
+function selectAnswer(unitId, qi, oi){ if(quizState[unitId].checked) return; quizState[unitId].answers[qi] = oi; renderUnit(unitId); }
+function checkQuiz(unitId){ quizState[unitId].checked = true; renderUnit(unitId); }
+function resetQuiz(unitId){ quizState[unitId] = { answers:{}, checked:false }; renderUnit(unitId); }
+async function toggleComplete(unitId, val){ progress[unitId] = val; await saveProgress(); renderNav(); renderMosaic(); }
+
+(async function init(){
+  await loadProgress();
+  if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged = () => {}; }
+  renderNav(); renderMosaic(); renderHome();
+})();
+</script>
+</body>
+</html>
