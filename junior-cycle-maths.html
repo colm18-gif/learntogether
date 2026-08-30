@@ -58,7 +58,7 @@
   main{ flex:1; min-width:0; padding: 40px 56px 80px; }
   .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
   .progress-wrap{ display:flex; align-items:center; gap:14px; }
-  .mosaic{ display:grid; grid-template-columns: repeat(6,15px); grid-template-rows: repeat(2,15px); gap:3px; }
+  .mosaic{ display:grid; grid-template-columns: repeat(5,15px); grid-template-rows: repeat(3,15px); gap:3px; }
   .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition: background 0.3s ease; }
   .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color: var(--accent-deep); }
   .progress-text{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--ink-soft); }
@@ -167,7 +167,7 @@
       <div id="crumb"></div>
       <div class="progress-wrap">
         <div class="mosaic" id="mosaic"></div>
-        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+        <div class="progress-text"><b id="progressCount">0</b>/15 units done together</div>
       </div>
     </div>
     <div id="content"></div>
@@ -178,7 +178,7 @@
 const UNITS = [
   {
     id:1, en:"Directed Numbers & Order of Operations", strand:"Number",
-    intro:"Working confidently with positive and negative numbers, and knowing what order to do things in — the foundation everything else in maths builds on.",
+    intro:"Working confidently with positive and negative numbers, and knowing what order to do things in — the foundation everything else in maths builds on. Get this unit solid and almost every later topic gets easier.",
     vocab:[
       {es:"Directed number", en:"A number with a + or − sign showing direction, e.g. −7 or +3"},
       {es:"Order of operations", en:"Brackets, then Indices, then Multiplication/Division, then Addition/Subtraction"},
@@ -188,19 +188,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Evaluate −8 + 3 × (−2)", en:"Multiply first: 3×(−2) = −6, then −8 + (−6) = −14"},
-      {es:"Evaluate (4 − 9) + 2 × 3", en:"Brackets first: 4−9 = −5, then 2×3 = 6, so −5+6 = 1"}
+      {es:"Evaluate (4 − 9) + 2 × 3", en:"Brackets first: 4−9 = −5, then 2×3 = 6, so −5+6 = 1"},
+      {es:"Evaluate 12 − 20 + 3", en:"Left to right: 12−20 = −8, then −8+3 = −5"}
     ],
     quiz:[
       {q:"What is −7 + 3?", opts:["−4","4","−10","10"], a:0},
       {q:"Evaluate 2 + 3 × 4", opts:["20","14","9","24"], a:1},
       {q:"What is (−5) × (−2)?", opts:["−10","10","−7","7"], a:1},
       {q:"Evaluate 10 − (−4)", opts:["6","14","−6","−14"], a:1},
-      {q:"In 3 × (2 + 5), what do you do first?", opts:["3 × 2","2 + 5","3 × 5","Nothing, work left to right"], a:1}
+      {q:"In 3 × (2 + 5), what do you do first?", opts:["3 × 2","2 + 5","3 × 5","Nothing, work left to right"], a:1},
+      {q:"Evaluate 6 − 9", opts:["−3","3","−15","15"], a:0},
+      {q:"What is (−4) + (−5)?", opts:["−9","9","−1","1"], a:0},
+      {q:"Evaluate 5 × (−3) + 2", opts:["−13","−15","13","17"], a:0}
     ]
   },
   {
     id:2, en:"Fractions, Decimals & Percentages", strand:"Number",
-    intro:"Converting fluently between the three ways of writing a part of a whole — and using percentages in everyday situations.",
+    intro:"Converting fluently between the three ways of writing a part of a whole — and using percentages in everyday situations like shopping discounts and interest.",
     vocab:[
       {es:"Equivalent fractions", en:"Fractions that represent the same value, e.g. 1/2 = 2/4"},
       {es:"Fraction → decimal", en:"Divide the numerator by the denominator, e.g. 3/4 = 0.75"},
@@ -210,19 +214,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Find 15% of 60", en:"15% = 0.15, so 0.15 × 60 = 9"},
-      {es:"Increase 80 by 25%", en:"80 × 1.25 = 100"}
+      {es:"Increase 80 by 25%", en:"80 × 1.25 = 100"},
+      {es:"Convert 7/10 to a percentage", en:"7/10 = 0.7 = 70%"}
     ],
     quiz:[
       {q:"What is 3/4 as a decimal?", opts:["0.34","0.75","0.43","0.57"], a:1},
       {q:"What is 0.6 as a percentage?", opts:["6%","60%","0.6%","16%"], a:1},
       {q:"What is 20% of 150?", opts:["20","30","15","35"], a:1},
       {q:"Increase 40 by 10%", opts:["44","4","50","41"], a:0},
-      {q:"Which fraction equals 2/4?", opts:["1/3","1/2","3/4","1/5"], a:1}
+      {q:"Which fraction equals 2/4?", opts:["1/3","1/2","3/4","1/5"], a:1},
+      {q:"What is 1/4 as a decimal?", opts:["0.25","0.4","0.14","2.5"], a:0},
+      {q:"What is 45% as a decimal?", opts:["0.45","4.5","0.045","45"], a:0},
+      {q:"Decrease 60 by 20%", opts:["48","40","54","12"], a:0}
     ]
   },
   {
     id:3, en:"Ratio & Proportion", strand:"Number",
-    intro:"Comparing quantities fairly, sharing amounts in a given ratio, and reasoning about direct proportion.",
+    intro:"Comparing quantities fairly, sharing amounts in a given ratio, and reasoning about direct proportion — skills that carry straight over into recipes, maps, and pay.",
     vocab:[
       {es:"Ratio", en:"Compares two or more quantities, e.g. 3:2"},
       {es:"Simplifying a ratio", en:"Divide all parts by their highest common factor, e.g. 8:12 = 2:3"},
@@ -232,19 +240,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Share €60 in the ratio 2:3", en:"5 parts total, €12 per part → €24 and €36"},
-      {es:"Simplify 15:20", en:"Divide by 5 → 3:4"}
+      {es:"Simplify 15:20", en:"Divide by 5 → 3:4"},
+      {es:"Simplify the ratio 25:100", en:"Divide by 25 → 1:4"}
     ],
     quiz:[
       {q:"Simplify 10:15", opts:["2:3","3:2","1:2","5:10"], a:0},
       {q:"Share €50 in the ratio 2:3 — what's the larger share?", opts:["€20","€30","€25","€35"], a:1},
       {q:"A ratio compares…", opts:["Two unrelated things","Two or more quantities","Only percentages","Only decimals"], a:1},
       {q:"Simplify 8:12", opts:["2:3","4:6","1:2","3:4"], a:0},
-      {q:"3 pens cost €6. What do 5 pens cost (direct proportion)?", opts:["€8","€10","€12","€15"], a:1}
+      {q:"3 pens cost €6. What do 5 pens cost (direct proportion)?", opts:["€8","€10","€12","€15"], a:1},
+      {q:"Simplify 6:9", opts:["2:3","3:2","1:3","6:9"], a:0},
+      {q:"If 4 apples cost €2, what do 10 apples cost?", opts:["€5","€4","€8","€2.50"], a:0},
+      {q:"Share €90 in the ratio 1:2:3 — what's the largest share?", opts:["€45","€30","€15","€60"], a:0}
     ]
   },
   {
     id:4, en:"Indices & Standard Form", strand:"Number",
-    intro:"Powers, the index laws, and writing very large or small numbers compactly.",
+    intro:"Powers, the index laws, and writing very large or small numbers compactly — the notation scientists use for everything from atoms to galaxies.",
     vocab:[
       {es:"Index (power)", en:"Shows how many times to multiply a number by itself, e.g. 2³ = 2×2×2 = 8"},
       {es:"Multiplying powers", en:"Same base, add the indices: 2²×2³ = 2⁵"},
@@ -254,19 +266,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Write 45,000 in standard form", en:"4.5 × 10⁴"},
-      {es:"Simplify 3² × 3⁴", en:"3⁶"}
+      {es:"Simplify 3² × 3⁴", en:"3⁶"},
+      {es:"Simplify (2³)²", en:"Multiply the indices: 2^(3×2) = 2⁶ = 64"}
     ],
     quiz:[
       {q:"What is 2³?", opts:["6","8","9","4"], a:1},
       {q:"Simplify 5² × 5³", opts:["5⁵","5⁶","25⁵","5¹"], a:0},
       {q:"What is 7⁰?", opts:["0","7","1","70"], a:2},
       {q:"Write 6,200 in standard form", opts:["6.2×10²","6.2×10³","62×10²","0.62×10⁴"], a:1},
-      {q:"Simplify 4⁵ ÷ 4²", opts:["4³","4⁷","4¹⁰","4²"], a:0}
+      {q:"Simplify 4⁵ ÷ 4²", opts:["4³","4⁷","4¹⁰","4²"], a:0},
+      {q:"What is 3⁴?", opts:["81","12","64","27"], a:0},
+      {q:"Simplify 2³ × 2² (leave in index form)", opts:["2⁵","2⁶","4⁵","2¹"], a:0},
+      {q:"Write 0.0056 in standard form", opts:["5.6×10⁻³","5.6×10³","0.56×10⁻²","56×10⁻⁴"], a:0}
     ]
   },
   {
     id:5, en:"Expressions & Substitution", strand:"Algebra & Functions",
-    intro:"Reading and simplifying algebraic expressions, and substituting numbers in for letters.",
+    intro:"Reading and simplifying algebraic expressions, and substituting numbers in for letters — the everyday grammar of algebra that every later topic relies on.",
     vocab:[
       {es:"Term", en:"A single number, variable, or product of numbers/variables, e.g. 3x"},
       {es:"Like terms", en:"Terms with the same variable part — they can be combined, e.g. 3x+2x=5x"},
@@ -276,19 +292,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Simplify 4x + 3x − x", en:"6x"},
-      {es:"If x=3, find 2x+5", en:"2(3)+5 = 11"}
+      {es:"If x=3, find 2x+5", en:"2(3)+5 = 11"},
+      {es:"Expand and simplify 2(x+3) + 4x", en:"2x+6+4x = 6x+6"}
     ],
     quiz:[
       {q:"Simplify 5x + 2x", opts:["7x","10x","3x","7x²"], a:0},
       {q:"Expand 3(x+4)", opts:["3x+4","3x+12","x+12","3x+7"], a:1},
       {q:"If x=2, evaluate 4x−1", opts:["7","6","9","8"], a:0},
       {q:"Simplify 6y − 2y + y", opts:["3y","5y","4y","9y"], a:1},
-      {q:"Which is a like term to 3x?", opts:["3x²","5x","3y","x³"], a:1}
+      {q:"Which is a like term to 3x?", opts:["3x²","5x","3y","x³"], a:1},
+      {q:"Simplify 7a − 3a + 2a", opts:["6a","12a","2a","4a"], a:0},
+      {q:"Expand 4(2x−1)", opts:["8x−4","8x−1","2x−4","8x+4"], a:0},
+      {q:"If x=5, evaluate 3x−7", opts:["8","22","−8","15"], a:0}
     ]
   },
   {
     id:6, en:"Solving Equations", strand:"Algebra & Functions",
-    intro:"Using inverse operations to find the value of an unknown, keeping the equation balanced.",
+    intro:"Using inverse operations to find the value of an unknown, keeping the equation balanced — the skill behind almost every 'find x' question you'll meet.",
     vocab:[
       {es:"Equation", en:"A statement that two expressions are equal — it has an ="},
       {es:"Inverse operation", en:"The operation that undoes another, e.g. −3 undoes +3"},
@@ -297,19 +317,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Solve x+7=12", en:"x = 5"},
-      {es:"Solve 3x−4=11", en:"3x=15, so x=5"}
+      {es:"Solve 3x−4=11", en:"3x=15, so x=5"},
+      {es:"Solve 2(x+1)=10", en:"2x+2=10, 2x=8, x=4"}
     ],
     quiz:[
       {q:"Solve x+9=15", opts:["x=6","x=24","x=5","x=4"], a:0},
       {q:"Solve 2x=18", opts:["x=9","x=16","x=36","x=20"], a:0},
       {q:"Solve 4x+1=13", opts:["x=3","x=4","x=12","x=2"], a:0},
       {q:"Solve x−5=2", opts:["x=7","x=3","x=−3","x=10"], a:0},
-      {q:"Solve 5x−3=22", opts:["x=5","x=4","x=19","x=25"], a:0}
+      {q:"Solve 5x−3=22", opts:["x=5","x=4","x=19","x=25"], a:0},
+      {q:"Solve 2x+7=19", opts:["x=6","x=13","x=12","x=26"], a:0},
+      {q:"Solve x/3=4", opts:["x=12","x=1.33","x=7","x=43"], a:0},
+      {q:"Solve 3(x−2)=15", opts:["x=7","x=5","x=17","x=13"], a:0}
     ]
   },
   {
     id:7, en:"Patterns & Sequences", strand:"Algebra & Functions",
-    intro:"Spotting the rule in a sequence of numbers, and using an nth-term formula to jump straight to any term.",
+    intro:"Spotting the rule in a sequence of numbers, and using an nth-term formula to jump straight to any term without listing them all out.",
     vocab:[
       {es:"Sequence", en:"A list of numbers following a rule"},
       {es:"Common difference", en:"The amount added or subtracted between terms in a linear sequence"},
@@ -318,19 +342,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Find the next term: 2, 5, 8, 11, __", en:"14 — add 3 each time"},
-      {es:"nth term = 3n+1, find the 4th term", en:"3(4)+1 = 13"}
+      {es:"nth term = 3n+1, find the 4th term", en:"3(4)+1 = 13"},
+      {es:"Find the 6th term of 4, 9, 14, 19, …", en:"Common difference 5: nth term = 5n−1, so 6th term = 5(6)−1 = 29"}
     ],
     quiz:[
       {q:"What comes next: 4, 7, 10, 13, __?", opts:["15","16","17","14"], a:1},
       {q:"Common difference in 2, 5, 8, 11?", opts:["2","3","4","5"], a:1},
       {q:"nth term = 2n+3. Find the 5th term.", opts:["13","10","11","15"], a:0},
       {q:"Which sequence is linear (constant difference)?", opts:["1, 2, 4, 8","3, 6, 9, 12","1, 4, 9, 16","2, 4, 8, 16"], a:1},
-      {q:"Find the next term: 20, 17, 14, 11, __", opts:["9","8","7","10"], a:1}
+      {q:"Find the next term: 20, 17, 14, 11, __", opts:["9","8","7","10"], a:1},
+      {q:"Find the next term: 3, 6, 12, 24, __ (doubling)", opts:["48","36","30","27"], a:0},
+      {q:"nth term = 5n−2. Find the 3rd term.", opts:["13","15","10","8"], a:0},
+      {q:"What's the common difference in 15, 11, 7, 3?", opts:["−4","4","−3","3"], a:0}
     ]
   },
   {
     id:8, en:"Angles & Triangles", strand:"Geometry & Trigonometry",
-    intro:"The core angle facts used to find missing angles on lines, around points, and in triangles.",
+    intro:"The core angle facts used to find missing angles on lines, around points, and in triangles — a small set of rules that unlocks most angle-chasing questions.",
     vocab:[
       {es:"Angles on a straight line", en:"Add up to 180°"},
       {es:"Angles around a point", en:"Add up to 360°"},
@@ -340,19 +368,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Two angles on a line are 70° and x. Find x.", en:"180−70 = 110°"},
-      {es:"A triangle has angles 50° and 60°. Find the third.", en:"180−50−60 = 70°"}
+      {es:"A triangle has angles 50° and 60°. Find the third.", en:"180−50−60 = 70°"},
+      {es:"Find x if angles 3x and 2x lie on a straight line", en:"3x+2x=180, 5x=180, x=36°"}
     ],
     quiz:[
       {q:"Angles on a straight line add to…", opts:["90°","180°","270°","360°"], a:1},
       {q:"Angles in a triangle add to…", opts:["90°","180°","270°","360°"], a:1},
       {q:"Two angles of a triangle are 40° and 90°. The third?", opts:["40°","50°","60°","70°"], a:1},
       {q:"Angles around a point add to…", opts:["180°","270°","360°","90°"], a:2},
-      {q:"An isosceles triangle has at least how many equal angles?", opts:["1","2","3","0"], a:1}
+      {q:"An isosceles triangle has at least how many equal angles?", opts:["1","2","3","0"], a:1},
+      {q:"A quadrilateral's interior angles add to…", opts:["360°","180°","270°","90°"], a:0},
+      {q:"In an equilateral triangle, each angle is…", opts:["60°","90°","45°","120°"], a:0},
+      {q:"Vertically opposite angles are…", opts:["Equal","Supplementary (add to 180°)","Complementary (add to 90°)","Always 90°"], a:0}
     ]
   },
   {
     id:9, en:"Area & Volume", strand:"Geometry & Trigonometry",
-    intro:"The key formulas for rectangles, triangles, circles, and cuboids.",
+    intro:"The key formulas for rectangles, triangles, circles, and cuboids — the ones worth knowing by heart since they come up constantly.",
     vocab:[
       {es:"Area of a rectangle", en:"length × width"},
       {es:"Area of a triangle", en:"½ × base × height"},
@@ -362,19 +394,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Triangle: base 8cm, height 5cm", en:"½×8×5 = 20cm²"},
-      {es:"Cuboid: 4cm × 3cm × 2cm", en:"4×3×2 = 24cm³"}
+      {es:"Cuboid: 4cm × 3cm × 2cm", en:"4×3×2 = 24cm³"},
+      {es:"Area of a circle with radius 3cm", en:"π×3² ≈ 3.14×9 = 28.26cm²"}
     ],
     quiz:[
       {q:"Area of a rectangle 6cm × 4cm?", opts:["24cm²","10cm²","20cm²","12cm²"], a:0},
       {q:"Area of a triangle, base 10cm, height 6cm?", opts:["60cm²","30cm²","16cm²","40cm²"], a:1},
       {q:"Volume of a cuboid 2×3×5?", opts:["10","30","15","20"], a:1},
       {q:"Formula for the area of a circle?", opts:["πd","2πr","πr²","πr"], a:2},
-      {q:"Formula for circumference?", opts:["πr²","2πr","πr","πd²"], a:1}
+      {q:"Formula for circumference?", opts:["πr²","2πr","πr","πd²"], a:1},
+      {q:"Area of a square with side 7cm?", opts:["49cm²","14cm²","28cm²","21cm²"], a:0},
+      {q:"Volume of a cube with side 3cm?", opts:["27cm³","9cm³","6cm³","18cm³"], a:0},
+      {q:"Area of a circle with radius 4cm (use π≈3.14)?", opts:["50.24cm²","12.56cm²","25.12cm²","16cm²"], a:0}
     ]
   },
   {
     id:10, en:"Coordinate Geometry", strand:"Geometry & Trigonometry",
-    intro:"Plotting and describing points on the x–y plane, and finding the midpoint of a line segment.",
+    intro:"Plotting and describing points on the x–y plane, and finding the midpoint of a line segment — the groundwork for graphs in every later maths topic.",
     vocab:[
       {es:"Coordinates", en:"An (x,y) pair showing a point's position on a grid"},
       {es:"x-axis", en:"The horizontal axis"},
@@ -384,19 +420,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Midpoint of (2,4) and (6,8)", en:"((2+6)/2, (4+8)/2) = (4,6)"},
-      {es:"Plot the point (3,−2)", en:"3 right of the origin, 2 down"}
+      {es:"Plot the point (3,−2)", en:"3 right of the origin, 2 down"},
+      {es:"Find the midpoint of (1,1) and (5,7)", en:"((1+5)/2, (1+7)/2) = (3,4)"}
     ],
     quiz:[
       {q:"What is the origin?", opts:["(1,1)","(0,0)","(−1,−1)","Any point"], a:1},
       {q:"Midpoint of (0,0) and (4,4)?", opts:["(2,2)","(4,4)","(1,1)","(0,4)"], a:0},
       {q:"Which axis is horizontal?", opts:["y-axis","x-axis","z-axis","origin"], a:1},
       {q:"Midpoint of (2,6) and (8,2)?", opts:["(5,4)","(4,5)","(10,8)","(6,4)"], a:0},
-      {q:"In (x,y), which value comes first?", opts:["The y-value","The x-value","Neither","Both together"], a:1}
+      {q:"In (x,y), which value comes first?", opts:["The y-value","The x-value","Neither","Both together"], a:1},
+      {q:"Coordinates of a point 3 left and 2 up from the origin?", opts:["(−3,2)","(3,2)","(−3,−2)","(2,−3)"], a:0},
+      {q:"Midpoint of (−2,4) and (6,−2)?", opts:["(2,1)","(4,2)","(2,2)","(1,2)"], a:0},
+      {q:"Which quadrant is the point (−3,−5) in?", opts:["Third","First","Second","Fourth"], a:0}
     ]
   },
   {
     id:11, en:"Right-Angled Triangles", strand:"Geometry & Trigonometry",
-    intro:"Pythagoras' theorem and the SOHCAHTOA ratios for right-angled triangles — the start of trigonometry.",
+    intro:"Pythagoras' theorem and the SOHCAHTOA ratios for right-angled triangles — the start of trigonometry, and a genuine step up in difficulty worth taking slowly.",
     vocab:[
       {es:"Hypotenuse", en:"The longest side, opposite the right angle"},
       {es:"SOH", en:"sin(angle) = Opposite / Hypotenuse"},
@@ -406,19 +446,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Legs 3cm and 4cm — find the hypotenuse", en:"3²+4² = 25, √25 = 5cm"},
-      {es:"Find sin(30°)", en:"0.5, using a calculator"}
+      {es:"Find sin(30°)", en:"0.5, using a calculator"},
+      {es:"Find cos(60°)", en:"0.5, using a calculator"}
     ],
     quiz:[
       {q:"Pythagoras' theorem is…", opts:["a+b=c","a²+b²=c²","a²−b²=c²","a×b=c"], a:1},
       {q:"The hypotenuse is…", opts:["The shortest side","The side opposite the right angle","Always horizontal","Always vertical"], a:1},
       {q:"SOH stands for…", opts:["Sin=Opp/Hyp","Sin=Opp/Adj","Sin=Hyp/Opp","Sin=Adj/Hyp"], a:0},
       {q:"Legs 6cm and 8cm — the hypotenuse?", opts:["10cm","14cm","48cm","12cm"], a:0},
-      {q:"CAH stands for…", opts:["Cos=Adj/Hyp","Cos=Opp/Hyp","Cos=Hyp/Adj","Cos=Opp/Adj"], a:0}
+      {q:"CAH stands for…", opts:["Cos=Adj/Hyp","Cos=Opp/Hyp","Cos=Hyp/Adj","Cos=Opp/Adj"], a:0},
+      {q:"A ladder's base is 5m from a wall and reaches 12m up. How long is the ladder?", opts:["13m","17m","7m","144m"], a:0},
+      {q:"TOA stands for…", opts:["Tan=Opp/Adj","Tan=Adj/Opp","Tan=Opp/Hyp","Tan=Hyp/Adj"], a:0},
+      {q:"Hypotenuse 10cm, one leg 6cm — the other leg?", opts:["8cm","4cm","16cm","64cm"], a:0}
     ]
   },
   {
     id:12, en:"Statistics & Probability", strand:"Statistics & Probability",
-    intro:"Describing a set of data with an average and a spread, and the basics of probability.",
+    intro:"Describing a set of data with an average and a spread, and the basics of probability — the everyday maths behind polls, sports stats, and weather forecasts.",
     vocab:[
       {es:"Mean", en:"Add all the values and divide by how many there are"},
       {es:"Median", en:"The middle value once the data is placed in order"},
@@ -428,14 +472,95 @@ const UNITS = [
     ],
     phrases:[
       {es:"Mean of 4, 6, 8, 10", en:"(4+6+8+10)/4 = 7"},
-      {es:"3 red, 2 blue balls — P(red)?", en:"3/5"}
+      {es:"3 red, 2 blue balls — P(red)?", en:"3/5"},
+      {es:"Range of 12, 5, 20, 8", en:"Largest−smallest: 20−5 = 15"}
     ],
     quiz:[
       {q:"Mean of 2, 4, 6, 8?", opts:["4","5","6","20"], a:1},
       {q:"Median of 1, 3, 5, 7, 9?", opts:["3","5","7","9"], a:1},
       {q:"Mode of 2, 2, 3, 4, 5?", opts:["2","3","4","5"], a:0},
       {q:"Range of 3, 8, 10, 15?", opts:["12","7","15","18"], a:0},
-      {q:"Probability of a certain event?", opts:["0","0.5","1","undefined"], a:2}
+      {q:"Probability of a certain event?", opts:["0","0.5","1","undefined"], a:2},
+      {q:"A die is rolled. What's the probability of rolling a 4?", opts:["1/6","1/4","1/2","1/3"], a:0},
+      {q:"Mean of 5, 10, 15, 20, 25?", opts:["15","20","10","75"], a:0},
+      {q:"Which average is most affected by one very large or small value?", opts:["Mean","Median","Mode","Range"], a:0}
+    ]
+  },
+  {
+    id:13, en:"Rounding, Estimation & Significant Figures", strand:"Number",
+    intro:"Rounding numbers sensibly and estimating answers before calculating — a habit that catches silly mistakes before they become wrong answers on a test.",
+    vocab:[
+      {es:"Rounding to decimal places", en:"Look at the next digit: 5 or more rounds up, e.g. 3.847 to 2 d.p. = 3.85"},
+      {es:"Rounding to significant figures", en:"Counting from the first non-zero digit, e.g. 0.00456 to 2 s.f. = 0.0046"},
+      {es:"Estimation", en:"Rounding numbers first to get a quick, approximate answer"},
+      {es:"Truncation error", en:"The small inaccuracy introduced whenever a number is rounded"}
+    ],
+    phrases:[
+      {es:"Round 7.836 to 2 decimal places", en:"Look at the 3rd decimal (6) — rounds up: 7.84"},
+      {es:"Estimate 48 × 21", en:"Round to 50 × 20 = 1000, so the exact answer should be close to that"},
+      {es:"Round 3,482 to the nearest hundred", en:"3,482 is closer to 3,500 than 3,400: 3,500"}
+    ],
+    quiz:[
+      {q:"Round 5.647 to 2 decimal places", opts:["5.65","5.64","5.6","5.7"], a:0},
+      {q:"Round 12.3 to the nearest whole number", opts:["12","13","12.3","10"], a:0},
+      {q:"Estimate 39 × 19 by rounding first", opts:["About 800","About 400","About 1200","About 200"], a:0},
+      {q:"Round 0.0723 to 2 significant figures", opts:["0.072","0.07","0.073","0.0723"], a:0},
+      {q:"Round 2,650 to the nearest hundred", opts:["2,700","2,600","2,650","3,000"], a:0},
+      {q:"Why estimate before calculating exactly?", opts:["To catch obviously wrong answers","To avoid doing the real sum","Estimation is always exact","It's required by law"], a:0},
+      {q:"Round 19.95 to 1 decimal place", opts:["20.0","19.9","19.95","20"], a:0},
+      {q:"Round 4.499 to the nearest whole number", opts:["4","5","4.5","4.4"], a:0}
+    ]
+  },
+  {
+    id:14, en:"Symmetry & Transformations", strand:"Geometry & Trigonometry",
+    intro:"Moving and reflecting shapes on a grid without changing their size — translations, reflections and rotations, plus spotting a shape's own lines of symmetry.",
+    vocab:[
+      {es:"Line of symmetry", en:"A line that divides a shape into two mirror-image halves"},
+      {es:"Translation", en:"Sliding a shape a certain distance in a given direction, without turning or flipping it"},
+      {es:"Reflection", en:"Flipping a shape over a line (the mirror line) to create its mirror image"},
+      {es:"Rotation", en:"Turning a shape around a fixed point by a given angle"},
+      {es:"Congruent", en:"Shapes that are exactly the same size and shape, even if moved or turned"}
+    ],
+    phrases:[
+      {es:"Reflect the point (2,3) in the x-axis", en:"Keep x the same, flip the sign of y: (2,−3)"},
+      {es:"Translate (1,1) by (3,−2)", en:"Add the vector: (1+3, 1−2) = (4,−1)"},
+      {es:"How many lines of symmetry does a square have?", en:"4 — two through the midpoints of opposite sides, two through opposite corners"}
+    ],
+    quiz:[
+      {q:"A line of symmetry divides a shape into…", opts:["Two mirror-image halves","Three equal parts","Two unequal parts","A single point"], a:0},
+      {q:"Sliding a shape without turning or flipping it is a…", opts:["Rotation","Translation","Reflection","Enlargement"], a:1},
+      {q:"Reflecting a shape creates its…", opts:["Enlarged copy","Mirror image","Rotated copy","Shrunk copy"], a:1},
+      {q:"Reflect the point (4,5) in the x-axis", opts:["(4,−5)","(−4,5)","(−4,−5)","(5,4)"], a:0},
+      {q:"How many lines of symmetry does an equilateral triangle have?", opts:["3","1","2","0"], a:0},
+      {q:"Rotating a shape 180° about a point…", opts:["Turns it upside down/around","Slides it sideways","Reflects it in a line","Makes it bigger"], a:0},
+      {q:"Congruent shapes are…", opts:["Exactly the same size and shape","Similar but different sizes","Always symmetrical","Always triangles"], a:0},
+      {q:"Translate (0,0) by the vector (5,2)", opts:["(5,2)","(2,5)","(−5,−2)","(0,0)"], a:0}
+    ]
+  },
+  {
+    id:15, en:"Displaying & Interpreting Data", strand:"Statistics & Probability",
+    intro:"Choosing the right chart for a data set, and reading information back out of bar charts, pie charts and line graphs — the other half of statistics, alongside the averages from Unit 12.",
+    vocab:[
+      {es:"Bar chart", en:"Uses bars of different heights to compare separate categories"},
+      {es:"Pie chart", en:"Uses slices of a circle to show how a total is split into parts"},
+      {es:"Line graph", en:"Uses a connected line to show how a value changes over time"},
+      {es:"Frequency", en:"How many times a particular value or category occurs in a data set"},
+      {es:"Frequency table", en:"A table listing each value or category alongside its frequency"}
+    ],
+    phrases:[
+      {es:"A pie chart's slices should add up to…", en:"360° (or 100% of the data)"},
+      {es:"Reading a line graph showing temperature over a week", en:"Look at where the line is highest and lowest to find the max and min"},
+      {es:"A survey of 20 people's favourite colour, shown as a bar chart", en:"Each bar's height shows the frequency for that colour"}
+    ],
+    quiz:[
+      {q:"A bar chart is best for…", opts:["Comparing separate categories","Showing change over time only","Showing parts of a whole only","Finding an exact mean"], a:0},
+      {q:"The slices of a pie chart should add up to…", opts:["360°","180°","100 units","10"], a:0},
+      {q:"A line graph is most useful for showing…", opts:["How a value changes over time","Categories with no order","A single data point","Only negative numbers"], a:0},
+      {q:"Frequency means…", opts:["How often a value occurs","The largest value in a set","The average value","The range of a data set"], a:0},
+      {q:"In a frequency table, each row typically shows…", opts:["A value/category and its frequency","Only the mean","Only the mode","A line graph"], a:0},
+      {q:"If a pie chart slice is 90°, what fraction of the total does it represent?", opts:["1/4","1/2","1/8","1/3"], a:0},
+      {q:"Which chart type would suit 'temperature each hour today'?", opts:["Line graph","Pie chart","Bar chart of categories","None of these"], a:0},
+      {q:"Which chart type would suit 'favourite sport of 30 students'?", opts:["Bar chart","Line graph only","No chart needed","Only a pie chart is valid"], a:0}
     ]
   }
 ];
@@ -489,12 +614,12 @@ function renderHome(){
     <div class="hero">
       <div class="eyebrow">A path for two, at one pace</div>
       <h2>Work through the building blocks of Junior Cycle Maths, together.</h2>
-      <p>These twelve units draw the core ideas from all four Junior Cycle strands — Number, Algebra &amp; Functions, Geometry &amp; Trigonometry, and Statistics &amp; Probability — starting from the basics each later topic depends on.</p>
+      <p>These fifteen units draw the core ideas from all four Junior Cycle strands — Number, Algebra &amp; Functions, Geometry &amp; Trigonometry, and Statistics &amp; Probability — starting from the basics each later topic depends on, and going a bit further into rounding, transformations, and reading charts.</p>
       <div class="hero-note">
         <b>Worth knowing:</b> this covers the foundations, not the full three-year course — Junior Cycle Maths is a big subject. Use these units to get comfortable with the core ideas so homework and revision make more sense, and lean on their teacher or textbook for what's coming up next in class.
       </div>
     </div>
-    <div class="section-title">All twelve units</div>
+    <div class="section-title">All fifteen units</div>
     <div class="start-grid">${cards}</div>
   `;
 }
@@ -576,7 +701,7 @@ function renderUnit(id){
 
     <div class="unit-footer-nav">
       <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
-      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+      <button class="ghost" ${id===15?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
     </div>
   `;
 }

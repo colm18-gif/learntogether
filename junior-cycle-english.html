@@ -43,7 +43,7 @@
   main{ flex:1; min-width:0; padding:40px 56px 80px; }
   .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
   .progress-wrap{ display:flex; align-items:center; gap:14px; }
-  .mosaic{ display:grid; grid-template-columns:repeat(6,15px); grid-template-rows:repeat(2,15px); gap:3px; }
+  .mosaic{ display:grid; grid-template-columns:repeat(5,15px); grid-template-rows:repeat(3,15px); gap:3px; }
   .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition:background 0.3s ease; }
   .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color:var(--accent-deep); }
   .progress-text{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--ink-soft); }
@@ -149,7 +149,7 @@
       <div id="crumb"></div>
       <div class="progress-wrap">
         <div class="mosaic" id="mosaic"></div>
-        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+        <div class="progress-text"><b id="progressCount">0</b>/15 units done together</div>
       </div>
     </div>
     <div id="content"></div>
@@ -160,7 +160,7 @@
 const UNITS = [
   {
     id:1, en:"Word Classes", strand:"Writing",
-    intro:"The basic building blocks of every sentence — knowing what job each word is doing.",
+    intro:"The basic building blocks of every sentence — knowing what job each word is doing. Once this clicks, punctuation and sentence structure both get much easier.",
     vocab:[
       {es:"Noun", en:"A word that names a person, place, thing or idea, e.g. teacher, Dublin, freedom"},
       {es:"Verb", en:"A word that expresses an action or state, e.g. run, is, seems"},
@@ -170,19 +170,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"'The dog barked loudly.'", en:"Noun: dog · Verb: barked · Adverb: loudly"},
-      {es:"'She ran quickly.'", en:"Pronoun: She · Verb: ran · Adverb: quickly"}
+      {es:"'She ran quickly.'", en:"Pronoun: She · Verb: ran · Adverb: quickly"},
+      {es:"'The tall boy smiled happily.'", en:"Adjective: tall · Noun: boy · Verb: smiled · Adverb: happily"}
     ],
     quiz:[
       {q:"Which word is a noun in 'The children laughed'?", opts:["children","laughed","the","none"], a:0},
       {q:"Which word is a verb in 'She sings beautifully'?", opts:["she","sings","beautifully","none"], a:1},
       {q:"An adjective describes a…", opts:["verb","noun","adverb","pronoun"], a:1},
       {q:"Which is an adverb?", opts:["happy","quickly","dog","run"], a:1},
-      {q:"'They' is an example of a…", opts:["noun","verb","pronoun","adjective"], a:2}
+      {q:"'They' is an example of a…", opts:["noun","verb","pronoun","adjective"], a:2},
+      {q:"Which word is a pronoun in 'He forgot his keys'?", opts:["forgot","keys","He","his"], a:2},
+      {q:"Which word is the adjective in 'The old man walked slowly'?", opts:["old","man","walked","slowly"], a:0},
+      {q:"Which word class describes actions or states?", opts:["Noun","Verb","Adjective","Adverb"], a:1}
     ]
   },
   {
     id:2, en:"Punctuation Essentials", strand:"Writing",
-    intro:"The marks that hold a sentence together and make meaning clear.",
+    intro:"The marks that hold a sentence together and make meaning clear — small symbols that can completely change what a sentence means if you get them wrong.",
     vocab:[
       {es:"Full stop", en:"Ends a sentence that makes a statement"},
       {es:"Comma", en:"Separates items in a list, or clauses, to aid clarity"},
@@ -192,19 +196,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Fix: 'Its a lovely day isnt it'", en:"It's a lovely day, isn't it?"},
-      {es:"Fix: 'the dogs bone'", en:"the dog's bone"}
+      {es:"Fix: 'the dogs bone'", en:"the dog's bone"},
+      {es:"Fix: 'The girls coats were on the floor'", en:"The girls' coats were on the floor. (coats belonging to more than one girl)"}
     ],
     quiz:[
       {q:"Which is correct?", opts:["Its raining","It's raining","Its' raining","Its, raining"], a:1},
       {q:"The apostrophe in \"don't\" shows…", opts:["Possession","Missing letters","A question","A list"], a:1},
       {q:"Which sentence uses a comma correctly?", opts:["I bought apples, oranges, and pears.","I bought apples oranges, and pears.","I bought, apples oranges and pears.","I, bought apples oranges and pears."], a:0},
       {q:"\"Sean's book\" shows…", opts:["Sean is a book","The book belongs to Sean","Sean wrote many books","None of these"], a:1},
-      {q:"Quotation marks are used to show…", opts:["A list","A question","Someone's exact words","A missing letter"], a:2}
+      {q:"Quotation marks are used to show…", opts:["A list","A question","Someone's exact words","A missing letter"], a:2},
+      {q:"Which sentence correctly shows plural possession?", opts:["The dogs' bones were buried.","The dog's bones were buried.","The dogs bones were buried.","The dog' bones were buried."], a:0},
+      {q:"A full stop is used to…", opts:["Ask a question","End a statement","Show excitement","Join two clauses"], a:1},
+      {q:"Which is punctuated correctly?", opts:["\"Let's go,\" she said.","Lets go she said.","\"Lets go\" she said","Let's go, she said"], a:0}
     ]
   },
   {
     id:3, en:"Sentence Structure", strand:"Writing",
-    intro:"Building simple, compound and complex sentences to add variety and control to your writing.",
+    intro:"Building simple, compound and complex sentences to add variety and control to your writing — the difference between flat, repetitive writing and writing that flows.",
     vocab:[
       {es:"Simple sentence", en:"One independent clause with a subject and verb, e.g. 'The rain fell.'"},
       {es:"Compound sentence", en:"Two independent clauses joined by and/but/or, e.g. 'The rain fell, and the wind howled.'"},
@@ -214,19 +222,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Join: 'I studied. I passed the test.'", en:"I studied, and I passed the test."},
-      {es:"Find the dependent clause: 'Because she practised, she improved.'", en:"'Because she practised'"}
+      {es:"Find the dependent clause: 'Because she practised, she improved.'", en:"'Because she practised'"},
+      {es:"Join with 'because': 'I stayed home. I was sick.'", en:"I stayed home because I was sick."}
     ],
     quiz:[
       {q:"A simple sentence has…", opts:["Two independent clauses","One independent clause","No verb","Only a subject"], a:1},
       {q:"Which is a compound sentence?", opts:["She sang.","She sang, and he danced.","Because she sang.","Singing loudly."], a:1},
       {q:"A conjunction…", opts:["Ends a sentence","Joins words or clauses","Describes a noun","Names a person"], a:1},
       {q:"The dependent clause in 'Although tired, she finished the race' is…", opts:["She finished the race","Although tired","the race","she"], a:1},
-      {q:"A clause must contain…", opts:["A subject and a verb","Only an adjective","A conjunction","A question mark"], a:0}
+      {q:"A clause must contain…", opts:["A subject and a verb","Only an adjective","A conjunction","A question mark"], a:0},
+      {q:"Which sentence is complex (has a dependent clause)?", opts:["He ran and jumped.","Because it rained, the match was cancelled.","She sang loudly.","The dog barked."], a:1},
+      {q:"'But' is an example of a…", opts:["Noun","Conjunction","Adjective","Pronoun"], a:1},
+      {q:"Which is a simple sentence?", opts:["The cat slept.","The cat slept, and the dog barked.","Although tired, the cat slept.","Because it was cold, the cat slept."], a:0}
     ]
   },
   {
     id:4, en:"Reading for Meaning", strand:"Reading",
-    intro:"Comprehension strategies — reading actively for the literal meaning, and for what's implied beneath it.",
+    intro:"Comprehension strategies — reading actively for the literal meaning, and for what's implied beneath it. These are the same skills examiners are testing in every comprehension question.",
     vocab:[
       {es:"Literal meaning", en:"What the text says directly, on the surface"},
       {es:"Inference", en:"A conclusion reached from evidence and reasoning, not stated directly"},
@@ -236,19 +248,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"'She slammed the door and threw her bag on the floor.'", en:"Inference: she's likely angry or upset, even though it isn't stated"},
-      {es:"Finding one train time on a timetable", en:"That's scanning, not skimming"}
+      {es:"Finding one train time on a timetable", en:"That's scanning, not skimming"},
+      {es:"'He grabbed his coat and ran out without a word.'", en:"Inference: something urgent or upsetting just happened, even though it isn't stated directly"}
     ],
     quiz:[
       {q:"Reading quickly for the general gist is called…", opts:["Scanning","Skimming","Inferring","Quoting"], a:1},
       {q:"An inference is…", opts:["Directly stated in the text","A conclusion drawn from evidence","A grammar rule","A type of punctuation"], a:1},
       {q:"Scanning is best used to…", opts:["Enjoy a story slowly","Find one specific detail","Learn new vocabulary","Memorise a poem"], a:1},
       {q:"Context clues help you…", opts:["Punctuate a sentence","Work out an unfamiliar word's meaning","Write a conclusion","Identify the author"], a:1},
-      {q:"'The literal meaning' refers to…", opts:["Hidden meaning","What's stated directly","The author's opinion","A metaphor"], a:1}
+      {q:"'The literal meaning' refers to…", opts:["Hidden meaning","What's stated directly","The author's opinion","A metaphor"], a:1},
+      {q:"Skimming a newspaper article before reading it closely helps you…", opts:["Get the general idea first","Memorise every word","Avoid reading it at all","Find one exact date only"], a:0},
+      {q:"Which is an example of scanning?", opts:["Looking for a phone number in a directory","Reading a novel for enjoyment","Analysing a poem's structure","Writing an essay plan"], a:0},
+      {q:"Context clues are found…", opts:["Only in the dictionary","In the words and sentences around an unfamiliar word","In the title only","In punctuation marks only"], a:1}
     ]
   },
   {
     id:5, en:"Literary Devices I", strand:"Reading",
-    intro:"The most common devices writers use to make language vivid — spotting them, and naming what they do.",
+    intro:"The most common devices writers use to make language vivid — spotting them, and naming what they do, is the core skill behind every 'analyse the language' question.",
     vocab:[
       {es:"Simile", en:"Compares two things using 'like' or 'as', e.g. 'as brave as a lion'"},
       {es:"Metaphor", en:"Describes something as if it is something else, e.g. 'time is a thief'"},
@@ -258,19 +274,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"'The stars danced in the sky.'", en:"Personification"},
-      {es:"'Busy as a bee.'", en:"Simile"}
+      {es:"'Busy as a bee.'", en:"Simile"},
+      {es:"'The classroom buzzed with excitement.'", en:"Onomatopoeia (buzzed) combined with a lively image"}
     ],
     quiz:[
       {q:"'Her smile was sunshine' is an example of…", opts:["Simile","Metaphor","Alliteration","Onomatopoeia"], a:1},
       {q:"'As quiet as a mouse' is an example of…", opts:["Metaphor","Simile","Personification","Onomatopoeia"], a:1},
       {q:"'The wind howled through the trees' is…", opts:["Alliteration","Onomatopoeia","Personification","Simile"], a:2},
       {q:"'Peter Piper picked a peck' uses…", opts:["Onomatopoeia","Alliteration","Metaphor","Simile"], a:1},
-      {q:"'The bacon sizzled in the pan' uses…", opts:["Onomatopoeia","Simile","Metaphor","Alliteration"], a:0}
+      {q:"'The bacon sizzled in the pan' uses…", opts:["Onomatopoeia","Simile","Metaphor","Alliteration"], a:0},
+      {q:"'Life is a rollercoaster' is an example of…", opts:["Simile","Metaphor","Alliteration","Onomatopoeia"], a:1},
+      {q:"'The leaves whispered in the breeze' is an example of…", opts:["Personification","Simile","Onomatopoeia","Hyperbole"], a:0},
+      {q:"Which uses a simile?", opts:["Time is money.","As brave as a lion.","The wind howled.","Crash! went the plates."], a:1}
     ]
   },
   {
     id:6, en:"Literary Devices II", strand:"Reading",
-    intro:"A second set of devices — imagery, symbolism, irony, hyperbole and tone — for deeper analysis of a text.",
+    intro:"A second set of devices — imagery, symbolism, irony, hyperbole and tone — for deeper analysis of a text, and the ones examiners often reward most in Higher Level answers.",
     vocab:[
       {es:"Imagery", en:"Descriptive language that appeals to the senses"},
       {es:"Symbolism", en:"Using an object or image to represent a deeper idea, e.g. a dove for peace"},
@@ -280,19 +300,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"'I'm so hungry I could eat a horse.'", en:"Hyperbole"},
-      {es:"A ring given at a wedding", en:"Often symbolises commitment or love"}
+      {es:"A ring given at a wedding", en:"Often symbolises commitment or love"},
+      {es:"A fire station burning down", en:"A classic example of situational irony"}
     ],
     quiz:[
       {q:"'I've asked you a thousand times' is an example of…", opts:["Irony","Hyperbole","Symbolism","Imagery"], a:1},
       {q:"A dove is often used to symbolise…", opts:["War","Peace","Danger","Wealth"], a:1},
       {q:"Irony occurs when…", opts:["A sound is imitated","Something happens opposite to what's expected","Two things are compared","A noun is described"], a:1},
       {q:"'The damp, mossy smell of the forest' is an example of…", opts:["Imagery","Hyperbole","Irony","Alliteration"], a:0},
-      {q:"Tone refers to…", opts:["The number of stanzas","The writer's attitude to the subject","The rhyme scheme","The setting"], a:1}
+      {q:"Tone refers to…", opts:["The number of stanzas","The writer's attitude to the subject","The rhyme scheme","The setting"], a:1},
+      {q:"Which is an example of irony?", opts:["A fire station burning down","A dog barking loudly","A character crying happily","A red apple on a table"], a:0},
+      {q:"'Golden fields stretched to the horizon' is an example of…", opts:["Imagery","Hyperbole","Irony","Alliteration"], a:0},
+      {q:"A writer's tone could be described as…", opts:["Sarcastic, serious, or playful, among others","Always neutral","Only ever formal","Irrelevant to meaning"], a:0}
     ]
   },
   {
     id:7, en:"Elements of Fiction", strand:"Reading",
-    intro:"The five ingredients used to talk about how any story works — plot, character, setting, theme and narrator.",
+    intro:"The five ingredients used to talk about how any story works — plot, character, setting, theme and narrator — vocabulary you can apply to any novel or short story your child is studying.",
     vocab:[
       {es:"Plot", en:"The sequence of events in a story"},
       {es:"Character", en:"A person (or being) in a story — can be a protagonist or antagonist"},
@@ -302,19 +326,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"A story told using 'I'", en:"That's first-person point of view"},
-      {es:"A story's underlying message about friendship or courage", en:"That's its theme"}
+      {es:"A story's underlying message about friendship or courage", en:"That's its theme"},
+      {es:"A story with a talking animal narrator", en:"The narrator doesn't have to be human — but the point of view (1st/3rd person) still applies"}
     ],
     quiz:[
       {q:"The protagonist is usually…", opts:["The villain","The main character","The setting","The narrator only"], a:1},
       {q:"The setting of a story is…", opts:["Its message","The time and place it happens","The main character","The ending"], a:1},
       {q:"A story told using 'he' or 'she' throughout is in…", opts:["First person","Second person","Third person","No person"], a:2},
       {q:"The plot is best described as…", opts:["The theme","The sequence of events","The setting","A literary device"], a:1},
-      {q:"The theme of a story is…", opts:["Its title","Its underlying message","Its length","Its setting"], a:1}
+      {q:"The theme of a story is…", opts:["Its title","Its underlying message","Its length","Its setting"], a:1},
+      {q:"The antagonist in a story is usually…", opts:["The character who opposes the protagonist","The narrator","The setting","The theme"], a:0},
+      {q:"A story set in a small Irish village in the 1920s has its ___ established.", opts:["Theme","Setting","Plot twist","Narrator"], a:1},
+      {q:"Point of view refers to…", opts:["Who is telling the story","The moral of the story","The title of the story","The number of characters"], a:0}
     ]
   },
   {
     id:8, en:"Poetry Toolkit", strand:"Reading",
-    intro:"The vocabulary needed to talk about how a poem is built, beyond just what it means.",
+    intro:"The vocabulary needed to talk about how a poem is built, beyond just what it means — useful for whatever poems come up on the course, not just one specific set text.",
     vocab:[
       {es:"Stanza", en:"A group of lines in a poem, like a paragraph"},
       {es:"Rhyme scheme", en:"The pattern of rhyming sounds at the end of lines, e.g. ABAB"},
@@ -324,19 +352,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"End rhymes: day / way / say / play", en:"Rhyme scheme: AAAA"},
-      {es:"A poem with no fixed rhyme or rhythm", en:"Is written in free verse"}
+      {es:"A poem with no fixed rhyme or rhythm", en:"Is written in free verse"},
+      {es:"A poem with lines that don't rhyme at all", en:"This could still have rhythm and structure — it just isn't relying on rhyme"}
     ],
     quiz:[
       {q:"A group of lines in a poem is called a…", opts:["Verse paragraph","Stanza","Clause","Chapter"], a:1},
       {q:"Free verse means a poem has…", opts:["A strict rhyme scheme","No fixed rhyme or rhythm","Only two lines","Always four stanzas"], a:1},
       {q:"Enjambment is when…", opts:["A line rhymes with the next","A sentence runs onto the next line without a pause","A poem has a title","A poem repeats a sound"], a:1},
       {q:"Rhythm in poetry refers to…", opts:["The rhyme scheme","The pattern of beats/stresses","The number of stanzas","The setting"], a:1},
-      {q:"A poem rhyming 'cat/hat/bat/mat' has the rhyme scheme…", opts:["ABAB","AABB","AAAA","ABCD"], a:2}
+      {q:"A poem rhyming 'cat/hat/bat/mat' has the rhyme scheme…", opts:["ABAB","AABB","AAAA","ABCD"], a:2},
+      {q:"A poem divided into four-line sections has stanzas of…", opts:["Four lines each","One line each","No fixed length","Always eight lines"], a:0},
+      {q:"Which best describes rhythm?", opts:["The pattern of stressed and unstressed syllables","The rhyme scheme only","The number of stanzas","The poem's title"], a:0},
+      {q:"Enjambment creates a sense of…", opts:["A pause and full stop","Flow, carrying the idea onward","Rhyme","A change of speaker"], a:1}
     ]
   },
   {
     id:9, en:"Personal & Creative Writing", strand:"Writing",
-    intro:"Writing that draws on real experience — the personal essay, narrative and descriptive writing.",
+    intro:"Writing that draws on real experience — the personal essay, narrative and descriptive writing — where a few techniques go a long way toward a more engaging piece.",
     vocab:[
       {es:"Personal essay", en:"Writing that reflects on the writer's own experiences and feelings"},
       {es:"Narrative writing", en:"Writing that tells a story, with a clear sequence of events"},
@@ -346,19 +378,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Instead of 'She was sad', show it:", en:"'Her shoulders sank, and she stared at the floor without a word.'"},
-      {es:"A weak hook for a first-day-at-school essay", en:"'This essay is about my first day at school' — too flat; open with something vivid instead"}
+      {es:"A weak hook for a first-day-at-school essay", en:"'This essay is about my first day at school' — too flat; open with something vivid instead"},
+      {es:"A strong descriptive detail for a beach scene", en:"'The salt air stung my eyes as waves crashed against the rocks' — appeals to smell, sight and sound"}
     ],
     quiz:[
       {q:"A personal essay is mainly about…", opts:["A famous person","The writer's own experience","A scientific topic","A news event"], a:1},
       {q:"'Show, don't tell' means…", opts:["Use more adjectives","Reveal feelings through action and detail","Write shorter sentences","Avoid dialogue"], a:1},
       {q:"A hook is used to…", opts:["End an essay","Grab the reader's attention at the start","List sources","Summarise a story"], a:1},
       {q:"Descriptive writing focuses on…", opts:["Persuading the reader","Vivid, sensory detail","Listing facts","Formal letters"], a:1},
-      {q:"Narrative writing is writing that…", opts:["Argues a point","Tells a story","Gives instructions","Lists information"], a:1}
+      {q:"Narrative writing is writing that…", opts:["Argues a point","Tells a story","Gives instructions","Lists information"], a:1},
+      {q:"Sensory detail in descriptive writing appeals to…", opts:["The five senses","Only sight","Only sound","Only the reader's opinion"], a:0},
+      {q:"A narrative essay is usually structured around…", opts:["A sequence of events","A list of arguments","A set of statistics","A formal letter format"], a:0},
+      {q:"Which is an example of 'showing' rather than 'telling'?", opts:["He was nervous.","His hands trembled as he opened the envelope.","He felt scared.","He was very worried."], a:1}
     ]
   },
   {
     id:10, en:"Persuasive & Argumentative Writing", strand:"Writing",
-    intro:"Techniques for making a convincing case in writing — the tools of persuasion.",
+    intro:"Techniques for making a convincing case in writing — the tools of persuasion that turn a flat opinion piece into one that actually changes minds.",
     vocab:[
       {es:"Rhetorical question", en:"A question asked for effect, not needing an answer, e.g. 'Isn't it time we acted?'"},
       {es:"Rule of three", en:"Listing three points together for persuasive impact, e.g. 'faster, safer, cheaper'"},
@@ -368,19 +404,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Plain: 'This is unfair.'", en:"Rhetorical: 'Isn't it time we put a stop to this unfairness?'"},
-      {es:"Rule of three about a product", en:"'It's faster, cheaper, and simpler.'"}
+      {es:"Rule of three about a product", en:"'It's faster, cheaper, and simpler.'"},
+      {es:"A statistic used persuasively", en:"'Nine out of ten students agree…' — numbers can add weight to an argument"}
     ],
     quiz:[
       {q:"'Isn't it time we did something?' is an example of…", opts:["Rule of three","Rhetorical question","Emotive language","Counter-argument"], a:1},
       {q:"'Cleaner, safer, greener' is an example of…", opts:["Emotive language","Rule of three","Call to action","Counter-argument"], a:1},
       {q:"Emotive language is designed to…", opts:["Give facts only","Trigger an emotional response","Ask a question","List sources"], a:1},
       {q:"A counter-argument is when a writer…", opts:["Ignores the other side","Acknowledges the opposing view","Only uses statistics","Ends the essay"], a:1},
-      {q:"'Sign the petition today' is an example of a…", opts:["Rhetorical question","Call to action","Rule of three","Counter-argument"], a:1}
+      {q:"'Sign the petition today' is an example of a…", opts:["Rhetorical question","Call to action","Rule of three","Counter-argument"], a:1},
+      {q:"Which is an example of emotive language?", opts:["The results were recorded in a table.","This heartbreaking tragedy must never happen again.","The meeting starts at 3pm.","The population is 5 million."], a:1},
+      {q:"Addressing a counter-argument makes an essay seem more…", opts:["One-sided","Balanced and convincing","Confusing","Shorter"], a:1},
+      {q:"'Act now before it's too late' is an example of a…", opts:["Rule of three","Call to action","Counter-argument","Rhetorical question"], a:1}
     ]
   },
   {
     id:11, en:"Functional Writing", strand:"Writing",
-    intro:"Practical, real-world writing formats — letters, emails and reports — and getting the tone right for each.",
+    intro:"Practical, real-world writing formats — letters, emails and reports — and getting the tone right for each, a skill that outlasts the exam itself.",
     vocab:[
       {es:"Formal letter", en:"A letter written in a professional tone, e.g. to a company or official"},
       {es:"Informal letter/email", en:"Written to someone you know, in a relaxed tone"},
@@ -390,19 +430,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Formal salutation, unknown recipient", en:"'Dear Sir/Madam,'"},
-      {es:"Informal opener to a friend", en:"'Hi Aoife, hope you're keeping well!'"}
+      {es:"Informal opener to a friend", en:"'Hi Aoife, hope you're keeping well!'"},
+      {es:"Closing a formal letter to an unknown recipient", en:"'Yours faithfully,' — paired with 'Dear Sir/Madam'"}
     ],
     quiz:[
       {q:"'Dear Sir/Madam' is an example of a…", opts:["Register","Salutation","Report heading","Rhetorical question"], a:1},
       {q:"A report is usually structured with…", opts:["No structure","Headings","Only dialogue","Rhyme"], a:1},
       {q:"Register refers to…", opts:["The topic of a letter","The level of formality","The length of a text","The font used"], a:1},
       {q:"A formal letter to a company should use…", opts:["Slang","A professional tone","Text abbreviations","Emojis"], a:1},
-      {q:"Which greeting suits an email to a close friend?", opts:["Dear Sir/Madam,","Hi there!","To whom it may concern,","Yours faithfully,"], a:1}
+      {q:"Which greeting suits an email to a close friend?", opts:["Dear Sir/Madam,","Hi there!","To whom it may concern,","Yours faithfully,"], a:1},
+      {q:"'Yours sincerely' is typically used when…", opts:["You know the recipient's name","You don't know the recipient's name","Writing to a friend","Writing a report"], a:0},
+      {q:"A report's headings help the reader…", opts:["Find information quickly","Ignore the content","Avoid reading the introduction","Make the report longer"], a:0},
+      {q:"Which is most appropriate in a formal email to a teacher?", opts:["Hiya, quick one for ya","Dear Ms. Byrne, I hope this email finds you well.","Wassup Ms B","Yo, need help"], a:1}
     ]
   },
   {
     id:12, en:"Oral Communication & Media Literacy", strand:"Oral Language",
-    intro:"Thinking about audience, purpose and bias — as important for the Oral Communication assessment as for spotting spin in the news.",
+    intro:"Thinking about audience, purpose and bias — as important for the Oral Communication assessment as for spotting spin in the news, and a skill that only gets more useful with age.",
     vocab:[
       {es:"Audience", en:"The people a piece of writing or speech is intended for"},
       {es:"Purpose", en:"The reason a text was created — to inform, persuade, entertain, etc."},
@@ -412,14 +456,93 @@ const UNITS = [
     ],
     phrases:[
       {es:"'Dublin is the capital of Ireland.'", en:"Fact"},
-      {es:"'Dublin is the best city in Ireland.'", en:"Opinion"}
+      {es:"'Dublin is the best city in Ireland.'", en:"Opinion"},
+      {es:"A news headline written to provoke strong emotion", en:"This could be a sign of bias or sensationalism — check the actual facts reported below it"}
     ],
     quiz:[
       {q:"The audience of a text is…", opts:["Its length","The people it's intended for","Its title","Its punctuation"], a:1},
       {q:"'This ice cream is the best in the world!' is an example of…", opts:["Fact","Opinion","A bias-free statement","A statistic"], a:1},
       {q:"The purpose of a persuasive text is to…", opts:["Inform only","Persuade the reader","Entertain only","List facts"], a:1},
       {q:"Bias means…", opts:["A balanced view","A one-sided or unfair slant","A grammar rule","A type of rhyme"], a:1},
-      {q:"Good eye contact during a talk helps to…", opts:["Confuse the audience","Engage the audience","Shorten the talk","Avoid questions"], a:1}
+      {q:"Good eye contact during a talk helps to…", opts:["Confuse the audience","Engage the audience","Shorten the talk","Avoid questions"], a:1},
+      {q:"Which is most likely to show bias?", opts:["A weather report","An opinion column arguing one side strongly","A phone number listing","A train timetable"], a:1},
+      {q:"The purpose of a news report is usually to…", opts:["Persuade only","Inform the reader","Entertain only","Confuse the reader"], a:1},
+      {q:"Which is an opinion, not a fact?", opts:["Ireland is an island.","Ireland has the best weather in Europe.","Dublin is the capital of Ireland.","Ireland is in Europe."], a:1}
+    ]
+  },
+  {
+    id:13, en:"Note-Taking & Summarising", strand:"Reading",
+    intro:"Turning a long text into a short, accurate summary — one of the most transferable skills in the whole subject, useful well beyond English class.",
+    vocab:[
+      {es:"Note-taking", en:"Recording key information in your own shortened words while reading or listening"},
+      {es:"Summary", en:"A short account giving the main points of a longer text, in your own words"},
+      {es:"Key point", en:"The most important piece of information in a paragraph or text"},
+      {es:"Paraphrase", en:"Restating something in different words while keeping the same meaning"},
+      {es:"Bullet points", en:"A list format used to note ideas quickly and clearly"}
+    ],
+    phrases:[
+      {es:"Summarise this paragraph in one sentence", en:"Focus on the main idea, and cut all the supporting detail"},
+      {es:"Paraphrase: 'The weather was extremely cold and wet.'", en:"'It was freezing and rainy.'"}
+    ],
+    quiz:[
+      {q:"A summary should be…", opts:["Longer than the original","Shorter than the original","The exact same length","Written in the same words"], a:1},
+      {q:"Note-taking mainly involves…", opts:["Copying every word","Recording key information in your own words","Ignoring the main ideas","Writing only questions"], a:1},
+      {q:"A key point is…", opts:["A minor detail","The most important information","A quotation","A title"], a:1},
+      {q:"Paraphrasing means…", opts:["Copying word for word","Restating in different words with the same meaning","Adding new information","Deleting the main idea"], a:1},
+      {q:"Bullet points are useful for…", opts:["Writing full essays","Noting ideas quickly and clearly","Formal letters","Poetry"], a:1},
+      {q:"Which is a good summarising skill?", opts:["Including every detail","Identifying the main idea","Quoting the whole text","Ignoring the topic sentence"], a:1},
+      {q:"'The weather was extremely cold and wet' paraphrased could be…", opts:["It was freezing and rainy.","It was hot and dry.","The weather was nice.","It rained heavily for a month."], a:0},
+      {q:"A good note-taking habit is to…", opts:["Write in full sentences always","Use abbreviations and short phrases","Copy the text exactly","Skip the main points"], a:1}
+    ]
+  },
+  {
+    id:14, en:"Debating & Public Speaking", strand:"Oral Language",
+    intro:"Structuring an argument out loud and delivering it with confidence — skills built directly for the Oral Communication assessment, and for any classroom debate.",
+    vocab:[
+      {es:"Motion", en:"The statement being debated, e.g. 'This house believes…'"},
+      {es:"Proposition", en:"The side arguing in favour of the motion"},
+      {es:"Opposition", en:"The side arguing against the motion"},
+      {es:"Rebuttal", en:"Responding to and challenging the other side's argument"},
+      {es:"Projection", en:"Speaking loudly and clearly enough to be heard by an audience"}
+    ],
+    phrases:[
+      {es:"Prepare a rebuttal to: 'Homework should be banned.'", en:"Homework helps reinforce what's learned in class, even if it feels like a burden"},
+      {es:"Speak with good projection", en:"Loud, clear, and paced — not rushed or mumbled"}
+    ],
+    quiz:[
+      {q:"The motion in a debate is…", opts:["The winning side","The statement being debated","The audience's opinion","The judge's decision"], a:1},
+      {q:"The proposition argues…", opts:["Against the motion","In favour of the motion","Neither side","Only questions"], a:1},
+      {q:"A rebuttal is used to…", opts:["Agree with the other side","Challenge the other side's argument","Introduce yourself","End the debate"], a:1},
+      {q:"Good projection when speaking means…", opts:["Speaking as quietly as possible","Speaking clearly and loudly enough to be heard","Reading from a script word for word","Speaking very fast"], a:1},
+      {q:"The opposition in a debate…", opts:["Argues in favour of the motion","Argues against the motion","Judges the debate","Times the speakers"], a:1},
+      {q:"Which is a strength in public speaking?", opts:["Avoiding eye contact","Clear pacing and tone","Mumbling quickly","Reading with your head down"], a:1},
+      {q:"Preparing a rebuttal in advance helps you…", opts:["Ignore the other side","Respond confidently to likely counter-arguments","Avoid speaking at all","Change the motion"], a:1},
+      {q:"'This house believes homework should be banned' is an example of a…", opts:["Rebuttal","Motion","Summary","Bullet point"], a:1}
+    ]
+  },
+  {
+    id:15, en:"Editing & Proofreading", strand:"Writing",
+    intro:"The final, often-skipped step of the writing process — catching errors and rough patches before a piece of writing is finished, not after.",
+    vocab:[
+      {es:"Proofreading", en:"Checking a finished piece of writing for errors before submitting it"},
+      {es:"Editing", en:"Improving the content, structure and clarity of a piece of writing, not just fixing typos"},
+      {es:"Draft", en:"An early, unfinished version of a piece of writing"},
+      {es:"Redundancy (in writing)", en:"Unnecessary repetition of words or ideas"},
+      {es:"Consistency", en:"Keeping the same tense, style, and viewpoint throughout a piece of writing"}
+    ],
+    phrases:[
+      {es:"Proofread: 'She were going to the shops.'", en:"Fix the verb: 'She was going to the shops.'"},
+      {es:"Spot the redundancy: 'It was a true fact.'", en:"'Fact' already means something true — just say 'It was a fact.'"}
+    ],
+    quiz:[
+      {q:"Proofreading mainly focuses on…", opts:["Improving the whole structure","Checking for errors before submitting","Writing a first draft","Choosing a title"], a:1},
+      {q:"Editing is different from proofreading because it also improves…", opts:["Only spelling","Content, structure and clarity","Only punctuation","Only handwriting"], a:1},
+      {q:"A draft is…", opts:["The final, polished version","An early, unfinished version","A type of essay","A grammar rule"], a:1},
+      {q:"\"It was a true fact\" contains an example of…", opts:["Good structure","Redundancy","A rhetorical question","A metaphor"], a:1},
+      {q:"Consistency in writing means…", opts:["Changing tense throughout","Keeping the same tense/style throughout","Using long sentences only","Avoiding punctuation"], a:1},
+      {q:"Which is a proofreading task?", opts:["Checking spelling and punctuation","Choosing the essay topic","Deciding the word count","Picking a font"], a:0},
+      {q:"\"She were going to the shops\" needs correcting because…", opts:["The tense is inconsistent","The subject-verb agreement is wrong","It's too short","It lacks a subject"], a:1},
+      {q:"Why edit a piece of writing more than once?", opts:["To catch different kinds of issues each pass","Editing once is always enough","To make it longer only","Editors never reread"], a:0}
     ]
   }
 ];
@@ -471,12 +594,12 @@ function renderHome(){
     <div class="hero">
       <div class="eyebrow">A path for two, at one pace</div>
       <h2>Work through the core skills of Junior Cycle English, together.</h2>
-      <p>These twelve units draw out the transferable techniques behind the three Junior Cycle strands — Oral Language, Reading and Writing — from grammar and punctuation through to literary devices, poetry, and persuasive writing.</p>
+      <p>These fifteen units draw out the transferable techniques behind the three Junior Cycle strands — Oral Language, Reading and Writing — from grammar and punctuation through to literary devices, poetry, persuasive writing, and further into note-taking, debating, and editing.</p>
       <div class="hero-note">
         <b>Worth knowing:</b> the actual novels, poems and films studied are chosen by each school, so these units focus on the underlying skills that apply to whatever text your child is reading in class — not any one prescribed text.
       </div>
     </div>
-    <div class="section-title">All twelve units</div>
+    <div class="section-title">All fifteen units</div>
     <div class="start-grid">${cards}</div>
   `;
 }
@@ -553,7 +676,7 @@ function renderUnit(id){
 
     <div class="unit-footer-nav">
       <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
-      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+      <button class="ghost" ${id===15?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
     </div>
   `;
 }

@@ -43,7 +43,7 @@
   main{ flex:1; min-width:0; padding:40px 56px 80px; }
   .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
   .progress-wrap{ display:flex; align-items:center; gap:14px; }
-  .mosaic{ display:grid; grid-template-columns:repeat(6,15px); grid-template-rows:repeat(2,15px); gap:3px; }
+  .mosaic{ display:grid; grid-template-columns:repeat(5,15px); grid-template-rows:repeat(3,15px); gap:3px; }
   .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition:background 0.3s ease; }
   .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color:var(--accent-deep); }
   .progress-text{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--ink-soft); }
@@ -157,7 +157,7 @@
       <div id="crumb"></div>
       <div class="progress-wrap">
         <div class="mosaic" id="mosaic"></div>
-        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+        <div class="progress-text"><b id="progressCount">0</b>/15 units done together</div>
       </div>
     </div>
     <div id="content"></div>
@@ -168,7 +168,7 @@
 const UNITS = [
   {
     id:1, es:"Mé Féin", en:"Myself — greetings & introductions",
-    intro:"The everyday greetings and introductions that open almost every Irish class and exam answer.",
+    intro:"The everyday greetings and introductions that open almost every Irish class and exam answer — small, high-frequency phrases worth having automatic.",
     vocab:[
       {es:"Dia duit", en:"Hello (to one person)"},{es:"Dia is Muire duit", en:"Hello (reply)"},
       {es:"Slán", en:"Goodbye"},{es:"Conas atá tú?", en:"How are you?"},
@@ -180,19 +180,23 @@ const UNITS = [
       {es:"Cad is ainm duit?", en:"What is your name?"},
       {es:"Is mise Aoife.", en:"I am Aoife."},
       {es:"Conas atá tú?", en:"How are you?"},
-      {es:"Táim go maith, go raibh maith agat.", en:"I am well, thank you."}
+      {es:"Táim go maith, go raibh maith agat.", en:"I am well, thank you."},
+      {es:"Tá fáilte romhat.", en:"You're welcome."}
     ],
     quiz:[
       {q:"'Dia duit' means…", opts:["Goodbye","Hello","Thank you","Please"], a:1},
       {q:"'Slán' means…", opts:["Hello","Goodbye","Sorry","Yes"], a:1},
       {q:"'Cad is ainm duit?' asks…", opts:["How are you?","What is your name?","Where do you live?","How old are you?"], a:1},
       {q:"Correct reply to 'Conas atá tú?'", opts:["Is mise Seán","Táim go maith","Slán","Le do thoil"], a:1},
-      {q:"'Go raibh maith agat' means…", opts:["Please","You're welcome","Thank you","Goodbye"], a:2}
+      {q:"'Go raibh maith agat' means…", opts:["Please","You're welcome","Thank you","Goodbye"], a:2},
+      {q:"'Le do thoil' means…", opts:["Thank you","Please","Goodbye","Sorry"], a:1},
+      {q:"'Tá fáilte romhat' means…", opts:["Please","You're welcome","Goodbye","Hello"], a:1},
+      {q:"'Is mise…' is used to say…", opts:["How are you?","I am… / My name is…","Thank you","Goodbye"], a:1}
     ]
   },
   {
     id:2, es:"An Teaghlach", en:"Family",
-    intro:"Talking about family members — a topic that comes up constantly in oral and written Irish.",
+    intro:"Talking about family members — a topic that comes up constantly in oral and written Irish, and a natural extension of introducing yourself.",
     vocab:[
       {es:"máthair", en:"mother"},{es:"athair", en:"father"},{es:"deartháir", en:"brother"},
       {es:"deirfiúr", en:"sister"},{es:"seanmháthair", en:"grandmother"},{es:"seanathair", en:"grandfather"},
@@ -201,19 +205,23 @@ const UNITS = [
     phrases:[
       {es:"Tá beirt deartháireacha agam.", en:"I have two brothers."},
       {es:"An bhfuil deirfiúracha agat?", en:"Do you have sisters?"},
-      {es:"Seo mo theaghlach.", en:"This is my family."}
+      {es:"Seo mo theaghlach.", en:"This is my family."},
+      {es:"Tá mac amháin agam.", en:"I have one son."}
     ],
     quiz:[
       {q:"'deirfiúr' means…", opts:["Brother","Sister","Mother","Aunt"], a:1},
       {q:"'seanathair' means…", opts:["Uncle","Father","Grandfather","Cousin"], a:2},
       {q:"'Tá beirt deartháireacha agam' means…", opts:["I have two sisters","I have two brothers","I am two years old","I have two cousins"], a:1},
       {q:"Which word means 'aunt'?", opts:["aintín","uncail","iníon","mac"], a:0},
-      {q:"'An bhfuil deirfiúracha agat?' asks…", opts:["Do you have pets?","Do you have sisters?","Are you tired?","Do you have homework?"], a:1}
+      {q:"'An bhfuil deirfiúracha agat?' asks…", opts:["Do you have pets?","Do you have sisters?","Are you tired?","Do you have homework?"], a:1},
+      {q:"'mac' means…", opts:["Daughter","Son","Brother","Uncle"], a:1},
+      {q:"'iníon' means…", opts:["Son","Daughter","Sister","Aunt"], a:1},
+      {q:"'Seo mo theaghlach' means…", opts:["This is my family","This is my house","This is my school","This is my friend"], a:0}
     ]
   },
   {
     id:3, es:"Dathanna", en:"Colours & describing",
-    intro:"Colours, used constantly to describe schoolbags, eyes, and everyday objects.",
+    intro:"Colours, used constantly to describe schoolbags, eyes, and everyday objects — small words that add up to a lot of everyday description.",
     vocab:[
       {es:"dearg", en:"red"},{es:"gorm", en:"blue"},{es:"glas", en:"green"},{es:"buí", en:"yellow"},
       {es:"dubh", en:"black"},{es:"bán", en:"white"},{es:"bándearg", en:"pink"},{es:"oráiste", en:"orange"},
@@ -222,19 +230,23 @@ const UNITS = [
     phrases:[
       {es:"Cén dath atá air?", en:"What colour is it?"},
       {es:"Tá mo mhála gorm.", en:"My bag is blue."},
-      {es:"Tá súile glasa agam.", en:"I have green eyes."}
+      {es:"Tá súile glasa agam.", en:"I have green eyes."},
+      {es:"Is aoibhinn liom dathanna geala.", en:"I love bright colours."}
     ],
     quiz:[
       {q:"'gorm' means…", opts:["Red","Blue","Green","Yellow"], a:1},
       {q:"'Tá mo mhála gorm' means…", opts:["My bag is red","My bag is blue","My bag is heavy","My bag is new"], a:1},
       {q:"Which word means 'yellow'?", opts:["buí","glas","dubh","bán"], a:0},
       {q:"'dubh' means…", opts:["White","Black","Grey","Purple"], a:1},
-      {q:"'Cén dath atá air?' asks…", opts:["How big is it?","What colour is it?","How much does it cost?","Where is it?"], a:1}
+      {q:"'Cén dath atá air?' asks…", opts:["How big is it?","What colour is it?","How much does it cost?","Where is it?"], a:1},
+      {q:"Which word means 'orange' (the colour)?", opts:["oráiste","bándearg","corcra","liath"], a:0},
+      {q:"'corcra' means…", opts:["Pink","Purple","Orange","Grey"], a:1},
+      {q:"'bán' means…", opts:["Black","White","Grey","Yellow"], a:1}
     ]
   },
   {
     id:4, es:"Uimhreacha agus Aois", en:"Numbers & age",
-    intro:"Counting and asking someone's age — a building block for dozens of other topics.",
+    intro:"Counting and asking someone's age — a building block for dozens of other topics, from dates to phone numbers.",
     vocab:[
       {es:"a haon", en:"one"},{es:"a dó", en:"two"},{es:"a trí", en:"three"},{es:"a ceathair", en:"four"},
       {es:"a cúig", en:"five"},{es:"a sé", en:"six"},{es:"a seacht", en:"seven"},{es:"a hocht", en:"eight"},
@@ -242,19 +254,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Cén aois thú?", en:"What age are you?"},
-      {es:"Táim trí bliana déag d'aois.", en:"I am thirteen years old."}
+      {es:"Táim trí bliana déag d'aois.", en:"I am thirteen years old."},
+      {es:"Tá mo dheartháir a sé bliana déag d'aois.", en:"My brother is sixteen years old."}
     ],
     quiz:[
       {q:"'a cúig' is the number…", opts:["3","4","5","6"], a:2},
       {q:"'Cén aois thú?' asks…", opts:["What's your name?","What age are you?","Where do you live?","How are you?"], a:1},
       {q:"'a hocht' is the number…", opts:["7","8","9","10"], a:1},
       {q:"'Táim ___ bliana déag d'aois' is used to say…", opts:["I am ___ years old","I have ___ siblings","I live at number ___","I have ___ euro"], a:0},
-      {q:"'a naoi' is the number…", opts:["7","8","9","10"], a:2}
+      {q:"'a naoi' is the number…", opts:["7","8","9","10"], a:2},
+      {q:"'a trí' is the number…", opts:["2","3","4","5"], a:1},
+      {q:"'a deich' is the number…", opts:["8","9","10","11"], a:2},
+      {q:"Which is 'six'?", opts:["a sé","a seacht","a cúig","a naoi"], a:0}
     ]
   },
   {
     id:5, es:"An Scoil", en:"School",
-    intro:"Classroom vocabulary and saying what subjects you like — directly usable in their actual Irish class.",
+    intro:"Classroom vocabulary and saying what subjects you like — directly usable in their actual Irish class, since this vocabulary describes the room they're sitting in.",
     vocab:[
       {es:"an scoil", en:"school"},{es:"an múinteoir", en:"teacher"},{es:"an dalta", en:"pupil"},
       {es:"an leabhar", en:"book"},{es:"an cóipleabhar", en:"copybook"},{es:"an mála scoile", en:"schoolbag"},
@@ -264,19 +280,23 @@ const UNITS = [
     phrases:[
       {es:"Is maith liom an Ghaeilge.", en:"I like Irish."},
       {es:"Ní maith liom an tíreolaíocht.", en:"I don't like geography."},
-      {es:"Cén t-ábhar is fearr leat?", en:"What's your favourite subject?"}
+      {es:"Cén t-ábhar is fearr leat?", en:"What's your favourite subject?"},
+      {es:"Tá rang Gaeilge agam ar a naoi a chlog.", en:"I have Irish class at nine o'clock."}
     ],
     quiz:[
       {q:"'an múinteoir' means…", opts:["Pupil","Teacher","School","Book"], a:1},
       {q:"'Is maith liom an Ghaeilge' means…", opts:["I speak Irish","I like Irish","I study Irish only","I dislike Irish"], a:1},
       {q:"'an cóipleabhar' means…", opts:["Pencil case","Copybook","Classroom","Timetable"], a:1},
       {q:"'Ní maith liom an tíreolaíocht' means…", opts:["I love geography","I don't have geography","I don't like geography","I'm good at geography"], a:2},
-      {q:"'an mhatamaitic' means…", opts:["Science","Maths","Music","History"], a:1}
+      {q:"'an mhatamaitic' means…", opts:["Science","Maths","Music","History"], a:1},
+      {q:"'an peann luaidhe' means…", opts:["Pen","Pencil","Book","Ruler"], a:1},
+      {q:"'an mála scoile' means…", opts:["Schoolbag","Classroom","Copybook","Teacher"], a:0},
+      {q:"'an dalta' means…", opts:["Teacher","Pupil","School","Book"], a:1}
     ]
   },
   {
     id:6, es:"An Teach", en:"House & home",
-    intro:"Rooms of the house — useful for describing your home, a very common written task.",
+    intro:"Rooms of the house — useful for describing your home, a very common written task, and for giving directions around your own house too.",
     vocab:[
       {es:"an teach", en:"house"},{es:"an seomra leapa", en:"bedroom"},{es:"an chistin", en:"kitchen"},
       {es:"an seomra folctha", en:"bathroom"},{es:"an seomra suí", en:"living room"},{es:"an gairdín", en:"garden"},
@@ -284,19 +304,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Tá mo theach mór.", en:"My house is big."},
-      {es:"Cá bhfuil an chistin?", en:"Where is the kitchen?"}
+      {es:"Cá bhfuil an chistin?", en:"Where is the kitchen?"},
+      {es:"Tá gairdín taobh thiar den teach.", en:"There's a garden behind the house."}
     ],
     quiz:[
       {q:"'an chistin' means…", opts:["Bathroom","Kitchen","Bedroom","Garden"], a:1},
       {q:"'Tá mo theach mór' means…", opts:["My house is small","My house is old","My house is big","My house is new"], a:2},
       {q:"'Cá bhfuil an chistin?' asks…", opts:["What's for dinner?","Where is the kitchen?","Is the kitchen clean?","How big is the kitchen?"], a:1},
       {q:"Which word means 'garden'?", opts:["an gairdín","an seomra suí","an seomra folctha","an fhuinneog"], a:0},
-      {q:"'an doras' means…", opts:["Window","Wall","Door","Roof"], a:2}
+      {q:"'an doras' means…", opts:["Window","Wall","Door","Roof"], a:2},
+      {q:"'an seomra leapa' means…", opts:["Kitchen","Bedroom","Bathroom","Living room"], a:1},
+      {q:"'an fhuinneog' means…", opts:["Door","Window","Wall","Roof"], a:1},
+      {q:"'an leaba' means…", opts:["Bed","Table","Chair","Door"], a:0}
     ]
   },
   {
     id:7, es:"Bia agus Deoch", en:"Food & drink",
-    intro:"Everyday food and drink vocabulary, plus the three meals of the day.",
+    intro:"Everyday food and drink vocabulary, plus the three meals of the day — reliable, high-frequency vocabulary for conversation and comprehension alike.",
     vocab:[
       {es:"arán", en:"bread"},{es:"uisce", en:"water"},{es:"bainne", en:"milk"},{es:"úll", en:"apple"},
       {es:"sicín", en:"chicken"},{es:"rís", en:"rice"},{es:"sailéad", en:"salad"},
@@ -305,19 +329,23 @@ const UNITS = [
     phrases:[
       {es:"Tá ocras orm.", en:"I'm hungry."},
       {es:"Tá tart orm.", en:"I'm thirsty."},
-      {es:"Is maith liom pizza.", en:"I like pizza."}
+      {es:"Is maith liom pizza.", en:"I like pizza."},
+      {es:"Is maith liom arán agus im.", en:"I like bread and butter."}
     ],
     quiz:[
       {q:"'Tá ocras orm' means…", opts:["I'm thirsty","I'm hungry","I'm full","I'm cooking"], a:1},
       {q:"'dinnéar' means…", opts:["Breakfast","Lunch","Dinner","Snack"], a:2},
       {q:"Which word means 'apple'?", opts:["úll","arán","sicín","rís"], a:0},
       {q:"'Tá tart orm' means…", opts:["I'm hungry","I'm tired","I'm thirsty","I'm cold"], a:2},
-      {q:"'sicín' means…", opts:["Rice","Chicken","Salad","Bread"], a:1}
+      {q:"'sicín' means…", opts:["Rice","Chicken","Salad","Bread"], a:1},
+      {q:"'bricfeasta' means…", opts:["Lunch","Breakfast","Dinner","Snack"], a:1},
+      {q:"'bainne' means…", opts:["Water","Milk","Juice","Bread"], a:1},
+      {q:"'lón' means…", opts:["Breakfast","Lunch","Dinner","Snack"], a:1}
     ]
   },
   {
     id:8, es:"An Aimsir", en:"Weather",
-    intro:"Talking about the weather — short, but comes up in almost every conversation task.",
+    intro:"Talking about the weather — short, but comes up in almost every conversation task and pairs naturally with the seasons and holidays.",
     vocab:[
       {es:"Tá sé grianmhar", en:"It's sunny"},{es:"Tá sé fuar", en:"It's cold"},{es:"Tá sé te", en:"It's hot"},
       {es:"Tá sé ag cur báistí", en:"It's raining"},{es:"Tá sé ag cur sneachta", en:"It's snowing"},
@@ -326,19 +354,23 @@ const UNITS = [
     phrases:[
       {es:"Cén sórt lae atá ann?", en:"What's the weather like today?"},
       {es:"Tá sé grianmhar agus te.", en:"It's sunny and hot."},
-      {es:"In Éirinn, bíonn sé ag cur báistí go minic.", en:"In Ireland, it often rains."}
+      {es:"In Éirinn, bíonn sé ag cur báistí go minic.", en:"In Ireland, it often rains."},
+      {es:"Tá sé gaofar agus scamallach.", en:"It's windy and cloudy."}
     ],
     quiz:[
       {q:"'Cén sórt lae atá ann?' asks…", opts:["What time is it?","What's the weather like today?","What day is it?","What season is it?"], a:1},
       {q:"'Tá sé fuar' means…", opts:["It's hot","It's cold","It's windy","It's sunny"], a:1},
       {q:"'Tá sé ag cur báistí' means…", opts:["It's snowing","It's windy","It's raining","It's cloudy"], a:2},
       {q:"'bíonn sé ag cur báistí go minic' means…", opts:["it's always sunny","it often rains","it's very cold","it often snows"], a:1},
-      {q:"Which phrase means 'sunny'?", opts:["Tá sé grianmhar","Tá sé te","Tá sé scamallach","Tá sé gaofar"], a:0}
+      {q:"Which phrase means 'sunny'?", opts:["Tá sé grianmhar","Tá sé te","Tá sé scamallach","Tá sé gaofar"], a:0},
+      {q:"'Tá sé scamallach' means…", opts:["It's sunny","It's cloudy","It's raining","It's cold"], a:1},
+      {q:"'Tá sé ag cur sneachta' means…", opts:["It's raining","It's windy","It's snowing","It's sunny"], a:2},
+      {q:"'Tá sé gaofar' means…", opts:["It's sunny","It's cold","It's windy","It's cloudy"], a:2}
     ]
   },
   {
     id:9, es:"Laethanta agus Míonna", en:"Days & months",
-    intro:"The days of the week and simple date phrases.",
+    intro:"The days of the week and simple date phrases — needed for diaries, timetables and exam answers about routine.",
     vocab:[
       {es:"Dé Luain", en:"Monday"},{es:"Dé Máirt", en:"Tuesday"},{es:"Dé Céadaoin", en:"Wednesday"},
       {es:"Déardaoin", en:"Thursday"},{es:"Dé hAoine", en:"Friday"},{es:"Dé Sathairn", en:"Saturday"},
@@ -346,19 +378,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Cén lá atá ann inniu?", en:"What day is it today?"},
-      {es:"Dé Luain atá ann inniu.", en:"Today is Monday."}
+      {es:"Dé Luain atá ann inniu.", en:"Today is Monday."},
+      {es:"Beidh an scrúdú ann Dé Máirt.", en:"The exam will be on Tuesday."}
     ],
     quiz:[
       {q:"'Dé Luain' is…", opts:["Sunday","Monday","Tuesday","Friday"], a:1},
       {q:"'Cén lá atá ann inniu?' asks…", opts:["What time is it?","What day is it today?","What's the weather?","What month is it?"], a:1},
       {q:"'amárach' means…", opts:["Yesterday","Today","Tomorrow","Now"], a:2},
       {q:"Which day is 'Dé hAoine'?", opts:["Wednesday","Thursday","Friday","Saturday"], a:2},
-      {q:"Which is 'Sunday'?", opts:["Dé Sathairn","Dé Domhnaigh","Dé Luain","Dé Máirt"], a:1}
+      {q:"Which is 'Sunday'?", opts:["Dé Sathairn","Dé Domhnaigh","Dé Luain","Dé Máirt"], a:1},
+      {q:"Which day is 'Dé Céadaoin'?", opts:["Tuesday","Wednesday","Thursday","Monday"], a:1},
+      {q:"'Déardaoin' is…", opts:["Wednesday","Thursday","Friday","Saturday"], a:1},
+      {q:"'inniu' means…", opts:["Yesterday","Today","Tomorrow","Now"], a:1}
     ]
   },
   {
     id:10, es:"Caithimh Aimsire", en:"Hobbies & free time",
-    intro:"What you do for fun — great for building real conversation confidence.",
+    intro:"What you do for fun — great for building real conversation confidence, and one of the topics that comes up most in an actual chat.",
     vocab:[
       {es:"peil a imirt", en:"to play football"},{es:"léamh", en:"to read"},{es:"snámh", en:"to swim"},
       {es:"damhsa", en:"to dance"},{es:"éisteacht le ceol", en:"to listen to music"},
@@ -366,19 +402,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Is maith liom peil a imirt.", en:"I like playing football."},
-      {es:"Cad a dhéanann tú i do chuid ama saor?", en:"What do you do in your free time?"}
+      {es:"Cad a dhéanann tú i do chuid ama saor?", en:"What do you do in your free time?"},
+      {es:"Gach Satharn, téim ag snámh.", en:"Every Saturday, I go swimming."}
     ],
     quiz:[
       {q:"'Is maith liom peil a imirt' means…", opts:["I dislike football","I like playing football","I watch football","I coach football"], a:1},
       {q:"Which word means 'to read'?", opts:["léamh","snámh","damhsa","rothaíocht"], a:0},
       {q:"'Cad a dhéanann tú i do chuid ama saor?' asks…", opts:["What's your favourite subject?","What do you do in your free time?","Where do you live?","What time is it?"], a:1},
       {q:"'rothaíocht' means…", opts:["Driving","Cycling","Walking","Running"], a:1},
-      {q:"'éisteacht le ceol' means…", opts:["To play music","To listen to music","To sing","To dance"], a:1}
+      {q:"'éisteacht le ceol' means…", opts:["To play music","To listen to music","To sing","To dance"], a:1},
+      {q:"'damhsa' means…", opts:["To sing","To dance","To swim","To read"], a:1},
+      {q:"'féachaint ar an teilifís' means…", opts:["To watch TV","To listen to music","To play football","To read"], a:0},
+      {q:"'snámh' means…", opts:["To swim","To dance","To sing","To run"], a:0}
     ]
   },
   {
     id:11, es:"An Baile", en:"Town & directions",
-    intro:"Places around town, and giving simple directions.",
+    intro:"Places around town, and giving simple directions — the vocabulary behind almost every 'how do I get to…' conversation.",
     vocab:[
       {es:"an baile mór", en:"town"},{es:"an chathair", en:"city"},{es:"an siopa", en:"shop"},
       {es:"an pháirc", en:"park"},{es:"an tsráid", en:"street"},{es:"an eaglais", en:"church"},
@@ -386,19 +426,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Cá bhfuil an pháirc?", en:"Where is the park?"},
-      {es:"Tá sé ar dheis.", en:"It's on the right."}
+      {es:"Tá sé ar dheis.", en:"It's on the right."},
+      {es:"Tá an siopa in aice leis an eaglais.", en:"The shop is near the church."}
     ],
     quiz:[
       {q:"'Cá bhfuil an pháirc?' asks…", opts:["What time is it?","Where is the park?","Is the park open?","How far is the park?"], a:1},
       {q:"'ar chlé' means…", opts:["To the right","Straight ahead","To the left","Nearby"], a:2},
       {q:"Which word means 'shop'?", opts:["an siopa","an eaglais","an tsráid","an pháirc"], a:0},
       {q:"'díreach ar aghaidh' means…", opts:["Turn around","Straight ahead","Stop here","Go back"], a:1},
-      {q:"'an chathair' means…", opts:["Town","City","Village","Street"], a:1}
+      {q:"'an chathair' means…", opts:["Town","City","Village","Street"], a:1},
+      {q:"'an tsráid' means…", opts:["Park","Street","Church","Shop"], a:1},
+      {q:"'an eaglais' means…", opts:["Shop","Church","Park","Street"], a:1},
+      {q:"'an baile mór' means…", opts:["City","Town","Street","Church"], a:1}
     ]
   },
   {
     id:12, es:"Mothúcháin", en:"Feelings & the body",
-    intro:"Saying how you feel, and a few basic parts of the body.",
+    intro:"Saying how you feel, and a few basic parts of the body — gives you the vocabulary to answer 'how are you feeling?' with more than just 'go maith'.",
     vocab:[
       {es:"sásta", en:"happy"},{es:"brónach", en:"sad"},{es:"tuirseach", en:"tired"},
       {es:"feargach", en:"angry"},{es:"neirbhíseach", en:"nervous"},{es:"an ceann", en:"head"},
@@ -407,14 +451,92 @@ const UNITS = [
     phrases:[
       {es:"Táim tuirseach.", en:"I am tired."},
       {es:"Conas atá tú ag mothú?", en:"How are you feeling?"},
-      {es:"Tá tinneas cinn orm.", en:"I have a headache."}
+      {es:"Tá tinneas cinn orm.", en:"I have a headache."},
+      {es:"Táim sásta inniu.", en:"I am happy today."}
     ],
     quiz:[
       {q:"'Táim tuirseach' means…", opts:["I am happy","I am tired","I am angry","I am nervous"], a:1},
       {q:"Which word means 'sad'?", opts:["sásta","brónach","neirbhíseach","tuirseach"], a:1},
       {q:"'Conas atá tú ag mothú?' asks…", opts:["What's your name?","How are you feeling?","Where does it hurt?","How old are you?"], a:1},
       {q:"'Tá tinneas cinn orm' means…", opts:["I like my head","My head is big","I have a headache","I lost my head"], a:2},
-      {q:"'na súile' means…", opts:["Hands","Feet","Eyes","Ears"], a:2}
+      {q:"'na súile' means…", opts:["Hands","Feet","Eyes","Ears"], a:2},
+      {q:"'feargach' means…", opts:["Happy","Angry","Nervous","Tired"], a:1},
+      {q:"'an lámh' means…", opts:["Foot","Hand","Head","Eye"], a:1},
+      {q:"'sásta' means…", opts:["Sad","Happy","Angry","Tired"], a:1}
+    ]
+  },
+  {
+    id:13, es:"Ainmhithe", en:"Animals & pets",
+    intro:"Pets and farm animals — a favourite early topic, and handy vocabulary for describing family life beyond just people.",
+    vocab:[
+      {es:"madra", en:"dog"},{es:"cat", en:"cat"},{es:"capall", en:"horse"},
+      {es:"éan", en:"bird"},{es:"iasc", en:"fish"},{es:"bó", en:"cow"},
+      {es:"coinín", en:"rabbit"},{es:"caora", en:"sheep"},{es:"luch", en:"mouse"},
+      {es:"nathair", en:"snake"}
+    ],
+    phrases:[
+      {es:"Tá madra agam.", en:"I have a dog."},
+      {es:"An bhfuil peataí agat?", en:"Do you have pets?"},
+      {es:"Tá an madra ag rith.", en:"The dog is running."}
+    ],
+    quiz:[
+      {q:"'madra' means…", opts:["Cat","Dog","Horse","Bird"], a:1},
+      {q:"'cat' means…", opts:["Dog","Cat","Fish","Cow"], a:1},
+      {q:"'Tá madra agam' means…", opts:["I have a dog","I want a dog","I had a cat","I like dogs"], a:0},
+      {q:"'An bhfuil peataí agat?' asks…", opts:["Do you have pets?","Do you have siblings?","Do you like animals?","Do you have a garden?"], a:0},
+      {q:"Which word means 'horse'?", opts:["capall","bó","coinín","caora"], a:0},
+      {q:"'éan' means…", opts:["Fish","Bird","Snake","Mouse"], a:1},
+      {q:"'caora' means…", opts:["Cow","Sheep","Rabbit","Horse"], a:1},
+      {q:"'nathair' means…", opts:["Mouse","Rabbit","Snake","Bird"], a:2}
+    ]
+  },
+  {
+    id:14, es:"Éadaí", en:"Clothes",
+    intro:"Everyday clothing vocabulary — useful for describing what you're wearing, shopping role-plays, and packing for a trip.",
+    vocab:[
+      {es:"T-léine", en:"t-shirt"},{es:"bríste", en:"trousers"},{es:"gúna", en:"dress"},
+      {es:"sciorta", en:"skirt"},{es:"bróga", en:"shoes"},{es:"seaicéad", en:"jacket"},
+      {es:"geansaí", en:"jumper / sweater"},{es:"buataisí", en:"boots"},{es:"hata", en:"hat"}
+    ],
+    phrases:[
+      {es:"Tá T-léine ghorm orm.", en:"I'm wearing a blue t-shirt."},
+      {es:"Cad atá ort inniu?", en:"What are you wearing today?"},
+      {es:"Teastaíonn bróga nua uaim.", en:"I need new shoes."}
+    ],
+    quiz:[
+      {q:"'T-léine' means…", opts:["Jacket","T-shirt","Dress","Skirt"], a:1},
+      {q:"'bríste' means…", opts:["Shoes","Trousers","Boots","Hat"], a:1},
+      {q:"'Tá T-léine ghorm orm' means…", opts:["I'm wearing a blue t-shirt","I bought a blue t-shirt","I like blue","I want a t-shirt"], a:0},
+      {q:"'Cad atá ort inniu?' asks…", opts:["What are you wearing today?","What are you eating today?","Where are you going?","What time is it?"], a:0},
+      {q:"Which word means 'shoes'?", opts:["bróga","buataisí","hata","geansaí"], a:0},
+      {q:"'geansaí' means…", opts:["Jacket","Jumper / sweater","Dress","Hat"], a:1},
+      {q:"'sciorta' means…", opts:["Skirt","Dress","Jacket","Trousers"], a:0},
+      {q:"'buataisí' means…", opts:["Shoes","Boots","Socks","Hat"], a:1}
+    ]
+  },
+  {
+    id:15, es:"Poist agus Gairmeacha", en:"Jobs & professions",
+    intro:"Talking about jobs — what people do for work, and what you'd like to be — a natural topic once you can talk about school and the future.",
+    vocab:[
+      {es:"dochtúir", en:"doctor"},{es:"múinteoir", en:"teacher"},
+      {es:"garda", en:"police officer / guard"},{es:"amhránaí", en:"singer"},
+      {es:"cócaire", en:"cook / chef"},{es:"comhraiceoir dóiteáin", en:"firefighter"},
+      {es:"dlíodóir", en:"lawyer"},{es:"peileadóir", en:"footballer"}
+    ],
+    phrases:[
+      {es:"Ba mhaith liom a bheith i mo dhochtúir.", en:"I would like to be a doctor."},
+      {es:"Cad ba mhaith leat a bheith?", en:"What would you like to be?"},
+      {es:"Is múinteoir í mo mháthair.", en:"My mother is a teacher."}
+    ],
+    quiz:[
+      {q:"'dochtúir' means…", opts:["Teacher","Doctor","Lawyer","Cook"], a:1},
+      {q:"'Ba mhaith liom a bheith i mo dhochtúir' means…", opts:["I would like to be a doctor","I am a doctor","I saw a doctor","I need a doctor"], a:0},
+      {q:"'Cad ba mhaith leat a bheith?' asks…", opts:["What would you like to be?","What's your favourite subject?","Where do you work?","How old are you?"], a:0},
+      {q:"Which word means 'firefighter'?", opts:["comhraiceoir dóiteáin","garda","dlíodóir","cócaire"], a:0},
+      {q:"'amhránaí' means…", opts:["Dancer","Singer","Actor","Cook"], a:1},
+      {q:"'Is múinteoir í mo mháthair' means…", opts:["My mother is a teacher","My mother is a doctor","My teacher is my mother","My mother likes teaching"], a:0},
+      {q:"'dlíodóir' means…", opts:["Doctor","Lawyer","Police officer","Firefighter"], a:1},
+      {q:"'peileadóir' means…", opts:["Swimmer","Footballer","Singer","Teacher"], a:1}
     ]
   }
 ];
@@ -476,12 +598,12 @@ function renderHome(){
     <div class="hero">
       <div class="eyebrow">A path for two, at one pace</div>
       <h2>Build Irish back up together, one everyday topic at a time.</h2>
-      <p>These twelve units cover the everyday topics that come up constantly in Junior Cycle Irish — greetings, family, school, the house, food, the weather, and more — as a refresher, alongside whatever your child is covering in class.</p>
+      <p>These fifteen units cover the everyday topics that come up constantly in Junior Cycle Irish — greetings, family, school, the house, food, the weather, animals, clothes, jobs and more — as a refresher, alongside whatever your child is covering in class.</p>
       <div class="hero-note">
         <b>Worth knowing:</b> this is built for T2, the specification taught in English-medium schools, which is what the vast majority of students follow. If your child's school is Irish-medium (a Gaelscoil or Gaeltacht school) and they're on T1, the pace and depth expected there is considerably higher than what's here.
       </div>
     </div>
-    <div class="section-title">All twelve units</div>
+    <div class="section-title">All fifteen units</div>
     <div class="start-grid">${cards}</div>
   `;
 }
@@ -574,7 +696,7 @@ function renderUnit(id){
 
     <div class="unit-footer-nav">
       <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
-      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+      <button class="ghost" ${id===15?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
     </div>
   `;
 }

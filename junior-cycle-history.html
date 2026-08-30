@@ -43,7 +43,7 @@
   main{ flex:1; min-width:0; padding:40px 56px 80px; }
   .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
   .progress-wrap{ display:flex; align-items:center; gap:14px; }
-  .mosaic{ display:grid; grid-template-columns:repeat(6,15px); grid-template-rows:repeat(2,15px); gap:3px; }
+  .mosaic{ display:grid; grid-template-columns:repeat(5,15px); grid-template-rows:repeat(3,15px); gap:3px; }
   .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition:background 0.3s ease; }
   .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color:var(--accent-deep); }
   .progress-text{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--ink-soft); }
@@ -150,7 +150,7 @@
       <div id="crumb"></div>
       <div class="progress-wrap">
         <div class="mosaic" id="mosaic"></div>
-        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+        <div class="progress-text"><b id="progressCount">0</b>/15 units done together</div>
       </div>
     </div>
     <div id="content"></div>
@@ -161,7 +161,7 @@
 const UNITS = [
   {
     id:1, en:"The Work of the Historian", strand:"The Nature of History",
-    intro:"The core skills and concepts historians use to study the past — the foundation for everything else in the subject.",
+    intro:"The core skills and concepts historians use to study the past — the foundation for everything else in the subject, and the part examiners test in almost every source-based question.",
     vocab:[
       {es:"Primary source", en:"Evidence created at the time of an event, e.g. a letter, photograph, or artefact"},
       {es:"Secondary source", en:"An account created after an event, based on primary sources, e.g. a history textbook"},
@@ -171,19 +171,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"A diary written during World War I", en:"This is a primary source"},
-      {es:"A book about the Easter Rising, written in 2020", en:"This is a secondary source"}
+      {es:"A book about the Easter Rising, written in 2020", en:"This is a secondary source"},
+      {es:"A government record of the 1916 Rising, written the same week", en:"This is a primary source"}
     ],
     quiz:[
       {q:"A photograph taken during an event is an example of a…", opts:["Primary source","Secondary source","Bias","Chronology"], a:0},
       {q:"A textbook written years later, based on other sources, is a…", opts:["Primary source","Secondary source","Artefact","Timeline"], a:1},
       {q:"Bias means…", opts:["A balanced account","A one-sided view","A type of artefact","A primary source"], a:1},
       {q:"Chronology refers to…", opts:["The cause of an event","The order events happened in","A type of bias","An eyewitness account"], a:1},
-      {q:"'Cause and effect' studies…", opts:["Only what happened","Why something happened and what resulted","Only dates","Only people"], a:1}
+      {q:"'Cause and effect' studies…", opts:["Only what happened","Why something happened and what resulted","Only dates","Only people"], a:1},
+      {q:"Which is an example of a secondary source?", opts:["A letter written in 1916","A modern history book about 1916","A photograph from 1916","An artefact from 1916"], a:1},
+      {q:"Historians use evidence mainly to…", opts:["Guess randomly","Support conclusions about the past","Ignore contradictions","Avoid using sources"], a:1},
+      {q:"Which best shows cause and effect?", opts:["The Famine happened, so many people emigrated","The Famine happened in 1845","The Famine affected Ireland","The Famine is a primary source"], a:0}
     ]
   },
   {
     id:2, en:"Reading the Evidence", strand:"The Nature of History",
-    intro:"How historians actually find out about the past — from dug-up objects to living memory.",
+    intro:"How historians actually find out about the past — from dug-up objects to living memory — and how to weigh up how reliable each kind of evidence really is.",
     vocab:[
       {es:"Artefact", en:"An object made or used by people in the past, studied for clues about their lives"},
       {es:"Archaeology", en:"The study of the past through physical remains and artefacts"},
@@ -193,19 +197,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Digging up pottery from a Viking settlement", en:"This is archaeology in action"},
-      {es:"A grandparent describing life in the 1960s", en:"This is oral history"}
+      {es:"A grandparent describing life in the 1960s", en:"This is oral history"},
+      {es:"A flint arrowhead found at an archaeological dig", en:"This is an artefact, studied through archaeology"}
     ],
     quiz:[
       {q:"An object from the past studied for historical clues is a/an…", opts:["Bias","Artefact","Chronology","Secondary source"], a:1},
       {q:"Archaeology is the study of the past through…", opts:["Written records only","Physical remains and artefacts","Oral accounts only","Photographs only"], a:1},
       {q:"Oral history is passed down through…", opts:["Written documents","Spoken accounts and memories","Government records","Newspaper articles"], a:1},
       {q:"An eyewitness account is given by someone who…", opts:["Read about the event later","Saw the event happen","Wrote a textbook","Studied archaeology"], a:1},
-      {q:"A historian's job is to…", opts:["Predict the future","Study and write about the past using evidence","Only study artefacts","Only study wars"], a:1}
+      {q:"A historian's job is to…", opts:["Predict the future","Study and write about the past using evidence","Only study artefacts","Only study wars"], a:1},
+      {q:"Which is most likely to be both a primary source AND archaeological evidence?", opts:["A dug-up Bronze Age axe","A 2020 textbook","A modern documentary","A history exam"], a:0},
+      {q:"Oral history is especially useful for studying…", opts:["Events with no living witnesses","Recent history within living memory","Only ancient history","Only written records"], a:1},
+      {q:"A historian evaluating an eyewitness account should consider…", opts:["Only what feels true","Possible bias and how reliable the source is","Nothing, and accept it fully","Only the length of the account"], a:1}
     ]
   },
   {
     id:3, en:"Ancient & Early Ireland", strand:"The History of Ireland",
-    intro:"From Stone Age monuments to the arrival of Christianity — the earliest chapters of Irish history.",
+    intro:"From Stone Age monuments to the arrival of Christianity — the earliest chapters of Irish history, and some of its most visually striking evidence.",
     vocab:[
       {es:"Newgrange", en:"A Stone Age passage tomb in County Meath, older than the pyramids of Giza"},
       {es:"Celts", en:"People who arrived in Ireland from mainland Europe from around 500 BC, bringing the Iron Age"},
@@ -215,19 +223,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Newgrange was built around 3200 BC", en:"Making it older than Stonehenge and the Egyptian pyramids"},
-      {es:"Irish monasteries produced illuminated manuscripts", en:"Such as the Book of Kells"}
+      {es:"Irish monasteries produced illuminated manuscripts", en:"Such as the Book of Kells"},
+      {es:"The Book of Kells was produced in an Irish monastery", en:"Around the 9th century AD, showcasing incredible craftsmanship"}
     ],
     quiz:[
       {q:"Newgrange is an example of a…", opts:["Viking fort","Stone Age passage tomb","Norman castle","Medieval monastery"], a:1},
       {q:"The Celts brought which technology to Ireland?", opts:["Stone tools","The Iron Age","Gunpowder","Printing"], a:1},
       {q:"Ogham was…", opts:["A type of coin","An early Irish alphabet","A Viking ship","A Norman castle"], a:1},
       {q:"Early Christian Irish monasteries were centres of…", opts:["Trade only","Learning and religion","Warfare","Farming only"], a:1},
-      {q:"St. Patrick is traditionally credited with…", opts:["Building Newgrange","Spreading Christianity in Ireland","Founding the Vikings","Writing Ogham"], a:1}
+      {q:"St. Patrick is traditionally credited with…", opts:["Building Newgrange","Spreading Christianity in Ireland","Founding the Vikings","Writing Ogham"], a:1},
+      {q:"Newgrange predates the Egyptian pyramids by roughly…", opts:["A few years","Several centuries","No difference","It was built after them"], a:1},
+      {q:"The Book of Kells is an example of…", opts:["A Viking artefact","An illuminated manuscript from an Irish monastery","A Norman castle plan","A Celtic coin"], a:1},
+      {q:"The Iron Age in Ireland is associated with…", opts:["The Vikings","The Celts","The Normans","The Tudors"], a:1}
     ]
   },
   {
     id:4, en:"The Vikings & Normans in Ireland", strand:"The History of Ireland",
-    intro:"Two waves of newcomers who reshaped Irish towns, warfare and power structures.",
+    intro:"Two waves of newcomers who reshaped Irish towns, warfare and power structures, laying the groundwork for the Ireland that came after.",
     vocab:[
       {es:"Vikings", en:"Raiders and settlers from Scandinavia who first raided Ireland around 795 AD"},
       {es:"Longphort", en:"A Viking ship fortress or base, often built at river mouths"},
@@ -238,19 +250,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"The Vikings first raided Ireland in 795 AD", en:"Targeting monasteries for their wealth"},
-      {es:"The Normans arrived in Ireland in 1169", en:"Invited by the deposed King of Leinster, Dermot MacMurrough"}
+      {es:"The Normans arrived in Ireland in 1169", en:"Invited by the deposed King of Leinster, Dermot MacMurrough"},
+      {es:"Dublin, Waterford, and Limerick", en:"All began as Viking settlements"}
     ],
     quiz:[
       {q:"The Vikings first raided Ireland in around…", opts:["795 AD","1169 AD","1916 AD","3200 BC"], a:0},
       {q:"A Viking ship fortress or base is called a…", opts:["Motte and bailey","Longphort","Ogham stone","Monastery"], a:1},
       {q:"Which city was founded as a Viking settlement?", opts:["Cork","Galway","Dublin","Belfast"], a:2},
       {q:"The Normans arrived in Ireland in…", opts:["795 AD","1169 AD","1916 AD","1690 AD"], a:1},
-      {q:"Strongbow was a…", opts:["Viking king","Norman leader","Irish saint","Celtic chieftain"], a:1}
+      {q:"Strongbow was a…", opts:["Viking king","Norman leader","Irish saint","Celtic chieftain"], a:1},
+      {q:"Longphorts were typically built…", opts:["Inland on hilltops","At river mouths","In the mountains","Underground"], a:1},
+      {q:"Who invited the Normans to Ireland?", opts:["Strongbow","Dermot MacMurrough","Brian Boru","St. Patrick"], a:1},
+      {q:"A motte and bailey castle was made of…", opts:["Stone only","Earth and wood","Glass","Brick"], a:1}
     ]
   },
   {
     id:5, en:"Plantations & Tudor Conquest", strand:"The History of Ireland",
-    intro:"How 16th- and 17th-century English policy reshaped land ownership and religion across Ireland.",
+    intro:"How 16th- and 17th-century English policy reshaped land ownership and religion across Ireland, with consequences that lasted for centuries.",
     vocab:[
       {es:"Plantation", en:"The policy of settling English and Scottish colonists on land confiscated from the Irish"},
       {es:"Tudor conquest", en:"The 16th-century campaign by English monarchs to bring all of Ireland under crown control"},
@@ -260,19 +276,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"The Flight of the Earls happened in 1607", en:"After the Gaelic Irish defeat at the Battle of Kinsale"},
-      {es:"The Ulster Plantation began in 1609", en:"Reshaping the population of the north of Ireland"}
+      {es:"The Ulster Plantation began in 1609", en:"Reshaping the population of the north of Ireland"},
+      {es:"O'Neill and O'Donnell left Ireland in 1607", en:"An event known as the Flight of the Earls"}
     ],
     quiz:[
       {q:"A plantation was…", opts:["A type of farm crop","Settling new colonists on confiscated land","A Viking raid","A Norman castle"], a:1},
       {q:"The Flight of the Earls took place in…", opts:["1169","1607","1798","1916"], a:1},
       {q:"The Ulster Plantation mainly settled which groups?", opts:["French and Spanish","Scottish and English","Vikings","Normans"], a:1},
       {q:"Penal Laws restricted the rights of…", opts:["Protestants","Catholics","Vikings","Normans"], a:1},
-      {q:"The Tudor conquest aimed to…", opts:["Remove all settlers","Bring all of Ireland under crown control","Establish Viking rule","End the plantations"], a:1}
+      {q:"The Tudor conquest aimed to…", opts:["Remove all settlers","Bring all of Ireland under crown control","Establish Viking rule","End the plantations"], a:1},
+      {q:"The Battle of Kinsale (1601) resulted in…", opts:["Irish victory","Defeat for the Gaelic Irish forces","A truce with no result","Viking withdrawal"], a:1},
+      {q:"Confiscated land during a plantation was given to…", opts:["The original Irish landowners","New English/Scottish settlers","The Catholic Church","Viking descendants"], a:1},
+      {q:"The Williamite War was fought over…", opts:["Trade routes","The English/Irish throne and religion","Viking territory","Norman inheritance"], a:1}
     ]
   },
   {
     id:6, en:"The Road to Independence", strand:"The History of Ireland",
-    intro:"From the campaign for Home Rule to the founding of the Irish Free State.",
+    intro:"From the campaign for Home Rule to the founding of the Irish Free State — a compressed, intense period that shaped the state Ireland is today.",
     vocab:[
       {es:"Home Rule", en:"The movement for Ireland to have its own parliament while remaining part of the UK"},
       {es:"Easter Rising", en:"An armed rebellion against British rule in Dublin in April 1916"},
@@ -282,19 +302,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"The Easter Rising took place in April 1916", en:"Centred on the GPO in Dublin"},
-      {es:"The Anglo-Irish Treaty was signed in 1921", en:"Leading to the Irish Free State and, controversially, partition"}
+      {es:"The Anglo-Irish Treaty was signed in 1921", en:"Leading to the Irish Free State and, controversially, partition"},
+      {es:"Michael Collins and Éamon de Valera", en:"Key figures on opposing sides during the Civil War split"}
     ],
     quiz:[
       {q:"The Easter Rising took place in…", opts:["1916","1921","1922","1798"], a:0},
       {q:"The War of Independence was fought between…", opts:["Ireland and France","Irish republicans and British forces","Vikings and Normans","Catholics and Protestants only"], a:1},
       {q:"The Anglo-Irish Treaty was signed in…", opts:["1916","1919","1921","1923"], a:2},
       {q:"The Irish Civil War was fought between…", opts:["Britain and Ireland","Pro- and anti-Treaty sides","Vikings and Normans","Ulster and Munster"], a:1},
-      {q:"Home Rule aimed for…", opts:["Full independence immediately","An Irish parliament within the UK","A return to British direct rule","Union with France"], a:1}
+      {q:"Home Rule aimed for…", opts:["Full independence immediately","An Irish parliament within the UK","A return to British direct rule","Union with France"], a:1},
+      {q:"The Easter Rising was centred on which Dublin building?", opts:["Dublin Castle","The GPO","Trinity College","Leinster House"], a:1},
+      {q:"Guerrilla warfare during the War of Independence involved…", opts:["Large set-piece battles only","Small-scale, irregular attacks","Naval battles only","No fighting at all"], a:1},
+      {q:"A major controversy of the Anglo-Irish Treaty was…", opts:["The colour of the flag","Partition and the oath of allegiance","The date of Christmas","The location of Dublin"], a:1}
     ]
   },
   {
     id:7, en:"Ireland Since Independence", strand:"The History of Ireland",
-    intro:"From the founding of the Free State through neutrality, the Troubles, and the peace process.",
+    intro:"From the founding of the Free State through neutrality, the Troubles, and the peace process — bringing Irish history up close to the present day.",
     vocab:[
       {es:"Irish Free State", en:"Established in 1922, the new state covering 26 counties"},
       {es:"Partition", en:"The 1920s division of Ireland into Northern Ireland and the Irish Free State"},
@@ -305,19 +329,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"Ireland remained neutral during 'the Emergency'", en:"The Irish official term for World War II"},
-      {es:"The Good Friday Agreement was signed in 1998", en:"Bringing a peace settlement to Northern Ireland"}
+      {es:"The Good Friday Agreement was signed in 1998", en:"Bringing a peace settlement to Northern Ireland"},
+      {es:"Ireland joined the United Nations in 1955", en:"A sign of its growing role in international affairs after independence"}
     ],
     quiz:[
       {q:"The Irish Free State was established in…", opts:["1916","1921","1922","1937"], a:2},
       {q:"Partition refers to…", opts:["The end of the Civil War","The division of Ireland into two states","The Easter Rising","The Ulster Plantation"], a:1},
       {q:"'The Emergency' was Ireland's term for its stance during…", opts:["World War I","World War II","The Civil War","The Troubles"], a:1},
       {q:"The Troubles mainly took place in…", opts:["The Irish Free State","Northern Ireland","Britain","Europe generally"], a:1},
-      {q:"The Good Friday Agreement was signed in…", opts:["1921","1969","1998","1916"], a:2}
+      {q:"The Good Friday Agreement was signed in…", opts:["1921","1969","1998","1916"], a:2},
+      {q:"Éamon de Valera founded which political party?", opts:["Fine Gael","Fianna Fáil","Sinn Féin","Labour"], a:1},
+      {q:"The Good Friday Agreement mainly addressed conflict in…", opts:["The Irish Free State","Northern Ireland","Britain","Europe generally"], a:1},
+      {q:"Ireland's neutral stance in World War II is called…", opts:["The Rising","The Emergency","The Treaty","Partition"], a:1}
     ]
   },
   {
     id:8, en:"Ancient Civilisations", strand:"The History of Europe and the Wider World",
-    intro:"Egypt, Greece and Rome — the civilisations most Junior Cycle courses use to introduce the ancient world.",
+    intro:"Egypt, Greece and Rome — the civilisations most Junior Cycle courses use to introduce the ancient world, and the source of ideas still shaping life today.",
     vocab:[
       {es:"Ancient Egypt", en:"A civilisation along the Nile, famous for pyramids and pharaohs"},
       {es:"Pharaoh", en:"The title given to ancient Egyptian rulers"},
@@ -328,19 +356,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"The Great Pyramid of Giza was built as a tomb for a pharaoh", en:"Around 2560 BC"},
-      {es:"Ancient Athens is considered the birthplace of democracy", en:"Around the 5th century BC"}
+      {es:"Ancient Athens is considered the birthplace of democracy", en:"Around the 5th century BC"},
+      {es:"The Rosetta Stone helped historians decode", en:"Ancient Egyptian hieroglyphics"}
     ],
     quiz:[
       {q:"Pharaoh was the title given to rulers of…", opts:["Ancient Rome","Ancient Egypt","Ancient Greece","Ancient Ireland"], a:1},
       {q:"Democracy first developed in…", opts:["Ancient Rome","Ancient Egypt","Ancient Athens (Greece)","Medieval Ireland"], a:2},
       {q:"The Roman Empire grew from…", opts:["A small island","A city-state","A group of monasteries","A Viking settlement"], a:1},
       {q:"Julius Caesar was assassinated in…", opts:["44 BC","500 AD","1066 AD","1492 AD"], a:0},
-      {q:"The pyramids of ancient Egypt were mainly built as…", opts:["Temples for worship only","Tombs for pharaohs","Forts against invaders","Homes for farmers"], a:1}
+      {q:"The pyramids of ancient Egypt were mainly built as…", opts:["Temples for worship only","Tombs for pharaohs","Forts against invaders","Homes for farmers"], a:1},
+      {q:"The Colosseum is associated with which civilisation?", opts:["Ancient Egypt","Ancient Greece","Ancient Rome","Ancient Ireland"], a:2},
+      {q:"Ancient Greek city-states were called…", opts:["Empires","Poleis","Provinces","Colonies"], a:1},
+      {q:"Hieroglyphics were used by…", opts:["The Romans","The Greeks","The ancient Egyptians","The Celts"], a:2}
     ]
   },
   {
     id:9, en:"The Renaissance & Reformation", strand:"The History of Europe and the Wider World",
-    intro:"How new ideas about art, learning and religion transformed Europe from the 14th century onwards.",
+    intro:"How new ideas about art, learning and religion transformed Europe from the 14th century onwards, setting the stage for the modern world.",
     vocab:[
       {es:"Renaissance", en:"A period of renewed interest in art, learning and science, beginning in Italy in the 14th century"},
       {es:"Humanism", en:"A Renaissance idea emphasising human potential and classical learning"},
@@ -350,19 +382,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"The printing press was invented around 1440", en:"By Johannes Gutenberg in Germany"},
-      {es:"Martin Luther posted his Ninety-Five Theses in 1517", en:"Challenging practices of the Catholic Church"}
+      {es:"Martin Luther posted his Ninety-Five Theses in 1517", en:"Challenging practices of the Catholic Church"},
+      {es:"Leonardo da Vinci and Michelangelo", en:"Famous artists associated with the Italian Renaissance"}
     ],
     quiz:[
       {q:"The Renaissance began in which country?", opts:["France","Italy","Germany","England"], a:1},
       {q:"The printing press was invented by…", opts:["Martin Luther","Johannes Gutenberg","Julius Caesar","Strongbow"], a:1},
       {q:"The Reformation led to the split of which movement from the Catholic Church?", opts:["Judaism","Protestantism","Islam","Humanism"], a:1},
       {q:"Martin Luther's Ninety-Five Theses were posted in…", opts:["1440","1517","1607","1789"], a:1},
-      {q:"Humanism emphasised…", opts:["Only religious faith","Human potential and classical learning","Only military strength","Only trade"], a:1}
+      {q:"Humanism emphasised…", opts:["Only religious faith","Human potential and classical learning","Only military strength","Only trade"], a:1},
+      {q:"The Reformation began with events in…", opts:["Italy","Germany","Ireland","Egypt"], a:1},
+      {q:"Renaissance art often focused on…", opts:["Abstract shapes only","Realistic human figures and classical themes","Only religious icons with no realism","Photography"], a:1},
+      {q:"The printing press helped spread the Reformation by…", opts:["Making books slower to produce","Allowing ideas to spread quickly and cheaply","Banning religious texts","Only printing in Latin"], a:1}
     ]
   },
   {
     id:10, en:"The Age of Revolutions", strand:"The History of Europe and the Wider World",
-    intro:"The American and French Revolutions — a turning point for ideas about rights, monarchy and government.",
+    intro:"The American and French Revolutions — a turning point for ideas about rights, monarchy and government that still echo in politics today.",
     vocab:[
       {es:"American Revolution", en:"The war (1775–1783) in which the American colonies won independence from Britain"},
       {es:"Declaration of Independence", en:"The 1776 document declaring the American colonies free from British rule"},
@@ -372,19 +408,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"The Declaration of Independence was signed in 1776", en:"Announcing the American colonies' break from Britain"},
-      {es:"The storming of the Bastille happened on 14 July 1789", en:"Marking the start of the French Revolution"}
+      {es:"The storming of the Bastille happened on 14 July 1789", en:"Marking the start of the French Revolution"},
+      {es:"King Louis XVI and Marie Antoinette", en:"The French royals executed during the Revolution"}
     ],
     quiz:[
       {q:"The Declaration of Independence was signed in…", opts:["1607","1776","1789","1916"], a:1},
       {q:"The French Revolution began in…", opts:["1607","1776","1789","1798"], a:2},
       {q:"The storming of the Bastille is seen as the start of…", opts:["The American Revolution","The French Revolution","World War I","The Reformation"], a:1},
       {q:"Which country did the American colonies gain independence from?", opts:["France","Spain","Britain","Portugal"], a:2},
-      {q:"King Louis XVI was executed using the…", opts:["Sword","Guillotine","Firing squad","Poison"], a:1}
+      {q:"King Louis XVI was executed using the…", opts:["Sword","Guillotine","Firing squad","Poison"], a:1},
+      {q:"The French Revolution's famous slogan was 'Liberty, Equality, and…'", opts:["Monarchy","Fraternity","Wealth","Empire"], a:1},
+      {q:"Before the Revolution, France was ruled by…", opts:["An absolute monarchy","A democracy","A republic","A military junta only"], a:0},
+      {q:"The American Revolution was fought against which country's rule?", opts:["Spain","France","Britain","Netherlands"], a:2}
     ]
   },
   {
     id:11, en:"World War I", strand:"The History of Europe and the Wider World",
-    intro:"The 1914–1918 conflict that reshaped Europe and drew in much of the world.",
+    intro:"The 1914–1918 conflict that reshaped Europe and drew in much of the world, introducing new, devastating forms of warfare.",
     vocab:[
       {es:"Assassination of Franz Ferdinand", en:"The June 1914 event that triggered the outbreak of World War I"},
       {es:"Trench warfare", en:"A style of fighting using deep ditches for defence, common on the Western Front"},
@@ -394,19 +434,23 @@ const UNITS = [
     ],
     phrases:[
       {es:"World War I began in 1914", en:"Triggered by the assassination of Archduke Franz Ferdinand"},
-      {es:"The Armistice was signed on 11 November 1918", en:"Ending the fighting on the Western Front"}
+      {es:"The Armistice was signed on 11 November 1918", en:"Ending the fighting on the Western Front"},
+      {es:"Poppies are worn to commemorate", en:"Soldiers who died in World War I and later conflicts"}
     ],
     quiz:[
       {q:"World War I was triggered by the assassination of…", opts:["Julius Caesar","Franz Ferdinand","Martin Luther","Louis XVI"], a:1},
       {q:"Trench warfare was mainly associated with…", opts:["The Western Front","Ancient Rome","The Viking raids","The Renaissance"], a:0},
       {q:"The Allied Powers in World War I included…", opts:["Germany and Austria-Hungary","Britain, France and Russia","The Ottoman Empire only","Italy only"], a:1},
       {q:"The Central Powers included…", opts:["Britain and France","Germany and Austria-Hungary","Russia and the USA","Ireland and Britain"], a:1},
-      {q:"The Armistice ending World War I was signed in…", opts:["1914","1916","1918","1921"], a:2}
+      {q:"The Armistice ending World War I was signed in…", opts:["1914","1916","1918","1921"], a:2},
+      {q:"World War I is often dated from 1914 to…", opts:["1916","1918","1920","1945"], a:1},
+      {q:"'No man's land' referred to…", opts:["Neutral countries","The dangerous space between opposing trenches","Ireland during the war","Colonies in Africa"], a:1},
+      {q:"The Ottoman Empire fought on the side of the…", opts:["Allied Powers","Central Powers","Neither side","Ireland"], a:1}
     ]
   },
   {
     id:12, en:"World War II & the Holocaust", strand:"The History of Europe and the Wider World",
-    intro:"The deadliest conflict in history, and the systematic genocide carried out by Nazi Germany.",
+    intro:"The deadliest conflict in history, and the systematic genocide carried out by Nazi Germany — history that demands care as well as accuracy.",
     vocab:[
       {es:"Adolf Hitler", en:"Leader of Nazi Germany, whose invasion of Poland in 1939 triggered World War II"},
       {es:"Holocaust", en:"The systematic murder of six million Jews and millions of others by Nazi Germany"},
@@ -416,14 +460,93 @@ const UNITS = [
     ],
     phrases:[
       {es:"World War II began in 1939", en:"When Germany invaded Poland"},
-      {es:"D-Day took place on 6 June 1944", en:"The Allied landings in Normandy, France"}
+      {es:"D-Day took place on 6 June 1944", en:"The Allied landings in Normandy, France"},
+      {es:"Anne Frank's diary", en:"A primary source written by a Jewish girl in hiding during the Holocaust"}
     ],
     quiz:[
       {q:"World War II began in 1939 when Germany invaded…", opts:["France","Poland","Britain","Russia"], a:1},
       {q:"The Holocaust refers to…", opts:["A World War I battle","The systematic murder of six million Jews and others by Nazi Germany","A peace treaty","A Renaissance movement"], a:1},
       {q:"D-Day took place in…", opts:["1939","1941","1944","1945"], a:2},
       {q:"The Axis Powers included Germany, Japan and…", opts:["Britain","Italy","Russia","France"], a:1},
-      {q:"The Allies in World War II included Britain, the Soviet Union and…", opts:["Germany","Italy","The USA","Japan"], a:2}
+      {q:"The Allies in World War II included Britain, the Soviet Union and…", opts:["Germany","Italy","The USA","Japan"], a:2},
+      {q:"The Nazi party was led by…", opts:["Winston Churchill","Adolf Hitler","Joseph Stalin","Franklin Roosevelt"], a:1},
+      {q:"World War II ended in Europe in…", opts:["1943","1944","1945","1946"], a:2},
+      {q:"The Holocaust primarily targeted…", opts:["Only soldiers","Jewish people and other targeted groups","Only politicians","Only children"], a:1}
+    ]
+  },
+  {
+    id:13, en:"Local & Family History", strand:"The Nature of History",
+    intro:"Zooming in from world events to your own town and family — often the most engaging way into historical skills, since the evidence is close to home.",
+    vocab:[
+      {es:"Local history", en:"The history of a particular place, such as a town, parish or county"},
+      {es:"Family history", en:"Tracing your own ancestors and family story through records and memory"},
+      {es:"Census", en:"An official count and record of a population, taken at a point in time"},
+      {es:"Genealogy", en:"The study of family lines and ancestry"},
+      {es:"Heritage", en:"The traditions, buildings, and culture passed down from earlier generations"}
+    ],
+    phrases:[
+      {es:"Looking up an old house on a 19th-century map", en:"An example of local history research"},
+      {es:"Interviewing a grandparent about their childhood", en:"An example of family history and oral history combined"}
+    ],
+    quiz:[
+      {q:"Local history focuses on…", opts:["World events only","The history of a particular place","Only famous people","Only wars"], a:1},
+      {q:"Genealogy is the study of…", opts:["Rocks and minerals","Family lines and ancestry","Ancient languages","Weather patterns"], a:1},
+      {q:"A census records…", opts:["Only births","An official count of a population","Only deaths","Only marriages"], a:1},
+      {q:"Family history often uses…", opts:["Only newspapers","Records and personal memory","Only archaeology","Only maps"], a:1},
+      {q:"Heritage refers to…", opts:["Only ancient artefacts","Traditions and culture passed down through generations","Only buildings","Only written laws"], a:1},
+      {q:"Interviewing a grandparent about the past is an example of…", opts:["Archaeology","Oral history","A census","Only a written primary source"], a:1},
+      {q:"Which is a local history source?", opts:["Old maps and photographs of a town","A world atlas","A dictionary","A modern novel"], a:0},
+      {q:"Studying your own family's history is called…", opts:["Archaeology","Genealogy","Cartography","Chronology"], a:1}
+    ]
+  },
+  {
+    id:14, en:"The Great Famine", strand:"The History of Ireland",
+    intro:"The devastating famine of the 1840s that reshaped Ireland's population and society for generations — a serious, sensitive topic worth treating carefully.",
+    vocab:[
+      {es:"The Great Famine", en:"The period of mass starvation in Ireland, 1845–1849"},
+      {es:"Potato blight", en:"The plant disease that destroyed the potato crop, the main food source for many"},
+      {es:"Emigration", en:"Leaving one's country to settle in another; huge numbers left Ireland during the Famine"},
+      {es:"Coffin ships", en:"Poorly-equipped vessels carrying emigrants, on which many died during the journey"},
+      {es:"Workhouse", en:"An institution where the poorest could get food and shelter in exchange for labour"}
+    ],
+    phrases:[
+      {es:"The Great Famine began in 1845", en:"When potato blight first struck the crop"},
+      {es:"Ireland's population fell dramatically", en:"Through death and mass emigration, especially to America and Britain"}
+    ],
+    quiz:[
+      {q:"The Great Famine began in…", opts:["1798","1845","1916","1921"], a:1},
+      {q:"Potato blight was…", opts:["A government policy","A plant disease that destroyed the crop","A type of tax","A famine relief scheme"], a:1},
+      {q:"Coffin ships were…", opts:["Ships that carried food to Ireland","Poorly-equipped emigrant ships on which many died","Naval warships","Fishing boats"], a:1},
+      {q:"A workhouse provided…", opts:["Free land","Food and shelter in exchange for labour","Free passage abroad","University education"], a:1},
+      {q:"Emigration during the Famine mainly meant leaving for…", opts:["Only France","America and Britain, especially","Only Australia","Only Spain"], a:1},
+      {q:"The main food source destroyed by blight was…", opts:["Wheat","The potato","Rice","Barley"], a:1},
+      {q:"The Great Famine roughly lasted from…", opts:["1845 to 1849","1916 to 1921","1798 to 1803","1900 to 1905"], a:0},
+      {q:"One long-term effect of the Famine was…", opts:["A sharp population increase","A dramatic fall in Ireland's population","Immediate independence","The end of British rule"], a:1}
+    ]
+  },
+  {
+    id:15, en:"The Industrial Revolution", strand:"The History of Europe and the Wider World",
+    intro:"The shift from hand-made goods to machine production that transformed how — and where — people lived and worked across Europe.",
+    vocab:[
+      {es:"Industrial Revolution", en:"The major shift from hand production to machines, beginning in Britain in the mid-18th century"},
+      {es:"Factory", en:"A large building where goods were mass-produced using machinery"},
+      {es:"Steam engine", en:"A key invention that powered factories, trains and ships"},
+      {es:"Urbanisation", en:"The growth of cities as people moved from rural areas to work in factories"},
+      {es:"Child labour", en:"The widespread employment of children in factories and mines during this period"}
+    ],
+    phrases:[
+      {es:"The Industrial Revolution began in Britain", en:"Around the mid-1700s, before spreading to Europe and beyond"},
+      {es:"The steam engine transformed transport and industry", en:"Powering factories, railways, and steamships"}
+    ],
+    quiz:[
+      {q:"The Industrial Revolution began in…", opts:["France","Britain","Germany","Ireland"], a:1},
+      {q:"A key invention that powered factories and trains was the…", opts:["Printing press","Steam engine","Telephone","Guillotine"], a:1},
+      {q:"Urbanisation refers to…", opts:["People moving to the countryside","The growth of cities as people moved for factory work","A type of factory machine","A government policy on farming"], a:1},
+      {q:"Child labour during the Industrial Revolution meant…", opts:["Children attended school full-time","Children were widely employed in factories and mines","Children were banned from working entirely","Children only worked on farms"], a:1},
+      {q:"A factory is best described as…", opts:["A small family farm","A building for mass-producing goods with machinery","A type of school","A government building"], a:1},
+      {q:"The Industrial Revolution roughly began in the…", opts:["16th century","Mid-18th century","20th century","10th century"], a:1},
+      {q:"Which was a major effect of the Industrial Revolution?", opts:["Decline of cities","Growth of cities and factory work","End of all farming","Return to hand production"], a:1},
+      {q:"Steam power was mainly used to…", opts:["Light homes","Power factories, trains, and ships","Cook food","Print newspapers"], a:1}
     ]
   }
 ];
@@ -474,12 +597,12 @@ function renderHome(){
     <div class="hero">
       <div class="eyebrow">A path for two, at one pace</div>
       <h2>Uncover Junior Cycle History together, one period at a time.</h2>
-      <p>These twelve units survey the three Junior Cycle strands — the skills of the historian, the history of Ireland, and the history of Europe and the wider world — from Newgrange through to World War II.</p>
+      <p>These fifteen units survey the three Junior Cycle strands — the skills of the historian, the history of Ireland, and the history of Europe and the wider world — from Newgrange through to World War II, plus local/family history, the Great Famine, and the Industrial Revolution.</p>
       <div class="hero-note">
         <b>Worth knowing:</b> Junior Cycle History doesn't follow one fixed content list — schools choose their own key personalities, issues and events within each strand. This is a broad, representative survey of the periods most commonly taught, not a guaranteed match to any one classroom's exact topics.
       </div>
     </div>
-    <div class="section-title">All twelve units</div>
+    <div class="section-title">All fifteen units</div>
     <div class="start-grid">${cards}</div>
   `;
 }
@@ -556,7 +679,7 @@ function renderUnit(id){
 
     <div class="unit-footer-nav">
       <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
-      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+      <button class="ghost" ${id===15?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
     </div>
   `;
 }
