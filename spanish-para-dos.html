@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Español para Dos — Junior Cycle Spanish, Together</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F2ECDD;
+    --card: #FBF8F1;
+    --ink: #2B2418;
+    --ink-soft: #6B6152;
+    --blue: #2C5F7C;
+    --blue-deep: #1E4256;
+    --blue-light: #9DC3D6;
+    --ochre: #D9A441;
+    --clay: #B8562E;
+    --clay-soft: #E7C9B8;
+    --line: #DCD2B8;
+    --good: #3E7A4F;
+    --bad: #B8412E;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before{
+    content:"";
+    position: fixed; inset:0;
+    pointer-events:none;
+    opacity:0.5;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(44,95,124,0.07) 1px, transparent 1.6px);
+    background-size: 22px 22px;
+    z-index:0;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    color: var(--blue-deep);
+  }
+  .app{
+    position:relative; z-index:1;
+    display:flex;
+    min-height:100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    width: 280px;
+    flex-shrink:0;
+    background: var(--blue-deep);
+    color: #EFE6D4;
+    padding: 28px 0 20px;
+    display:flex;
+    flex-direction:column;
+    position: sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+  }
+  .brand{
+    padding: 0 24px 20px;
+    border-bottom: 1px solid rgba(239,230,212,0.15);
+    margin-bottom: 10px;
+  }
+  .brand .tile-mark{
+    width:34px;height:34px;
+    margin-bottom:10px;
+    display:block;
+  }
+  .brand h1{
+    color:#F4EEDD;
+    font-size: 1.5rem;
+    line-height:1.15;
+  }
+  .brand p{
+    margin:6px 0 0;
+    font-size:0.78rem;
+    color: var(--blue-light);
+    letter-spacing:0.03em;
+  }
+  .nav-list{
+    list-style:none;
+    margin:0; padding: 8px 12px;
+    flex:1;
+  }
+  .nav-list li + li{ margin-top:2px; }
+  .nav-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    color: rgba(239,230,212,0.82);
+    font-family:'Work Sans', sans-serif;
+    font-size:0.92rem;
+    padding:9px 12px;
+    border-radius:9px;
+    cursor:pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-item:hover{ background: rgba(239,230,212,0.08); color:#fff; }
+  .nav-item.active{ background: var(--ochre); color: var(--blue-deep); font-weight:600; }
+  .nav-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    width:20px; height:20px;
+    border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(239,230,212,0.12);
+    flex-shrink:0;
+  }
+  .nav-item.active .nav-num{ background: var(--blue-deep); color: var(--ochre); }
+  .nav-item .done-dot{
+    margin-left:auto;
+    width:8px;height:8px;border-radius:50%;
+    background: var(--ochre);
+    flex-shrink:0;
+  }
+  .nav-item.active .done-dot{ background: var(--blue-deep); }
+
+  .sidebar-footer{
+    padding: 14px 24px 4px;
+    font-size:0.72rem;
+    color: var(--blue-light);
+    border-top: 1px solid rgba(239,230,212,0.15);
+    margin-top:8px;
+  }
+
+  /* ---------- Main ---------- */
+  main{
+    flex:1;
+    min-width:0;
+    padding: 40px 56px 80px;
+  }
+  .top-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+    margin-bottom: 30px;
+    flex-wrap:wrap;
+  }
+  .progress-wrap{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .mosaic{
+    display:grid;
+    grid-template-columns: repeat(6, 15px);
+    grid-template-rows: repeat(2, 15px);
+    gap:3px;
+  }
+  .mosaic .cell{
+    width:15px; height:15px;
+    border-radius:3px;
+    background: #E3D9BC;
+    border:1px solid var(--line);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .mosaic .cell.on{
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue) 45%, var(--ochre) 50%, var(--ochre) 100%);
+    border-color: var(--blue-deep);
+  }
+  .progress-text{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--ink-soft); }
+  .progress-text b{ color: var(--blue-deep); }
+
+  /* ---------- Hero / welcome ---------- */
+  .hero{
+    background: var(--blue-deep);
+    color:#F4EEDD;
+    border-radius: 20px;
+    padding: 40px;
+    position:relative;
+    overflow:hidden;
+    margin-bottom: 34px;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right:-40px; bottom:-40px;
+    width:220px; height:220px;
+    background-image: repeating-linear-gradient(45deg, rgba(217,164,65,0.18) 0 10px, transparent 10px 20px),
+                       repeating-linear-gradient(-45deg, rgba(157,195,214,0.18) 0 10px, transparent 10px 20px);
+    border-radius: 50%;
+    opacity:0.9;
+  }
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color: var(--ochre);
+    margin-bottom:12px;
+  }
+  .hero h2{ color:#F8F2E4; font-size:2rem; max-width:640px; }
+  .hero p{ max-width:600px; color: #D8CCB3; line-height:1.55; margin-top:14px; font-size:1rem;}
+  .hero-note{
+    margin-top:22px;
+    background: rgba(244,238,221,0.08);
+    border: 1px solid rgba(244,238,221,0.2);
+    border-radius: 12px;
+    padding: 16px 18px;
+    max-width:600px;
+    font-size:0.9rem;
+    line-height:1.5;
+    color:#EFE6D4;
+  }
+  .hero-note b{ color: var(--ochre); }
+  .start-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap:14px;
+  }
+  .start-card{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding:16px 18px;
+    cursor:pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .start-card:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(43,36,24,0.08); }
+  .start-card .n{ font-family:'IBM Plex Mono', monospace; color: var(--clay); font-size:0.75rem; }
+  .start-card h3{ font-size:1.02rem; margin-top:4px; }
+  .start-card .es{ color: var(--blue); font-style:italic; font-size:0.85rem; }
+
+  /* ---------- Unit view ---------- */
+  .unit-head{ margin-bottom: 26px; }
+  .unit-head .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem; color: var(--clay); text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .unit-head h2{ font-size:1.9rem; margin-top:6px; }
+  .unit-head .es-title{ color: var(--blue); font-style:italic; font-size:1.1rem; margin-top:2px;}
+  .unit-head .intro{ margin-top:12px; max-width: 680px; color: var(--ink-soft); line-height:1.55; }
+
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    color: var(--blue-deep);
+    margin: 34px 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-title::after{ content:""; flex:1; height:1px; background: var(--line); }
+
+  .vocab-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap:12px;
+  }
+  .flip-card{
+    perspective: 900px;
+    height: 100px;
+    cursor:pointer;
+  }
+  .flip-inner{
+    position:relative;
+    width:100%; height:100%;
+    transition: transform 0.5s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner{ transform: rotateY(180deg); }
+  .flip-face{
+    position:absolute; inset:0;
+    border-radius: var(--radius);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    backface-visibility:hidden;
+    padding:10px;
+    text-align:center;
+  }
+  .flip-front{
+    background: var(--card);
+    border: 1px solid var(--line);
+  }
+  .flip-front .es{ font-family:'Fraunces', serif; font-size:1.15rem; color: var(--blue-deep); font-weight:600; }
+  .flip-front .hint{ font-size:0.68rem; color: var(--ink-soft); margin-top:6px; }
+  .flip-back{
+    background: var(--blue);
+    color:#fff;
+    transform: rotateY(180deg);
+  }
+  .flip-back .en{ font-size:1.02rem; font-weight:600; }
+  .speak-btn{
+    position:absolute; top:6px; right:6px;
+    width:26px; height:26px;
+    border-radius:50%;
+    border:none;
+    background: rgba(44,95,124,0.1);
+    color: var(--blue-deep);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    font-size:0.85rem;
+    z-index:2;
+  }
+  .flip-back .speak-btn{ background: rgba(255,255,255,0.18); color:#fff; }
+  .speak-btn:hover{ background: var(--ochre); color: var(--blue-deep); }
+
+  .phrase-list{
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .phrase-row{
+    display:flex; align-items:center; gap:12px;
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .phrase-row .es{ font-family:'Fraunces', serif; color: var(--blue-deep); font-weight:600; min-width:230px; }
+  .phrase-row .en{ color: var(--ink-soft); font-size:0.92rem; flex:1; }
+  .phrase-row .speak-btn{ position:static; background: var(--blue-light); color: var(--blue-deep); }
+
+  .quiz-box{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+  }
+  .q-item{ margin-bottom: 22px; }
+  .q-item:last-child{ margin-bottom:0; }
+  .q-prompt{ font-weight:600; margin-bottom:10px; }
+  .q-options{ display:flex; flex-direction:column; gap:8px; }
+  .q-option{
+    display:flex; align-items:center; gap:10px;
+    padding:9px 12px;
+    border:1px solid var(--line);
+    border-radius:9px;
+    cursor:pointer;
+    background:#fff;
+    font-size:0.92rem;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .q-option:hover{ border-color: var(--blue-light); }
+  .q-option.selected{ border-color: var(--blue); background: rgba(44,95,124,0.06); }
+  .q-option.correct{ border-color: var(--good); background: rgba(62,122,79,0.1); }
+  .q-option.incorrect{ border-color: var(--bad); background: rgba(184,65,46,0.08); }
+  .q-option input{ accent-color: var(--blue); }
+
+  .quiz-actions{
+    display:flex; align-items:center; gap:16px; margin-top:8px;
+    flex-wrap:wrap;
+  }
+  button.primary{
+    background: var(--blue-deep);
+    color:#F4EEDD;
+    border:none;
+    padding: 11px 20px;
+    border-radius: 9px;
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:0.92rem;
+    cursor:pointer;
+    transition: background 0.15s ease;
+  }
+  button.primary:hover{ background: var(--blue); }
+  button.ghost{
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 10px 18px;
+    border-radius:9px;
+    font-family:'Work Sans', sans-serif;
+    font-size:0.92rem;
+    cursor:pointer;
+  }
+  button.ghost:hover{ border-color: var(--blue); color: var(--blue-deep); }
+  .quiz-score{ font-family:'IBM Plex Mono', monospace; font-size:0.9rem; color: var(--blue-deep); }
+
+  .complete-row{
+    margin-top: 30px;
+    display:flex; align-items:center; gap:12px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: rgba(217,164,65,0.14);
+    border: 1px dashed var(--ochre);
+  }
+  .complete-row label{ font-weight:600; cursor:pointer; display:flex; align-items:center; gap:10px; }
+  .complete-row input{ width:18px; height:18px; accent-color: var(--clay); }
+  .complete-row .note{ font-size:0.82rem; color: var(--ink-soft); margin-left:auto; }
+
+  .unit-footer-nav{
+    display:flex; justify-content:space-between; margin-top:36px;
+  }
+
+  @media (max-width: 860px){
+    .app{ flex-direction:column; }
+    .sidebar{ position:relative; width:100%; height:auto; padding:18px 0; }
+    .nav-list{ display:flex; overflow-x:auto; padding:6px 12px; gap:4px; }
+    .nav-list li{ flex-shrink:0; }
+    main{ padding: 26px 18px 60px; }
+    .hero{ padding: 26px; }
+    .hero h2{ font-size:1.5rem; }
+    .phrase-row{ flex-wrap:wrap; }
+    .phrase-row .es{ min-width:0; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="sidebar">
+    <div class="brand">
+      <svg class="tile-mark" viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="1" width="38" height="38" rx="6" stroke="#D9A441" stroke-width="2"/>
+        <path d="M20 1V39M1 20H39" stroke="#D9A441" stroke-width="1.4" opacity="0.6"/>
+        <circle cx="20" cy="20" r="7" fill="#9DC3D6"/>
+      </svg>
+      <h1>Español para Dos</h1>
+      <p>A shared Junior Cycle Spanish path</p>
+    </div>
+    <ul class="nav-list" id="navList"></ul>
+    <div class="sidebar-footer">Keyed to the topics most Irish 1st‑year Spanish classes cover first — check the actual order against your daughter's book if it differs.</div>
+  </nav>
+
+  <main>
+    <div class="top-row">
+      <div id="crumb"></div>
+      <div class="progress-wrap">
+        <div class="mosaic" id="mosaic"></div>
+        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+      </div>
+    </div>
+    <div id="content"></div>
+  </main>
+</div>
+
+<script>
+/* ---------------- Data ---------------- */
+const UNITS = [
+  {
+    id:1, es:"Saludos y presentaciones", en:"Greetings & introductions",
+    intro:"The very first thing any Spanish class covers — how to say hello, goodbye, and introduce yourself.",
+    vocab:[
+      {es:"Hola",en:"Hello"},{es:"Adiós",en:"Goodbye"},{es:"Buenos días",en:"Good morning"},
+      {es:"Buenas tardes",en:"Good afternoon"},{es:"Buenas noches",en:"Good night"},
+      {es:"Bien",en:"Good / well"},{es:"Mal",en:"Bad"},{es:"Por favor",en:"Please"},
+      {es:"Gracias",en:"Thank you"},{es:"De nada",en:"You're welcome"}
+    ],
+    phrases:[
+      {es:"¿Cómo te llamas?",en:"What's your name?"},
+      {es:"Me llamo Aoife.",en:"My name is Aoife."},
+      {es:"¿Cómo estás?",en:"How are you?"},
+      {es:"Estoy bien, gracias.",en:"I'm well, thanks."},
+      {es:"Mucho gusto.",en:"Nice to meet you."}
+    ],
+    quiz:[
+      {q:"How do you say 'Good morning' in Spanish?", opts:["Buenas noches","Buenos días","Buenas tardes","Adiós"], a:1},
+      {q:"'¿Cómo te llamas?' means…", opts:["How are you?","Where do you live?","What's your name?","Goodbye"], a:2},
+      {q:"How would you reply to 'Gracias'?", opts:["Hola","De nada","Mal","Adiós"], a:1},
+      {q:"'Me llamo…' means…", opts:["I am… years old","My name is…","I live in…","I like…"], a:1},
+      {q:"Which word means 'please'?", opts:["Gracias","De nada","Por favor","Bien"], a:2}
+    ]
+  },
+  {
+    id:2, es:"Los números y la edad", en:"Numbers & age",
+    intro:"Numbers 1–20, plus how to ask and say someone's age — used constantly from week one.",
+    vocab:[
+      {es:"uno",en:"one"},{es:"dos",en:"two"},{es:"tres",en:"three"},{es:"cuatro",en:"four"},
+      {es:"cinco",en:"five"},{es:"seis",en:"six"},{es:"siete",en:"seven"},{es:"ocho",en:"eight"},
+      {es:"nueve",en:"nine"},{es:"diez",en:"ten"},{es:"quince",en:"fifteen"},{es:"veinte",en:"twenty"}
+    ],
+    phrases:[
+      {es:"¿Cuántos años tienes?",en:"How old are you?"},
+      {es:"Tengo trece años.",en:"I am thirteen years old."},
+      {es:"¿Cuántos son?",en:"How many are there?"}
+    ],
+    quiz:[
+      {q:"'Tengo trece años' means…", opts:["I have thirteen books","I am thirteen years old","I live at number thirteen","I have thirteen cousins"], a:1},
+      {q:"What number is 'siete'?", opts:["6","7","8","9"], a:1},
+      {q:"'¿Cuántos años tienes?' asks…", opts:["What's your name?","Where do you live?","How old are you?","How are you?"], a:2},
+      {q:"What is 'diez' in English?", opts:["Nine","Ten","Eleven","Twelve"], a:1},
+      {q:"Which is 'four'?", opts:["cuatro","cinco","cuarenta","catorce"], a:0}
+    ]
+  },
+  {
+    id:3, es:"La familia", en:"Family",
+    intro:"Family members — one of the earliest 'describe yourself and your life' topics.",
+    vocab:[
+      {es:"la madre",en:"mother"},{es:"el padre",en:"father"},{es:"el hermano",en:"brother"},
+      {es:"la hermana",en:"sister"},{es:"la abuela",en:"grandmother"},{es:"el abuelo",en:"grandfather"},
+      {es:"el hijo",en:"son"},{es:"la hija",en:"daughter"},{es:"la tía",en:"aunt"},
+      {es:"el tío",en:"uncle"},{es:"el primo / la prima",en:"cousin"}
+    ],
+    phrases:[
+      {es:"Tengo dos hermanos.",en:"I have two siblings."},
+      {es:"¿Tienes hermanos?",en:"Do you have siblings?"},
+      {es:"Esta es mi familia.",en:"This is my family."},
+      {es:"Vivo con mis padres.",en:"I live with my parents."}
+    ],
+    quiz:[
+      {q:"'La hermana' means…", opts:["Mother","Sister","Aunt","Grandmother"], a:1},
+      {q:"'El abuelo' means…", opts:["Uncle","Father","Grandfather","Cousin"], a:2},
+      {q:"'Tengo dos hermanos' means…", opts:["I have two cousins","I have two siblings","I am two years old","I have two children"], a:1},
+      {q:"Which word means 'aunt'?", opts:["la tía","el tío","la hija","la prima"], a:0},
+      {q:"'¿Tienes hermanos?' asks…", opts:["Do you have pets?","Do you have siblings?","Are you tired?","Do you have homework?"], a:1}
+    ]
+  },
+  {
+    id:4, es:"Los colores", en:"Colours & describing",
+    intro:"Colours, used to describe schoolbags, eyes, hair, and just about everything else.",
+    vocab:[
+      {es:"rojo",en:"red"},{es:"azul",en:"blue"},{es:"verde",en:"green"},{es:"amarillo",en:"yellow"},
+      {es:"negro",en:"black"},{es:"blanco",en:"white"},{es:"rosa",en:"pink"},{es:"naranja",en:"orange"},
+      {es:"morado",en:"purple"},{es:"gris",en:"grey"}
+    ],
+    phrases:[
+      {es:"¿De qué color es?",en:"What colour is it?"},
+      {es:"Mi mochila es azul.",en:"My schoolbag is blue."},
+      {es:"Tengo los ojos verdes.",en:"I have green eyes."}
+    ],
+    quiz:[
+      {q:"'Mi mochila es azul' means…", opts:["My bag is red","My bag is blue","My bag is heavy","My bag is new"], a:1},
+      {q:"Which word means 'yellow'?", opts:["amarillo","morado","naranja","rosa"], a:0},
+      {q:"'Verde' means…", opts:["Green","Grey","Black","Pink"], a:0},
+      {q:"'¿De qué color es?' asks…", opts:["How big is it?","What colour is it?","How much is it?","Where is it?"], a:1},
+      {q:"Which is 'black'?", opts:["blanco","negro","gris","azul"], a:1}
+    ]
+  },
+  {
+    id:5, es:"Los días, meses y la fecha", en:"Days, months & the date",
+    intro:"Days of the week, months, and how to give the date — a staple of every early homework sheet.",
+    vocab:[
+      {es:"lunes",en:"Monday"},{es:"martes",en:"Tuesday"},{es:"miércoles",en:"Wednesday"},
+      {es:"jueves",en:"Thursday"},{es:"viernes",en:"Friday"},{es:"sábado",en:"Saturday"},
+      {es:"domingo",en:"Sunday"},{es:"enero",en:"January"},{es:"octubre",en:"October"},
+      {es:"hoy",en:"today"},{es:"mañana",en:"tomorrow"}
+    ],
+    phrases:[
+      {es:"¿Qué día es hoy?",en:"What day is it today?"},
+      {es:"Hoy es lunes.",en:"Today is Monday."},
+      {es:"¿Cuál es la fecha?",en:"What's the date?"},
+      {es:"Es el tres de octubre.",en:"It's the third of October."}
+    ],
+    quiz:[
+      {q:"'Hoy es lunes' means…", opts:["Today is Sunday","Today is Monday","Tomorrow is Monday","Today is Friday"], a:1},
+      {q:"Which day is 'viernes'?", opts:["Wednesday","Thursday","Friday","Saturday"], a:2},
+      {q:"'¿Qué día es hoy?' asks…", opts:["What time is it?","What day is it today?","What's the weather?","What month is it?"], a:1},
+      {q:"'Mañana' means…", opts:["Morning only","Yesterday","Tomorrow","Today"], a:2},
+      {q:"Which is 'Sunday'?", opts:["sábado","domingo","lunes","martes"], a:1}
+    ]
+  },
+  {
+    id:6, es:"El instituto", en:"School",
+    intro:"Classroom objects, subjects, and saying what you do and don't like — directly useful in her actual classroom.",
+    vocab:[
+      {es:"el aula",en:"classroom"},{es:"el profesor / la profesora",en:"teacher"},
+      {es:"el libro",en:"book"},{es:"el cuaderno",en:"copybook"},{es:"la mochila",en:"schoolbag"},
+      {es:"el lápiz",en:"pencil"},{es:"el bolígrafo",en:"pen"},{es:"las matemáticas",en:"maths"},
+      {es:"el español",en:"Spanish"},{es:"la educación física",en:"P.E."}
+    ],
+    phrases:[
+      {es:"Me gusta el español.",en:"I like Spanish."},
+      {es:"No me gusta la geografía.",en:"I don't like geography."},
+      {es:"¿Qué asignatura te gusta?",en:"What subject do you like?"}
+    ],
+    quiz:[
+      {q:"'Me gusta el español' means…", opts:["I speak Spanish","I like Spanish","I study Spanish only","I dislike Spanish"], a:1},
+      {q:"'El cuaderno' means…", opts:["Pencil case","Copybook","Classroom","Timetable"], a:1},
+      {q:"'No me gusta la geografía' means…", opts:["I love geography","I don't have geography","I don't like geography","I'm good at geography"], a:2},
+      {q:"Which word means 'teacher'?", opts:["el/la estudiante","el profesor / la profesora","el aula","el libro"], a:1},
+      {q:"'Las matemáticas' means…", opts:["Science","Maths","Music","History"], a:1}
+    ]
+  },
+  {
+    id:7, es:"El cuerpo y las emociones", en:"Body & feelings",
+    intro:"Parts of the body and how to say how you're feeling — pairs nicely with 'estar' (to be).",
+    vocab:[
+      {es:"la cabeza",en:"head"},{es:"los ojos",en:"eyes"},{es:"la mano",en:"hand"},{es:"el pie",en:"foot"},
+      {es:"contento/a",en:"happy"},{es:"triste",en:"sad"},{es:"cansado/a",en:"tired"},
+      {es:"enfadado/a",en:"angry"},{es:"nervioso/a",en:"nervous"}
+    ],
+    phrases:[
+      {es:"Estoy cansado/a.",en:"I am tired."},
+      {es:"¿Cómo te sientes?",en:"How do you feel?"},
+      {es:"Me duele la cabeza.",en:"My head hurts."}
+    ],
+    quiz:[
+      {q:"'Estoy cansado/a' means…", opts:["I am happy","I am tired","I am angry","I am nervous"], a:1},
+      {q:"Which word means 'sad'?", opts:["contento/a","triste","nervioso/a","cansado/a"], a:1},
+      {q:"'¿Cómo te sientes?' asks…", opts:["What's your name?","How do you feel?","Where does it hurt?","How old are you?"], a:1},
+      {q:"'Me duele la cabeza' means…", opts:["I like my head","My head is big","My head hurts","I lost my head(!)"], a:2},
+      {q:"'Los ojos' means…", opts:["Hands","Feet","Eyes","Ears"], a:2}
+    ]
+  },
+  {
+    id:8, es:"La casa", en:"House & home",
+    intro:"Rooms of the house and simple furniture — a common 'describe your home' writing task.",
+    vocab:[
+      {es:"la casa",en:"house"},{es:"el dormitorio",en:"bedroom"},{es:"la cocina",en:"kitchen"},
+      {es:"el baño",en:"bathroom"},{es:"el salón",en:"living room"},{es:"el jardín",en:"garden"},
+      {es:"la cama",en:"bed"},{es:"la ventana",en:"window"},{es:"la puerta",en:"door"}
+    ],
+    phrases:[
+      {es:"Mi casa es grande.",en:"My house is big."},
+      {es:"¿Dónde está la cocina?",en:"Where's the kitchen?"},
+      {es:"Mi dormitorio está arriba.",en:"My bedroom is upstairs."}
+    ],
+    quiz:[
+      {q:"'La cocina' means…", opts:["Bathroom","Kitchen","Bedroom","Garden"], a:1},
+      {q:"'Mi casa es grande' means…", opts:["My house is small","My house is old","My house is big","My house is new"], a:2},
+      {q:"'¿Dónde está la cocina?' asks…", opts:["What's for dinner?","Where's the kitchen?","Is the kitchen clean?","How big is the kitchen?"], a:1},
+      {q:"Which word means 'garden'?", opts:["el jardín","el salón","el baño","la ventana"], a:0},
+      {q:"'La puerta' means…", opts:["Window","Wall","Door","Roof"], a:2}
+    ]
+  },
+  {
+    id:9, es:"La comida y la bebida", en:"Food & drink",
+    intro:"Everyday food, drink, and the three meals of the day.",
+    vocab:[
+      {es:"el pan",en:"bread"},{es:"el agua",en:"water"},{es:"la leche",en:"milk"},
+      {es:"la manzana",en:"apple"},{es:"el pollo",en:"chicken"},{es:"el arroz",en:"rice"},
+      {es:"la ensalada",en:"salad"},{es:"el desayuno",en:"breakfast"},{es:"el almuerzo",en:"lunch"},
+      {es:"la cena",en:"dinner"}
+    ],
+    phrases:[
+      {es:"Tengo hambre.",en:"I'm hungry."},
+      {es:"Tengo sed.",en:"I'm thirsty."},
+      {es:"Me gusta la pizza.",en:"I like pizza."},
+      {es:"¿Qué comes para el desayuno?",en:"What do you eat for breakfast?"}
+    ],
+    quiz:[
+      {q:"'Tengo hambre' means…", opts:["I'm thirsty","I'm hungry","I'm full","I'm cooking"], a:1},
+      {q:"'La cena' means…", opts:["Breakfast","Lunch","Dinner","Snack"], a:2},
+      {q:"Which word means 'apple'?", opts:["la manzana","el pan","el pollo","el arroz"], a:0},
+      {q:"'Tengo sed' means…", opts:["I'm hungry","I'm tired","I'm thirsty","I'm cold"], a:2},
+      {q:"'El pollo' means…", opts:["Rice","Chicken","Salad","Bread"], a:1}
+    ]
+  },
+  {
+    id:10, es:"El pueblo y las direcciones", en:"Town & directions",
+    intro:"Places around town and basic directions — left, right, straight ahead.",
+    vocab:[
+      {es:"el pueblo",en:"town"},{es:"la ciudad",en:"city"},{es:"la tienda",en:"shop"},
+      {es:"el parque",en:"park"},{es:"la calle",en:"street"},{es:"la iglesia",en:"church"},
+      {es:"a la derecha",en:"to the right"},{es:"a la izquierda",en:"to the left"},{es:"todo recto",en:"straight ahead"}
+    ],
+    phrases:[
+      {es:"¿Dónde está el parque?",en:"Where is the park?"},
+      {es:"Está a la derecha.",en:"It's on the right."},
+      {es:"Sigue todo recto.",en:"Keep going straight ahead."}
+    ],
+    quiz:[
+      {q:"'¿Dónde está el parque?' asks…", opts:["What time is it?","Where is the park?","Is the park open?","How far is the park?"], a:1},
+      {q:"'A la izquierda' means…", opts:["To the right","Straight ahead","To the left","Nearby"], a:2},
+      {q:"Which word means 'shop'?", opts:["la tienda","la iglesia","la calle","el parque"], a:0},
+      {q:"'Todo recto' means…", opts:["Turn around","Straight ahead","Stop here","Go back"], a:1},
+      {q:"'La ciudad' means…", opts:["Town","City","Village","Street"], a:1}
+    ]
+  },
+  {
+    id:11, es:"El tiempo libre", en:"Free time & hobbies",
+    intro:"What you do for fun — sport, music, reading — great for real conversation.",
+    vocab:[
+      {es:"jugar al fútbol",en:"to play football"},{es:"leer",en:"to read"},{es:"nadar",en:"to swim"},
+      {es:"bailar",en:"to dance"},{es:"escuchar música",en:"to listen to music"},
+      {es:"ver la tele",en:"to watch TV"},{es:"montar en bici",en:"to cycle"}
+    ],
+    phrases:[
+      {es:"Me gusta jugar al fútbol.",en:"I like playing football."},
+      {es:"¿Qué haces en tu tiempo libre?",en:"What do you do in your free time?"},
+      {es:"Los fines de semana, nado.",en:"At weekends, I swim."}
+    ],
+    quiz:[
+      {q:"'Me gusta jugar al fútbol' means…", opts:["I dislike football","I like playing football","I watch football","I coach football"], a:1},
+      {q:"Which word means 'to read'?", opts:["leer","ver","nadar","bailar"], a:0},
+      {q:"'¿Qué haces en tu tiempo libre?' asks…", opts:["What's your favourite subject?","What do you do in your free time?","Where do you live?","What time is it?"], a:1},
+      {q:"'Montar en bici' means…", opts:["To drive a car","To cycle","To walk","To run"], a:1},
+      {q:"'Escuchar música' means…", opts:["To play music","To listen to music","To sing","To dance"], a:1}
+    ]
+  },
+  {
+    id:12, es:"El tiempo", en:"Weather",
+    intro:"Talking about the weather — a short topic, but it comes up in almost every conversation task.",
+    vocab:[
+      {es:"Hace sol",en:"It's sunny"},{es:"Hace frío",en:"It's cold"},{es:"Hace calor",en:"It's hot"},
+      {es:"Llueve",en:"It rains / it's raining"},{es:"Nieva",en:"It snows / it's snowing"},
+      {es:"Hace viento",en:"It's windy"},{es:"Está nublado",en:"It's cloudy"}
+    ],
+    phrases:[
+      {es:"¿Qué tiempo hace hoy?",en:"What's the weather like today?"},
+      {es:"Hace sol y calor.",en:"It's sunny and hot."},
+      {es:"En Irlanda, llueve mucho.",en:"In Ireland, it rains a lot."}
+    ],
+    quiz:[
+      {q:"'¿Qué tiempo hace hoy?' asks…", opts:["What time is it?","What's the weather like today?","What day is it?","What season is it?"], a:1},
+      {q:"'Hace frío' means…", opts:["It's hot","It's cold","It's windy","It's sunny"], a:1},
+      {q:"'Llueve' means…", opts:["It's snowing","It's windy","It's raining","It's cloudy"], a:2},
+      {q:"'En Irlanda, llueve mucho' means…", opts:["In Ireland, it's always sunny","In Ireland, it rains a lot","In Ireland, it's very cold","In Ireland, it snows a lot"], a:1},
+      {q:"Which word means 'sunny'?", opts:["Hace sol","Hace calor","Está nublado","Hace viento"], a:0}
+    ]
+  }
+];
+
+/* ---------------- State ---------------- */
+let progress = {};        // {unitId: true}
+let quizState = {};        // {unitId: {answers:{qIdx:optIdx}, checked:bool}}
+let currentView = "home";  // "home" or unit id
+
+/* ---------------- Storage ---------------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get('spanish-para-dos-progress');
+    if(r && r.value) progress = JSON.parse(r.value);
+  }catch(e){ progress = {}; }
+}
+async function saveProgress(){
+  try{ await window.storage.set('spanish-para-dos-progress', JSON.stringify(progress)); }
+  catch(e){ console.error('Could not save progress', e); }
+}
+
+/* ---------------- Speech ---------------- */
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-ES';
+  u.rate = 0.92;
+  const voices = window.speechSynthesis.getVoices();
+  const esVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('es'));
+  if(esVoice) u.voice = esVoice;
+  window.speechSynthesis.speak(u);
+}
+
+/* ---------------- Render: sidebar ---------------- */
+function renderNav(){
+  const list = document.getElementById('navList');
+  let html = `<li><button class="nav-item ${currentView==='home'?'active':''}" onclick="goTo('home')">
+    <span class="nav-num">·</span> Start here</button></li>`;
+  UNITS.forEach(u => {
+    const active = currentView === u.id;
+    html += `<li><button class="nav-item ${active?'active':''}" onclick="goTo(${u.id})">
+      <span class="nav-num">${String(u.id).padStart(2,'0')}</span>
+      <span>${u.en}</span>
+      ${progress[u.id] ? '<span class="done-dot"></span>' : ''}
+    </button></li>`;
+  });
+  list.innerHTML = html;
+}
+
+function renderMosaic(){
+  const mosaic = document.getElementById('mosaic');
+  let html = '';
+  UNITS.forEach(u => {
+    html += `<div class="cell ${progress[u.id]?'on':''}"></div>`;
+  });
+  mosaic.innerHTML = html;
+  const count = UNITS.filter(u => progress[u.id]).length;
+  document.getElementById('progressCount').textContent = count;
+}
+
+/* ---------------- Render: home ---------------- */
+function renderHome(){
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Start here</h2>`;
+  let cards = '';
+  UNITS.forEach(u => {
+    cards += `<div class="start-card" onclick="goTo(${u.id})">
+      <div class="n">${String(u.id).padStart(2,'0')} ${progress[u.id] ? '· done' : ''}</div>
+      <h3>${u.en}</h3>
+      <div class="es">${u.es}</div>
+    </div>`;
+  });
+
+  document.getElementById('content').innerHTML = `
+    <div class="hero">
+      <div class="eyebrow">A path for two, at one pace</div>
+      <h2>Learn Spanish alongside her — in the same order her class will meet it.</h2>
+      <p>These twelve units follow the topics almost every Irish first-year Spanish class covers early on: greetings, numbers, family, colours, school life, and on through food, town and weather. Work through one unit together each week or two, and you'll rarely be more than a step away from what she's doing in class.</p>
+      <div class="hero-note">
+        <b>Worth checking:</b> the official Junior Cycle specification lets each school choose its own theme order and textbook, so the exact sequence your niece — sorry, your daughter — meets these in may differ slightly. If her book jumps straight to school or family first, just use the sidebar to jump to that unit instead of unit 1.
+      </div>
+    </div>
+    <div class="section-title">All twelve units</div>
+    <div class="start-grid">${cards}</div>
+  `;
+}
+
+/* ---------------- Render: unit ---------------- */
+function renderUnit(id){
+  const u = UNITS.find(x => x.id === id);
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Unit ${String(id).padStart(2,'0')}</h2>`;
+
+  let vocabHtml = '';
+  u.vocab.forEach((v, i) => {
+    vocabHtml += `
+      <div class="flip-card" id="fc-${id}-${i}" onclick="flipCard(${id},${i})">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <button class="speak-btn" onclick="event.stopPropagation(); speak('${v.es.replace(/'/g,"\\'")}')">&#128266;</button>
+            <div class="es">${v.es}</div>
+            <div class="hint">tap to flip</div>
+          </div>
+          <div class="flip-face flip-back">
+            <button class="speak-btn" onclick="event.stopPropagation(); speak('${v.es.replace(/'/g,"\\'")}')">&#128266;</button>
+            <div class="en">${v.en}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  let phraseHtml = '';
+  u.phrases.forEach(p => {
+    phraseHtml += `
+      <div class="phrase-row">
+        <button class="speak-btn" onclick="speak('${p.es.replace(/'/g,"\\'")}')">&#128266;</button>
+        <div class="es">${p.es}</div>
+        <div class="en">${p.en}</div>
+      </div>`;
+  });
+
+  if(!quizState[id]) quizState[id] = { answers:{}, checked:false };
+  let quizHtml = '';
+  u.quiz.forEach((q, qi) => {
+    const st = quizState[id];
+    let optsHtml = '';
+    q.opts.forEach((opt, oi) => {
+      let cls = 'q-option';
+      if(st.answers[qi] === oi) cls += ' selected';
+      if(st.checked){
+        if(oi === q.a) cls += ' correct';
+        else if(st.answers[qi] === oi && oi !== q.a) cls += ' incorrect';
+      }
+      optsHtml += `
+        <label class="${cls}" onclick="selectAnswer(${id},${qi},${oi})">
+          <input type="radio" name="q-${id}-${qi}" ${st.answers[qi]===oi?'checked':''} ${st.checked?'disabled':''}>
+          ${opt}
+        </label>`;
+    });
+    quizHtml += `<div class="q-item">
+      <div class="q-prompt">${qi+1}. ${q.q}</div>
+      <div class="q-options">${optsHtml}</div>
+    </div>`;
+  });
+
+  let scoreHtml = '';
+  if(quizState[id].checked){
+    let correctCount = 0;
+    u.quiz.forEach((q,qi) => { if(quizState[id].answers[qi] === q.a) correctCount++; });
+    scoreHtml = `<div class="quiz-score">Score: ${correctCount} / ${u.quiz.length}</div>`;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="unit-head">
+      <div class="eyebrow">Unit ${String(id).padStart(2,'0')} of 12</div>
+      <h2>${u.en}</h2>
+      <div class="es-title">${u.es}</div>
+      <p class="intro">${u.intro}</p>
+    </div>
+
+    <div class="section-title">Vocabulary — tap a card to flip, tap &#128266; to hear it</div>
+    <div class="vocab-grid">${vocabHtml}</div>
+
+    <div class="section-title">Key phrases</div>
+    <div class="phrase-list">${phraseHtml}</div>
+
+    <div class="section-title">Quick quiz</div>
+    <div class="quiz-box">
+      ${quizHtml}
+      <div class="quiz-actions">
+        <button class="primary" onclick="checkQuiz(${id})">${quizState[id].checked ? 'Re-check' : 'Check answers'}</button>
+        <button class="ghost" onclick="resetQuiz(${id})">Try again</button>
+        ${scoreHtml}
+      </div>
+    </div>
+
+    <div class="complete-row">
+      <label>
+        <input type="checkbox" ${progress[id] ? 'checked' : ''} onchange="toggleComplete(${id}, this.checked)">
+        Mark this unit as done together
+      </label>
+      <span class="note">Ticking this just tracks your own progress here — it isn't linked to her school.</span>
+    </div>
+
+    <div class="unit-footer-nav">
+      <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
+      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+    </div>
+  `;
+}
+
+/* ---------------- Interactions ---------------- */
+function goTo(view){
+  currentView = view;
+  renderNav();
+  if(view === 'home') renderHome();
+  else renderUnit(view);
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function flipCard(unitId, idx){
+  const el = document.getElementById(`fc-${unitId}-${idx}`);
+  el.classList.toggle('flipped');
+}
+
+function selectAnswer(unitId, qi, oi){
+  if(quizState[unitId].checked) return;
+  quizState[unitId].answers[qi] = oi;
+  renderUnit(unitId);
+}
+
+function checkQuiz(unitId){
+  quizState[unitId].checked = true;
+  renderUnit(unitId);
+}
+
+function resetQuiz(unitId){
+  quizState[unitId] = { answers:{}, checked:false };
+  renderUnit(unitId);
+}
+
+async function toggleComplete(unitId, val){
+  progress[unitId] = val;
+  await saveProgress();
+  renderNav();
+  renderMosaic();
+}
+
+/* ---------------- Init ---------------- */
+(async function init(){
+  await loadProgress();
+  if('speechSynthesis' in window){
+    window.speechSynthesis.onvoiceschanged = () => {};
+  }
+  renderNav();
+  renderMosaic();
+  renderHome();
+})();
+</script>
+</body>
+</html>
