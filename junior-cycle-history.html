@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History, Uncovered — Junior Cycle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2ECDD; --card:#FBF8F1; --ink:#2B2418; --ink-soft:#6B6152;
+    --accent:#6B4A2B; --accent-deep:#3D2A17; --accent-light:#D8C4A8;
+    --ochre:#D9A441; --clay:#B5592D; --line:#DCD2B8; --good:#3E7A4F; --bad:#B8412E; --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--paper); color:var(--ink); font-family:'Work Sans',sans-serif; -webkit-font-smoothing:antialiased; }
+  body::before{ content:""; position:fixed; inset:0; pointer-events:none; opacity:0.5;
+    background-image: radial-gradient(circle at 1px 1px, rgba(107,74,43,0.08) 1px, transparent 1.6px); background-size:22px 22px; z-index:0; }
+  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:600; margin:0; color:var(--accent-deep); }
+  .app{ position:relative; z-index:1; display:flex; min-height:100vh; }
+
+  .sidebar{ width:280px; flex-shrink:0; background:var(--accent-deep); color:#EFE6D4; padding:28px 0 20px;
+    display:flex; flex-direction:column; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  .brand{ padding:0 24px 20px; border-bottom:1px solid rgba(239,230,212,0.15); margin-bottom:10px; }
+  .brand svg{ width:34px; height:34px; margin-bottom:10px; display:block; }
+  .brand h1{ color:#F4EEDD; font-size:1.4rem; line-height:1.15; }
+  .brand p{ margin:6px 0 0; font-size:0.78rem; color:var(--accent-light); letter-spacing:0.03em; }
+  .back-link{ display:block; padding:14px 24px 0; font-size:0.74rem; color:var(--accent-light); text-decoration:none; }
+  .back-link:hover{ color:#fff; text-decoration:underline; }
+  .nav-list{ list-style:none; margin:0; padding:8px 12px; flex:1; }
+  .nav-list li + li{ margin-top:2px; }
+  .nav-item{ display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:none; border:none;
+    color:rgba(239,230,212,0.82); font-family:'Work Sans',sans-serif; font-size:0.88rem; padding:9px 12px; border-radius:9px; cursor:pointer; transition:background 0.15s ease,color 0.15s ease; }
+  .nav-item:hover{ background:rgba(239,230,212,0.08); color:#fff; }
+  .nav-item.active{ background:var(--ochre); color:var(--accent-deep); font-weight:600; }
+  .nav-num{ font-family:'IBM Plex Mono',monospace; font-size:0.66rem; width:20px; height:20px; border-radius:5px; display:flex; align-items:center; justify-content:center; background:rgba(239,230,212,0.12); flex-shrink:0; }
+  .nav-item.active .nav-num{ background:var(--accent-deep); color:var(--ochre); }
+  .nav-item .done-dot{ margin-left:auto; width:8px; height:8px; border-radius:50%; background:var(--ochre); flex-shrink:0; }
+  .nav-item.active .done-dot{ background:var(--accent-deep); }
+  .sidebar-footer{ padding:14px 24px 4px; font-size:0.72rem; color:var(--accent-light); border-top:1px solid rgba(239,230,212,0.15); margin-top:8px; }
+
+  main{ flex:1; min-width:0; padding:40px 56px 80px; }
+  .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
+  .progress-wrap{ display:flex; align-items:center; gap:14px; }
+  .mosaic{ display:grid; grid-template-columns:repeat(6,15px); grid-template-rows:repeat(2,15px); gap:3px; }
+  .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition:background 0.3s ease; }
+  .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color:var(--accent-deep); }
+  .progress-text{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--ink-soft); }
+  .progress-text b{ color:var(--accent-deep); }
+
+  .hero{ background:var(--accent-deep); color:#F4EEDD; border-radius:20px; padding:40px; position:relative; overflow:hidden; margin-bottom:34px; }
+  .hero::after{ content:""; position:absolute; right:-40px; bottom:-40px; width:220px; height:220px;
+    background-image: repeating-linear-gradient(45deg, rgba(217,164,65,0.18) 0 10px, transparent 10px 20px),
+                       repeating-linear-gradient(-45deg, rgba(216,196,168,0.18) 0 10px, transparent 10px 20px);
+    border-radius:50%; opacity:0.9; }
+  .hero .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ochre); margin-bottom:12px; }
+  .hero h2{ color:#F8F2E4; font-size:1.9rem; max-width:640px; }
+  .hero p{ max-width:600px; color:#D8CCB3; line-height:1.55; margin-top:14px; font-size:1rem; }
+  .hero-note{ margin-top:22px; background:rgba(244,238,221,0.08); border:1px solid rgba(244,238,221,0.2); border-radius:12px; padding:16px 18px; max-width:600px; font-size:0.9rem; line-height:1.5; color:#EFE6D4; }
+  .hero-note b{ color:var(--ochre); }
+  .start-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:14px; }
+  .start-card{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; cursor:pointer; transition:transform 0.15s ease, box-shadow 0.15s ease; }
+  .start-card:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(43,36,24,0.08); }
+  .start-card .n{ font-family:'IBM Plex Mono',monospace; color:var(--clay); font-size:0.75rem; }
+  .start-card h3{ font-size:1.0rem; margin-top:4px; }
+  .start-card .strand{ color:var(--accent); font-style:italic; font-size:0.83rem; }
+
+  .unit-head{ margin-bottom:26px; }
+  .unit-head .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--clay); text-transform:uppercase; letter-spacing:0.06em; }
+  .unit-head h2{ font-size:1.85rem; margin-top:6px; }
+  .unit-head .strand-title{ color:var(--accent); font-style:italic; font-size:1.05rem; margin-top:2px; }
+  .unit-head .intro{ margin-top:12px; max-width:680px; color:var(--ink-soft); line-height:1.55; }
+
+  .section-title{ font-family:'Fraunces',serif; font-size:1.12rem; color:var(--accent-deep); margin:34px 0 14px; display:flex; align-items:center; gap:10px; }
+  .section-title::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .vocab-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:12px; }
+  .flip-card{ perspective:900px; height:120px; cursor:pointer; }
+  .flip-inner{ position:relative; width:100%; height:100%; transition:transform 0.5s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d; }
+  .flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+  .flip-face{ position:absolute; inset:0; border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; backface-visibility:hidden; padding:12px; text-align:center; }
+  .flip-front{ background:var(--card); border:1px solid var(--line); }
+  .flip-front .es{ font-family:'Fraunces',serif; font-size:1.02rem; color:var(--accent-deep); font-weight:600; }
+  .flip-front .hint{ font-size:0.66rem; color:var(--ink-soft); margin-top:6px; }
+  .flip-back{ background:var(--accent); color:#fff; transform:rotateY(180deg); }
+  .flip-back .en{ font-size:0.84rem; font-weight:500; line-height:1.35; }
+
+  .phrase-list{ display:flex; flex-direction:column; gap:8px; }
+  .phrase-row{ display:flex; align-items:flex-start; gap:14px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; flex-wrap:wrap; }
+  .phrase-row .es{ font-family:'IBM Plex Mono',monospace; color:var(--accent-deep); font-weight:600; min-width:280px; }
+  .phrase-row .en{ color:var(--ink-soft); font-size:0.92rem; flex:1; }
+
+  .quiz-box{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px 24px; }
+  .q-item{ margin-bottom:22px; }
+  .q-item:last-child{ margin-bottom:0; }
+  .q-prompt{ font-weight:600; margin-bottom:10px; }
+  .q-options{ display:flex; flex-direction:column; gap:8px; }
+  .q-option{ display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--line); border-radius:9px; cursor:pointer; background:#fff; font-size:0.92rem; transition:border-color 0.15s ease, background 0.15s ease; }
+  .q-option:hover{ border-color:var(--accent-light); }
+  .q-option.selected{ border-color:var(--accent); background:rgba(107,74,43,0.06); }
+  .q-option.correct{ border-color:var(--good); background:rgba(62,122,79,0.1); }
+  .q-option.incorrect{ border-color:var(--bad); background:rgba(184,65,46,0.08); }
+  .q-option input{ accent-color:var(--accent); }
+
+  .quiz-actions{ display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap; }
+  button.primary{ background:var(--accent-deep); color:#F4EEDD; border:none; padding:11px 20px; border-radius:9px; font-family:'Work Sans',sans-serif; font-weight:600; font-size:0.92rem; cursor:pointer; transition:background 0.15s ease; }
+  button.primary:hover{ background:var(--accent); }
+  button.ghost{ background:none; border:1px solid var(--line); color:var(--ink); padding:10px 18px; border-radius:9px; font-family:'Work Sans',sans-serif; font-size:0.92rem; cursor:pointer; }
+  button.ghost:hover{ border-color:var(--accent); color:var(--accent-deep); }
+  .quiz-score{ font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--accent-deep); }
+
+  .complete-row{ margin-top:30px; display:flex; align-items:center; gap:12px; padding:16px 18px; border-radius:12px; background:rgba(217,164,65,0.14); border:1px dashed var(--ochre); flex-wrap:wrap; }
+  .complete-row label{ font-weight:600; cursor:pointer; display:flex; align-items:center; gap:10px; }
+  .complete-row input{ width:18px; height:18px; accent-color:var(--clay); }
+  .complete-row .note{ font-size:0.82rem; color:var(--ink-soft); margin-left:auto; }
+
+  .unit-footer-nav{ display:flex; justify-content:space-between; margin-top:36px; }
+
+  @media (max-width:860px){
+    .app{ flex-direction:column; }
+    .sidebar{ position:relative; width:100%; height:auto; padding:18px 0; }
+    .nav-list{ display:flex; overflow-x:auto; padding:6px 12px; gap:4px; }
+    .nav-list li{ flex-shrink:0; }
+    main{ padding:26px 18px 60px; }
+    .hero{ padding:26px; }
+    .hero h2{ font-size:1.4rem; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="1" width="38" height="38" rx="6" stroke="#D9A441" stroke-width="2"/>
+        <path d="M20 6 L34 14 V26 L20 34 L6 26 V14 Z" stroke="#D8C4A8" stroke-width="1.6" fill="none"/>
+        <circle cx="20" cy="20" r="3" fill="#D9A441" opacity="0.85"/>
+      </svg>
+      <h1>History, Uncovered</h1>
+      <p>A shared Junior Cycle History path</p>
+    </div>
+    <a class="back-link" href="index.html">&larr; All subjects</a>
+    <ul class="nav-list" id="navList"></ul>
+    <div class="sidebar-footer">Covers the three Junior Cycle strands — the Nature of History, the History of Ireland, and the History of Europe and the Wider World. Schools choose their own specific personalities, issues and events, so treat this as a broad, representative survey rather than an exact match to any one classroom.</div>
+  </nav>
+
+  <main>
+    <div class="top-row">
+      <div id="crumb"></div>
+      <div class="progress-wrap">
+        <div class="mosaic" id="mosaic"></div>
+        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+      </div>
+    </div>
+    <div id="content"></div>
+  </main>
+</div>
+
+<script>
+const UNITS = [
+  {
+    id:1, en:"The Work of the Historian", strand:"The Nature of History",
+    intro:"The core skills and concepts historians use to study the past — the foundation for everything else in the subject.",
+    vocab:[
+      {es:"Primary source", en:"Evidence created at the time of an event, e.g. a letter, photograph, or artefact"},
+      {es:"Secondary source", en:"An account created after an event, based on primary sources, e.g. a history textbook"},
+      {es:"Bias", en:"A one-sided view that favours a particular side or opinion"},
+      {es:"Chronology", en:"The arrangement of events in the order they happened"},
+      {es:"Cause and effect", en:"The relationship between why something happened and what resulted from it"}
+    ],
+    phrases:[
+      {es:"A diary written during World War I", en:"This is a primary source"},
+      {es:"A book about the Easter Rising, written in 2020", en:"This is a secondary source"}
+    ],
+    quiz:[
+      {q:"A photograph taken during an event is an example of a…", opts:["Primary source","Secondary source","Bias","Chronology"], a:0},
+      {q:"A textbook written years later, based on other sources, is a…", opts:["Primary source","Secondary source","Artefact","Timeline"], a:1},
+      {q:"Bias means…", opts:["A balanced account","A one-sided view","A type of artefact","A primary source"], a:1},
+      {q:"Chronology refers to…", opts:["The cause of an event","The order events happened in","A type of bias","An eyewitness account"], a:1},
+      {q:"'Cause and effect' studies…", opts:["Only what happened","Why something happened and what resulted","Only dates","Only people"], a:1}
+    ]
+  },
+  {
+    id:2, en:"Reading the Evidence", strand:"The Nature of History",
+    intro:"How historians actually find out about the past — from dug-up objects to living memory.",
+    vocab:[
+      {es:"Artefact", en:"An object made or used by people in the past, studied for clues about their lives"},
+      {es:"Archaeology", en:"The study of the past through physical remains and artefacts"},
+      {es:"Oral history", en:"History passed down through spoken accounts and memories"},
+      {es:"Eyewitness account", en:"A description of an event given by someone who saw it happen"},
+      {es:"Historian", en:"A person who studies and writes about the past using evidence"}
+    ],
+    phrases:[
+      {es:"Digging up pottery from a Viking settlement", en:"This is archaeology in action"},
+      {es:"A grandparent describing life in the 1960s", en:"This is oral history"}
+    ],
+    quiz:[
+      {q:"An object from the past studied for historical clues is a/an…", opts:["Bias","Artefact","Chronology","Secondary source"], a:1},
+      {q:"Archaeology is the study of the past through…", opts:["Written records only","Physical remains and artefacts","Oral accounts only","Photographs only"], a:1},
+      {q:"Oral history is passed down through…", opts:["Written documents","Spoken accounts and memories","Government records","Newspaper articles"], a:1},
+      {q:"An eyewitness account is given by someone who…", opts:["Read about the event later","Saw the event happen","Wrote a textbook","Studied archaeology"], a:1},
+      {q:"A historian's job is to…", opts:["Predict the future","Study and write about the past using evidence","Only study artefacts","Only study wars"], a:1}
+    ]
+  },
+  {
+    id:3, en:"Ancient & Early Ireland", strand:"The History of Ireland",
+    intro:"From Stone Age monuments to the arrival of Christianity — the earliest chapters of Irish history.",
+    vocab:[
+      {es:"Newgrange", en:"A Stone Age passage tomb in County Meath, older than the pyramids of Giza"},
+      {es:"Celts", en:"People who arrived in Ireland from mainland Europe from around 500 BC, bringing the Iron Age"},
+      {es:"Ogham", en:"An early Irish alphabet made up of lines and notches, often carved on standing stones"},
+      {es:"Monasteries", en:"Centres of learning and religion in early Christian Ireland, from the 5th century onwards"},
+      {es:"St. Patrick", en:"Traditionally credited with spreading Christianity in Ireland in the 5th century"}
+    ],
+    phrases:[
+      {es:"Newgrange was built around 3200 BC", en:"Making it older than Stonehenge and the Egyptian pyramids"},
+      {es:"Irish monasteries produced illuminated manuscripts", en:"Such as the Book of Kells"}
+    ],
+    quiz:[
+      {q:"Newgrange is an example of a…", opts:["Viking fort","Stone Age passage tomb","Norman castle","Medieval monastery"], a:1},
+      {q:"The Celts brought which technology to Ireland?", opts:["Stone tools","The Iron Age","Gunpowder","Printing"], a:1},
+      {q:"Ogham was…", opts:["A type of coin","An early Irish alphabet","A Viking ship","A Norman castle"], a:1},
+      {q:"Early Christian Irish monasteries were centres of…", opts:["Trade only","Learning and religion","Warfare","Farming only"], a:1},
+      {q:"St. Patrick is traditionally credited with…", opts:["Building Newgrange","Spreading Christianity in Ireland","Founding the Vikings","Writing Ogham"], a:1}
+    ]
+  },
+  {
+    id:4, en:"The Vikings & Normans in Ireland", strand:"The History of Ireland",
+    intro:"Two waves of newcomers who reshaped Irish towns, warfare and power structures.",
+    vocab:[
+      {es:"Vikings", en:"Raiders and settlers from Scandinavia who first raided Ireland around 795 AD"},
+      {es:"Longphort", en:"A Viking ship fortress or base, often built at river mouths"},
+      {es:"Dublin", en:"Founded as a Viking settlement in the 9th century"},
+      {es:"Normans", en:"Invaders from England/Wales who arrived in Ireland in 1169"},
+      {es:"Strongbow", en:"Norman leader (Richard de Clare) who led the invasion of Ireland"},
+      {es:"Motte and bailey", en:"An early type of Norman castle, made of earth and wood"}
+    ],
+    phrases:[
+      {es:"The Vikings first raided Ireland in 795 AD", en:"Targeting monasteries for their wealth"},
+      {es:"The Normans arrived in Ireland in 1169", en:"Invited by the deposed King of Leinster, Dermot MacMurrough"}
+    ],
+    quiz:[
+      {q:"The Vikings first raided Ireland in around…", opts:["795 AD","1169 AD","1916 AD","3200 BC"], a:0},
+      {q:"A Viking ship fortress or base is called a…", opts:["Motte and bailey","Longphort","Ogham stone","Monastery"], a:1},
+      {q:"Which city was founded as a Viking settlement?", opts:["Cork","Galway","Dublin","Belfast"], a:2},
+      {q:"The Normans arrived in Ireland in…", opts:["795 AD","1169 AD","1916 AD","1690 AD"], a:1},
+      {q:"Strongbow was a…", opts:["Viking king","Norman leader","Irish saint","Celtic chieftain"], a:1}
+    ]
+  },
+  {
+    id:5, en:"Plantations & Tudor Conquest", strand:"The History of Ireland",
+    intro:"How 16th- and 17th-century English policy reshaped land ownership and religion across Ireland.",
+    vocab:[
+      {es:"Plantation", en:"The policy of settling English and Scottish colonists on land confiscated from the Irish"},
+      {es:"Tudor conquest", en:"The 16th-century campaign by English monarchs to bring all of Ireland under crown control"},
+      {es:"Flight of the Earls", en:"The 1607 departure of Gaelic Irish earls (O'Neill and O'Donnell) to mainland Europe"},
+      {es:"Ulster Plantation", en:"The large-scale plantation of Ulster begun in 1609, mainly by Scottish and English settlers"},
+      {es:"Penal Laws", en:"Laws restricting the rights of Catholics, introduced after the Williamite War"}
+    ],
+    phrases:[
+      {es:"The Flight of the Earls happened in 1607", en:"After the Gaelic Irish defeat at the Battle of Kinsale"},
+      {es:"The Ulster Plantation began in 1609", en:"Reshaping the population of the north of Ireland"}
+    ],
+    quiz:[
+      {q:"A plantation was…", opts:["A type of farm crop","Settling new colonists on confiscated land","A Viking raid","A Norman castle"], a:1},
+      {q:"The Flight of the Earls took place in…", opts:["1169","1607","1798","1916"], a:1},
+      {q:"The Ulster Plantation mainly settled which groups?", opts:["French and Spanish","Scottish and English","Vikings","Normans"], a:1},
+      {q:"Penal Laws restricted the rights of…", opts:["Protestants","Catholics","Vikings","Normans"], a:1},
+      {q:"The Tudor conquest aimed to…", opts:["Remove all settlers","Bring all of Ireland under crown control","Establish Viking rule","End the plantations"], a:1}
+    ]
+  },
+  {
+    id:6, en:"The Road to Independence", strand:"The History of Ireland",
+    intro:"From the campaign for Home Rule to the founding of the Irish Free State.",
+    vocab:[
+      {es:"Home Rule", en:"The movement for Ireland to have its own parliament while remaining part of the UK"},
+      {es:"Easter Rising", en:"An armed rebellion against British rule in Dublin in April 1916"},
+      {es:"War of Independence", en:"The guerrilla conflict between Irish republicans and British forces, 1919–1921"},
+      {es:"Anglo-Irish Treaty", en:"The 1921 agreement that created the Irish Free State"},
+      {es:"Civil War", en:"The conflict (1922–1923) fought between pro- and anti-Treaty sides in Ireland"}
+    ],
+    phrases:[
+      {es:"The Easter Rising took place in April 1916", en:"Centred on the GPO in Dublin"},
+      {es:"The Anglo-Irish Treaty was signed in 1921", en:"Leading to the Irish Free State and, controversially, partition"}
+    ],
+    quiz:[
+      {q:"The Easter Rising took place in…", opts:["1916","1921","1922","1798"], a:0},
+      {q:"The War of Independence was fought between…", opts:["Ireland and France","Irish republicans and British forces","Vikings and Normans","Catholics and Protestants only"], a:1},
+      {q:"The Anglo-Irish Treaty was signed in…", opts:["1916","1919","1921","1923"], a:2},
+      {q:"The Irish Civil War was fought between…", opts:["Britain and Ireland","Pro- and anti-Treaty sides","Vikings and Normans","Ulster and Munster"], a:1},
+      {q:"Home Rule aimed for…", opts:["Full independence immediately","An Irish parliament within the UK","A return to British direct rule","Union with France"], a:1}
+    ]
+  },
+  {
+    id:7, en:"Ireland Since Independence", strand:"The History of Ireland",
+    intro:"From the founding of the Free State through neutrality, the Troubles, and the peace process.",
+    vocab:[
+      {es:"Irish Free State", en:"Established in 1922, the new state covering 26 counties"},
+      {es:"Partition", en:"The 1920s division of Ireland into Northern Ireland and the Irish Free State"},
+      {es:"Éamon de Valera", en:"A leading political figure, founder of Fianna Fáil and later Taoiseach/President"},
+      {es:"The Emergency", en:"Ireland's official term for its neutral stance during World War II"},
+      {es:"The Troubles", en:"The period of conflict in Northern Ireland from the late 1960s to 1998"},
+      {es:"Good Friday Agreement", en:"The 1998 peace agreement that largely ended the Troubles"}
+    ],
+    phrases:[
+      {es:"Ireland remained neutral during 'the Emergency'", en:"The Irish official term for World War II"},
+      {es:"The Good Friday Agreement was signed in 1998", en:"Bringing a peace settlement to Northern Ireland"}
+    ],
+    quiz:[
+      {q:"The Irish Free State was established in…", opts:["1916","1921","1922","1937"], a:2},
+      {q:"Partition refers to…", opts:["The end of the Civil War","The division of Ireland into two states","The Easter Rising","The Ulster Plantation"], a:1},
+      {q:"'The Emergency' was Ireland's term for its stance during…", opts:["World War I","World War II","The Civil War","The Troubles"], a:1},
+      {q:"The Troubles mainly took place in…", opts:["The Irish Free State","Northern Ireland","Britain","Europe generally"], a:1},
+      {q:"The Good Friday Agreement was signed in…", opts:["1921","1969","1998","1916"], a:2}
+    ]
+  },
+  {
+    id:8, en:"Ancient Civilisations", strand:"The History of Europe and the Wider World",
+    intro:"Egypt, Greece and Rome — the civilisations most Junior Cycle courses use to introduce the ancient world.",
+    vocab:[
+      {es:"Ancient Egypt", en:"A civilisation along the Nile, famous for pyramids and pharaohs"},
+      {es:"Pharaoh", en:"The title given to ancient Egyptian rulers"},
+      {es:"Ancient Greece", en:"A civilisation known for early democracy, philosophy, and myths, centred on city-states"},
+      {es:"Democracy", en:"A system of government by the people, first developed in ancient Athens"},
+      {es:"Ancient Rome", en:"A civilisation that grew from a city-state into a vast empire across Europe, Africa and Asia"},
+      {es:"Julius Caesar", en:"A famous Roman general and statesman, assassinated in 44 BC"}
+    ],
+    phrases:[
+      {es:"The Great Pyramid of Giza was built as a tomb for a pharaoh", en:"Around 2560 BC"},
+      {es:"Ancient Athens is considered the birthplace of democracy", en:"Around the 5th century BC"}
+    ],
+    quiz:[
+      {q:"Pharaoh was the title given to rulers of…", opts:["Ancient Rome","Ancient Egypt","Ancient Greece","Ancient Ireland"], a:1},
+      {q:"Democracy first developed in…", opts:["Ancient Rome","Ancient Egypt","Ancient Athens (Greece)","Medieval Ireland"], a:2},
+      {q:"The Roman Empire grew from…", opts:["A small island","A city-state","A group of monasteries","A Viking settlement"], a:1},
+      {q:"Julius Caesar was assassinated in…", opts:["44 BC","500 AD","1066 AD","1492 AD"], a:0},
+      {q:"The pyramids of ancient Egypt were mainly built as…", opts:["Temples for worship only","Tombs for pharaohs","Forts against invaders","Homes for farmers"], a:1}
+    ]
+  },
+  {
+    id:9, en:"The Renaissance & Reformation", strand:"The History of Europe and the Wider World",
+    intro:"How new ideas about art, learning and religion transformed Europe from the 14th century onwards.",
+    vocab:[
+      {es:"Renaissance", en:"A period of renewed interest in art, learning and science, beginning in Italy in the 14th century"},
+      {es:"Humanism", en:"A Renaissance idea emphasising human potential and classical learning"},
+      {es:"Printing press", en:"Invented by Johannes Gutenberg around 1440, which spread ideas rapidly across Europe"},
+      {es:"Reformation", en:"The 16th-century religious movement that led to Protestantism splitting from the Catholic Church"},
+      {es:"Martin Luther", en:"A German monk whose 1517 Ninety-Five Theses sparked the Reformation"}
+    ],
+    phrases:[
+      {es:"The printing press was invented around 1440", en:"By Johannes Gutenberg in Germany"},
+      {es:"Martin Luther posted his Ninety-Five Theses in 1517", en:"Challenging practices of the Catholic Church"}
+    ],
+    quiz:[
+      {q:"The Renaissance began in which country?", opts:["France","Italy","Germany","England"], a:1},
+      {q:"The printing press was invented by…", opts:["Martin Luther","Johannes Gutenberg","Julius Caesar","Strongbow"], a:1},
+      {q:"The Reformation led to the split of which movement from the Catholic Church?", opts:["Judaism","Protestantism","Islam","Humanism"], a:1},
+      {q:"Martin Luther's Ninety-Five Theses were posted in…", opts:["1440","1517","1607","1789"], a:1},
+      {q:"Humanism emphasised…", opts:["Only religious faith","Human potential and classical learning","Only military strength","Only trade"], a:1}
+    ]
+  },
+  {
+    id:10, en:"The Age of Revolutions", strand:"The History of Europe and the Wider World",
+    intro:"The American and French Revolutions — a turning point for ideas about rights, monarchy and government.",
+    vocab:[
+      {es:"American Revolution", en:"The war (1775–1783) in which the American colonies won independence from Britain"},
+      {es:"Declaration of Independence", en:"The 1776 document declaring the American colonies free from British rule"},
+      {es:"French Revolution", en:"The period of radical political change in France, beginning in 1789"},
+      {es:"Bastille", en:"A Paris fortress-prison, whose storming on 14 July 1789 became a symbol of the French Revolution"},
+      {es:"Guillotine", en:"A device used for executions during the French Revolution, including of King Louis XVI"}
+    ],
+    phrases:[
+      {es:"The Declaration of Independence was signed in 1776", en:"Announcing the American colonies' break from Britain"},
+      {es:"The storming of the Bastille happened on 14 July 1789", en:"Marking the start of the French Revolution"}
+    ],
+    quiz:[
+      {q:"The Declaration of Independence was signed in…", opts:["1607","1776","1789","1916"], a:1},
+      {q:"The French Revolution began in…", opts:["1607","1776","1789","1798"], a:2},
+      {q:"The storming of the Bastille is seen as the start of…", opts:["The American Revolution","The French Revolution","World War I","The Reformation"], a:1},
+      {q:"Which country did the American colonies gain independence from?", opts:["France","Spain","Britain","Portugal"], a:2},
+      {q:"King Louis XVI was executed using the…", opts:["Sword","Guillotine","Firing squad","Poison"], a:1}
+    ]
+  },
+  {
+    id:11, en:"World War I", strand:"The History of Europe and the Wider World",
+    intro:"The 1914–1918 conflict that reshaped Europe and drew in much of the world.",
+    vocab:[
+      {es:"Assassination of Franz Ferdinand", en:"The June 1914 event that triggered the outbreak of World War I"},
+      {es:"Trench warfare", en:"A style of fighting using deep ditches for defence, common on the Western Front"},
+      {es:"Allied Powers", en:"The coalition including Britain, France, Russia (and later the USA) in World War I"},
+      {es:"Central Powers", en:"The coalition including Germany, Austria-Hungary and the Ottoman Empire in World War I"},
+      {es:"Armistice", en:"The agreement that ended the fighting of World War I, on 11 November 1918"}
+    ],
+    phrases:[
+      {es:"World War I began in 1914", en:"Triggered by the assassination of Archduke Franz Ferdinand"},
+      {es:"The Armistice was signed on 11 November 1918", en:"Ending the fighting on the Western Front"}
+    ],
+    quiz:[
+      {q:"World War I was triggered by the assassination of…", opts:["Julius Caesar","Franz Ferdinand","Martin Luther","Louis XVI"], a:1},
+      {q:"Trench warfare was mainly associated with…", opts:["The Western Front","Ancient Rome","The Viking raids","The Renaissance"], a:0},
+      {q:"The Allied Powers in World War I included…", opts:["Germany and Austria-Hungary","Britain, France and Russia","The Ottoman Empire only","Italy only"], a:1},
+      {q:"The Central Powers included…", opts:["Britain and France","Germany and Austria-Hungary","Russia and the USA","Ireland and Britain"], a:1},
+      {q:"The Armistice ending World War I was signed in…", opts:["1914","1916","1918","1921"], a:2}
+    ]
+  },
+  {
+    id:12, en:"World War II & the Holocaust", strand:"The History of Europe and the Wider World",
+    intro:"The deadliest conflict in history, and the systematic genocide carried out by Nazi Germany.",
+    vocab:[
+      {es:"Adolf Hitler", en:"Leader of Nazi Germany, whose invasion of Poland in 1939 triggered World War II"},
+      {es:"Holocaust", en:"The systematic murder of six million Jews and millions of others by Nazi Germany"},
+      {es:"D-Day", en:"The Allied invasion of Normandy on 6 June 1944, a turning point in the war in Europe"},
+      {es:"Axis Powers", en:"The coalition including Germany, Italy and Japan in World War II"},
+      {es:"Allies", en:"The coalition including Britain, the USA, and the Soviet Union in World War II"}
+    ],
+    phrases:[
+      {es:"World War II began in 1939", en:"When Germany invaded Poland"},
+      {es:"D-Day took place on 6 June 1944", en:"The Allied landings in Normandy, France"}
+    ],
+    quiz:[
+      {q:"World War II began in 1939 when Germany invaded…", opts:["France","Poland","Britain","Russia"], a:1},
+      {q:"The Holocaust refers to…", opts:["A World War I battle","The systematic murder of six million Jews and others by Nazi Germany","A peace treaty","A Renaissance movement"], a:1},
+      {q:"D-Day took place in…", opts:["1939","1941","1944","1945"], a:2},
+      {q:"The Axis Powers included Germany, Japan and…", opts:["Britain","Italy","Russia","France"], a:1},
+      {q:"The Allies in World War II included Britain, the Soviet Union and…", opts:["Germany","Italy","The USA","Japan"], a:2}
+    ]
+  }
+];
+
+let progress = {};
+let quizState = {};
+let currentView = "home";
+
+async function loadProgress(){
+  try{ const r = await window.storage.get('jc-history-progress'); if(r && r.value) progress = JSON.parse(r.value); }
+  catch(e){ progress = {}; }
+}
+async function saveProgress(){
+  try{ await window.storage.set('jc-history-progress', JSON.stringify(progress)); }
+  catch(e){ console.error('Could not save progress', e); }
+}
+function renderNav(){
+  const list = document.getElementById('navList');
+  let html = `<li><button class="nav-item ${currentView==='home'?'active':''}" onclick="goTo('home')"><span class="nav-num">·</span> Start here</button></li>`;
+  UNITS.forEach(u => {
+    const active = currentView === u.id;
+    html += `<li><button class="nav-item ${active?'active':''}" onclick="goTo(${u.id})">
+      <span class="nav-num">${String(u.id).padStart(2,'0')}</span>
+      <span>${u.en}</span>
+      ${progress[u.id] ? '<span class="done-dot"></span>' : ''}
+    </button></li>`;
+  });
+  list.innerHTML = html;
+}
+function renderMosaic(){
+  const mosaic = document.getElementById('mosaic');
+  let html = '';
+  UNITS.forEach(u => { html += `<div class="cell ${progress[u.id]?'on':''}"></div>`; });
+  mosaic.innerHTML = html;
+  document.getElementById('progressCount').textContent = UNITS.filter(u => progress[u.id]).length;
+}
+function renderHome(){
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Start here</h2>`;
+  let cards = '';
+  UNITS.forEach(u => {
+    cards += `<div class="start-card" onclick="goTo(${u.id})">
+      <div class="n">${String(u.id).padStart(2,'0')} ${progress[u.id] ? '· done' : ''}</div>
+      <h3>${u.en}</h3>
+      <div class="strand">${u.strand}</div>
+    </div>`;
+  });
+  document.getElementById('content').innerHTML = `
+    <div class="hero">
+      <div class="eyebrow">A path for two, at one pace</div>
+      <h2>Uncover Junior Cycle History together, one period at a time.</h2>
+      <p>These twelve units survey the three Junior Cycle strands — the skills of the historian, the history of Ireland, and the history of Europe and the wider world — from Newgrange through to World War II.</p>
+      <div class="hero-note">
+        <b>Worth knowing:</b> Junior Cycle History doesn't follow one fixed content list — schools choose their own key personalities, issues and events within each strand. This is a broad, representative survey of the periods most commonly taught, not a guaranteed match to any one classroom's exact topics.
+      </div>
+    </div>
+    <div class="section-title">All twelve units</div>
+    <div class="start-grid">${cards}</div>
+  `;
+}
+function renderUnit(id){
+  const u = UNITS.find(x => x.id === id);
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Unit ${String(id).padStart(2,'0')}</h2>`;
+
+  let vocabHtml = '';
+  u.vocab.forEach((v,i) => {
+    vocabHtml += `<div class="flip-card" id="fc-${id}-${i}" onclick="flipCard(${id},${i})">
+      <div class="flip-inner">
+        <div class="flip-face flip-front"><div class="es">${v.es}</div><div class="hint">tap to flip</div></div>
+        <div class="flip-face flip-back"><div class="en">${v.en}</div></div>
+      </div></div>`;
+  });
+
+  let phraseHtml = '';
+  u.phrases.forEach(p => { phraseHtml += `<div class="phrase-row"><div class="es">${p.es}</div><div class="en">${p.en}</div></div>`; });
+
+  if(!quizState[id]) quizState[id] = { answers:{}, checked:false };
+  let quizHtml = '';
+  u.quiz.forEach((q, qi) => {
+    const st = quizState[id];
+    let optsHtml = '';
+    q.opts.forEach((opt, oi) => {
+      let cls = 'q-option';
+      if(st.answers[qi] === oi) cls += ' selected';
+      if(st.checked){
+        if(oi === q.a) cls += ' correct';
+        else if(st.answers[qi] === oi && oi !== q.a) cls += ' incorrect';
+      }
+      optsHtml += `<label class="${cls}" onclick="selectAnswer(${id},${qi},${oi})">
+        <input type="radio" name="q-${id}-${qi}" ${st.answers[qi]===oi?'checked':''} ${st.checked?'disabled':''}> ${opt}
+      </label>`;
+    });
+    quizHtml += `<div class="q-item"><div class="q-prompt">${qi+1}. ${q.q}</div><div class="q-options">${optsHtml}</div></div>`;
+  });
+
+  let scoreHtml = '';
+  if(quizState[id].checked){
+    let correctCount = 0;
+    u.quiz.forEach((q,qi) => { if(quizState[id].answers[qi] === q.a) correctCount++; });
+    scoreHtml = `<div class="quiz-score">Score: ${correctCount} / ${u.quiz.length}</div>`;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="unit-head">
+      <div class="eyebrow">Unit ${String(id).padStart(2,'0')} of 12</div>
+      <h2>${u.en}</h2>
+      <div class="strand-title">${u.strand}</div>
+      <p class="intro">${u.intro}</p>
+    </div>
+
+    <div class="section-title">Key terms — tap a card to flip</div>
+    <div class="vocab-grid">${vocabHtml}</div>
+
+    <div class="section-title">Key facts</div>
+    <div class="phrase-list">${phraseHtml}</div>
+
+    <div class="section-title">Quick quiz</div>
+    <div class="quiz-box">
+      ${quizHtml}
+      <div class="quiz-actions">
+        <button class="primary" onclick="checkQuiz(${id})">${quizState[id].checked ? 'Re-check' : 'Check answers'}</button>
+        <button class="ghost" onclick="resetQuiz(${id})">Try again</button>
+        ${scoreHtml}
+      </div>
+    </div>
+
+    <div class="complete-row">
+      <label><input type="checkbox" ${progress[id] ? 'checked' : ''} onchange="toggleComplete(${id}, this.checked)"> Mark this unit as done together</label>
+      <span class="note">Ticking this just tracks your own progress here — it isn't linked to their school.</span>
+    </div>
+
+    <div class="unit-footer-nav">
+      <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
+      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+    </div>
+  `;
+}
+function goTo(view){ currentView = view; renderNav(); if(view==='home') renderHome(); else renderUnit(view); window.scrollTo({top:0, behavior:'instant'}); }
+function flipCard(unitId, idx){ document.getElementById(`fc-${unitId}-${idx}`).classList.toggle('flipped'); }
+function selectAnswer(unitId, qi, oi){ if(quizState[unitId].checked) return; quizState[unitId].answers[qi] = oi; renderUnit(unitId); }
+function checkQuiz(unitId){ quizState[unitId].checked = true; renderUnit(unitId); }
+function resetQuiz(unitId){ quizState[unitId] = { answers:{}, checked:false }; renderUnit(unitId); }
+async function toggleComplete(unitId, val){ progress[unitId] = val; await saveProgress(); renderNav(); renderMosaic(); }
+
+(async function init(){ await loadProgress(); renderNav(); renderMosaic(); renderHome(); })();
+</script>
+</body>
+</html>

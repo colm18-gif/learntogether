@@ -49,6 +49,15 @@
   .note-box{ margin-top:56px; background:#fff; border:1px dashed var(--ochre); border-radius:14px; padding:22px 26px; }
   .note-box h3{ font-size:1.05rem; margin-bottom:8px; }
   .note-box p{ color:var(--ink-soft); line-height:1.6; margin:0; font-size:0.95rem; }
+
+  .contact-link{
+    position:fixed; bottom:20px; right:22px; z-index:2;
+    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--ink-soft);
+    background:var(--card); border:1px solid var(--line); border-radius:20px;
+    padding:7px 14px; text-decoration:none; opacity:0.75;
+    transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .contact-link:hover{ opacity:1; color:var(--accent-deep, var(--clay)); border-color:var(--clay); }
 </style>
 </head>
 <body>
@@ -76,6 +85,8 @@
   </div>
 </main>
 
+<a class="contact-link" href="mailto:colm@aiaugmentedreading.com">Contact</a>
+
 <script>
 const PALETTE = ["#2C5F7C","#3B6E4F","#7A2E3D","#3B3F7A","#2A6F72","#6B4A2B","#4B6B3A","#26415C","#5B4B8A","#1F4E4A","#C0603D","#1F6E52"];
 
@@ -85,7 +96,7 @@ const JC = [
   {name:"Mathematics", live:true, href:"junior-cycle-maths.html"},
   {name:"Science", live:false},
   {name:"French", live:false},
-  {name:"History", live:false},
+  {name:"History", live:true, href:"junior-cycle-history.html"},
   {name:"Geography", live:false},
   {name:"Business Studies", live:false},
   {name:"Home Economics", live:false},
