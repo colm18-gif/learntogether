@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Español Avanzado — Leaving Cert Spanish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F2ECDD; --card: #FBF8F1; --ink: #2B2418; --ink-soft: #6B6152;
+    --accent: #2C5F7C; --accent-deep: #1E4256; --accent-light: #9DC3D6;
+    --ochre: #D9A441; --clay: #B5592D; --line: #DCD2B8; --good: #3E7A4F; --bad: #B8412E; --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background: var(--paper); color: var(--ink); font-family:'Work Sans', sans-serif; -webkit-font-smoothing:antialiased; }
+  body::before{ content:""; position:fixed; inset:0; pointer-events:none; opacity:0.5;
+    background-image: radial-gradient(circle at 1px 1px, rgba(44,95,124,0.07) 1px, transparent 1.6px); background-size:22px 22px; z-index:0; }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; color: var(--accent-deep); }
+  .app{ position:relative; z-index:1; display:flex; min-height:100vh; }
+
+  .sidebar{ width:280px; flex-shrink:0; background: var(--accent-deep); color:#EFE6D4; padding:28px 0 20px;
+    display:flex; flex-direction:column; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  .brand{ padding:0 24px 20px; border-bottom:1px solid rgba(239,230,212,0.15); margin-bottom:10px; }
+  .brand svg{ width:34px; height:34px; margin-bottom:10px; display:block; }
+  .brand h1{ color:#F4EEDD; font-size:1.35rem; line-height:1.15; }
+  .brand p{ margin:6px 0 0; font-size:0.78rem; color: var(--accent-light); letter-spacing:0.03em; }
+  .nav-list{ list-style:none; margin:0; padding:8px 12px; flex:1; }
+  .nav-list li + li{ margin-top:2px; }
+  .nav-item{ display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:none; border:none;
+    color:rgba(239,230,212,0.82); font-family:'Work Sans', sans-serif; font-size:0.88rem; padding:9px 12px; border-radius:9px; cursor:pointer; transition:background 0.15s ease, color 0.15s ease; }
+  .nav-item:hover{ background: rgba(239,230,212,0.08); color:#fff; }
+  .nav-item.active{ background: var(--ochre); color: var(--accent-deep); font-weight:600; }
+  .nav-num{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; width:20px; height:20px; border-radius:5px; display:flex; align-items:center; justify-content:center; background: rgba(239,230,212,0.12); flex-shrink:0; }
+  .nav-item.active .nav-num{ background: var(--accent-deep); color: var(--ochre); }
+  .nav-item .done-dot{ margin-left:auto; width:8px; height:8px; border-radius:50%; background: var(--ochre); flex-shrink:0; }
+  .nav-item.active .done-dot{ background: var(--accent-deep); }
+  .sidebar-footer{ padding:14px 24px 4px; font-size:0.72rem; color: var(--accent-light); border-top:1px solid rgba(239,230,212,0.15); margin-top:8px; }
+
+  main{ flex:1; min-width:0; padding:40px 56px 80px; }
+  .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:30px; flex-wrap:wrap; }
+  .progress-wrap{ display:flex; align-items:center; gap:14px; }
+  .mosaic{ display:grid; grid-template-columns:repeat(6,15px); grid-template-rows:repeat(2,15px); gap:3px; }
+  .mosaic .cell{ width:15px; height:15px; border-radius:3px; background:#E3D9BC; border:1px solid var(--line); transition:background 0.3s ease; }
+  .mosaic .cell.on{ background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 45%, var(--ochre) 50%, var(--ochre) 100%); border-color: var(--accent-deep); }
+  .progress-text{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--ink-soft); }
+  .progress-text b{ color: var(--accent-deep); }
+
+  .hero{ background: var(--accent-deep); color:#F4EEDD; border-radius:20px; padding:40px; position:relative; overflow:hidden; margin-bottom:34px; }
+  .hero::after{ content:""; position:absolute; right:-40px; bottom:-40px; width:220px; height:220px;
+    background-image: repeating-linear-gradient(45deg, rgba(217,164,65,0.18) 0 10px, transparent 10px 20px),
+                       repeating-linear-gradient(-45deg, rgba(157,195,214,0.18) 0 10px, transparent 10px 20px);
+    border-radius:50%; opacity:0.9; }
+  .hero .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--ochre); margin-bottom:12px; }
+  .hero h2{ color:#F8F2E4; font-size:2rem; max-width:640px; }
+  .hero p{ max-width:600px; color:#D8CCB3; line-height:1.55; margin-top:14px; font-size:1rem; }
+  .hero-note{ margin-top:22px; background: rgba(244,238,221,0.08); border:1px solid rgba(244,238,221,0.2); border-radius:12px; padding:16px 18px; max-width:600px; font-size:0.9rem; line-height:1.5; color:#EFE6D4; }
+  .hero-note b{ color: var(--ochre); }
+  .start-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:14px; }
+  .start-card{ background: var(--card); border:1px solid var(--line); border-radius: var(--radius); padding:16px 18px; cursor:pointer; transition:transform 0.15s ease, box-shadow 0.15s ease; }
+  .start-card:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(43,36,24,0.08); }
+  .start-card .n{ font-family:'IBM Plex Mono', monospace; color: var(--clay); font-size:0.75rem; }
+  .start-card h3{ font-size:1.0rem; margin-top:4px; }
+  .start-card .es{ color: var(--accent); font-style:italic; font-size:0.85rem; }
+
+  .unit-head{ margin-bottom:26px; }
+  .unit-head .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color: var(--clay); text-transform:uppercase; letter-spacing:0.06em; }
+  .unit-head h2{ font-size:1.9rem; margin-top:6px; }
+  .unit-head .es-title{ color: var(--accent); font-style:italic; font-size:1.1rem; margin-top:2px; }
+  .unit-head .intro{ margin-top:12px; max-width:680px; color: var(--ink-soft); line-height:1.55; }
+
+  .section-title{ font-family:'Fraunces', serif; font-size:1.15rem; color: var(--accent-deep); margin:34px 0 14px; display:flex; align-items:center; gap:10px; }
+  .section-title::after{ content:""; flex:1; height:1px; background: var(--line); }
+
+  .vocab-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:12px; }
+  .flip-card{ perspective:900px; height:112px; cursor:pointer; }
+  .flip-inner{ position:relative; width:100%; height:100%; transition:transform 0.5s cubic-bezier(.4,.2,.2,1); transform-style:preserve-3d; }
+  .flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+  .flip-face{ position:absolute; inset:0; border-radius: var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; backface-visibility:hidden; padding:10px; text-align:center; }
+  .flip-front{ background: var(--card); border:1px solid var(--line); }
+  .flip-front .es{ font-family:'Fraunces', serif; font-size:1.05rem; color: var(--accent-deep); font-weight:600; }
+  .flip-front .hint{ font-size:0.66rem; color: var(--ink-soft); margin-top:6px; }
+  .flip-back{ background: var(--accent); color:#fff; transform:rotateY(180deg); }
+  .flip-back .en{ font-size:0.88rem; font-weight:500; line-height:1.35; }
+  .speak-btn{ position:absolute; top:6px; right:6px; width:26px; height:26px; border-radius:50%; border:none;
+    background: rgba(44,95,124,0.1); color: var(--accent-deep); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.85rem; z-index:2; }
+  .flip-back .speak-btn{ background: rgba(255,255,255,0.18); color:#fff; }
+  .speak-btn:hover{ background: var(--ochre); color: var(--accent-deep); }
+
+  .phrase-list{ display:flex; flex-direction:column; gap:8px; }
+  .phrase-row{ display:flex; align-items:center; gap:12px; background: var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; flex-wrap:wrap; }
+  .phrase-row .es{ font-family:'Fraunces', serif; color: var(--accent-deep); font-weight:600; min-width:250px; }
+  .phrase-row .en{ color: var(--ink-soft); font-size:0.92rem; flex:1; }
+  .phrase-row .speak-btn{ position:static; background: var(--accent-light); color: var(--accent-deep); }
+
+  .quiz-box{ background: var(--card); border:1px solid var(--line); border-radius: var(--radius); padding:22px 24px; }
+  .q-item{ margin-bottom:22px; }
+  .q-item:last-child{ margin-bottom:0; }
+  .q-prompt{ font-weight:600; margin-bottom:10px; }
+  .q-options{ display:flex; flex-direction:column; gap:8px; }
+  .q-option{ display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--line); border-radius:9px; cursor:pointer; background:#fff; font-size:0.92rem; transition:border-color 0.15s ease, background 0.15s ease; }
+  .q-option:hover{ border-color: var(--accent-light); }
+  .q-option.selected{ border-color: var(--accent); background: rgba(44,95,124,0.06); }
+  .q-option.correct{ border-color: var(--good); background: rgba(62,122,79,0.1); }
+  .q-option.incorrect{ border-color: var(--bad); background: rgba(184,65,46,0.08); }
+  .q-option input{ accent-color: var(--accent); }
+
+  .quiz-actions{ display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap; }
+  button.primary{ background: var(--accent-deep); color:#F4EEDD; border:none; padding:11px 20px; border-radius:9px; font-family:'Work Sans', sans-serif; font-weight:600; font-size:0.92rem; cursor:pointer; transition:background 0.15s ease; }
+  button.primary:hover{ background: var(--accent); }
+  button.ghost{ background:none; border:1px solid var(--line); color: var(--ink); padding:10px 18px; border-radius:9px; font-family:'Work Sans', sans-serif; font-size:0.92rem; cursor:pointer; }
+  button.ghost:hover{ border-color: var(--accent); color: var(--accent-deep); }
+  .quiz-score{ font-family:'IBM Plex Mono', monospace; font-size:0.9rem; color: var(--accent-deep); }
+
+  .complete-row{ margin-top:30px; display:flex; align-items:center; gap:12px; padding:16px 18px; border-radius:12px; background: rgba(217,164,65,0.14); border:1px dashed var(--ochre); flex-wrap:wrap; }
+  .complete-row label{ font-weight:600; cursor:pointer; display:flex; align-items:center; gap:10px; }
+  .complete-row input{ width:18px; height:18px; accent-color: var(--clay); }
+  .complete-row .note{ font-size:0.82rem; color: var(--ink-soft); margin-left:auto; }
+
+  .unit-footer-nav{ display:flex; justify-content:space-between; margin-top:36px; }
+
+  @media (max-width:860px){
+    .app{ flex-direction:column; }
+    .sidebar{ position:relative; width:100%; height:auto; padding:18px 0; }
+    .nav-list{ display:flex; overflow-x:auto; padding:6px 12px; gap:4px; }
+    .nav-list li{ flex-shrink:0; }
+    main{ padding:26px 18px 60px; }
+    .hero{ padding:26px; }
+    .hero h2{ font-size:1.4rem; }
+    .phrase-row{ flex-wrap:wrap; }
+    .phrase-row .es{ min-width:0; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="1" width="38" height="38" rx="6" stroke="#D9A441" stroke-width="2"/>
+        <path d="M8 30 L20 10 L32 30 Z" stroke="#9DC3D6" stroke-width="1.6" fill="none"/>
+        <path d="M14 25 h4 v-4 h-4 Z" fill="#D9A441" opacity="0.85"/>
+      </svg>
+      <h1>Español Avanzado</h1>
+      <p>A shared Leaving Cert Spanish path</p>
+    </div>
+    <ul class="nav-list" id="navList"></ul>
+    <div class="sidebar-footer">Leaving Cert Spanish builds directly on Junior Cycle Spanish, at Higher or Ordinary level. These twelve units mix the grammar step-ups (past tenses, future, subjunctive) with the topic vocabulary that comes up constantly in the written and oral exams.</div>
+  </nav>
+
+  <main>
+    <div class="top-row">
+      <div id="crumb"></div>
+      <div class="progress-wrap">
+        <div class="mosaic" id="mosaic"></div>
+        <div class="progress-text"><b id="progressCount">0</b>/12 units done together</div>
+      </div>
+    </div>
+    <div id="content"></div>
+  </main>
+</div>
+
+<script>
+const UNITS = [
+  {
+    id:1, es:"Ser vs Estar", en:"Ser vs Estar (review & upgrade)",
+    intro:"The classic distinction, revisited at a level where it starts mattering for accuracy in essays and the oral exam.",
+    vocab:[
+      {es:"Ser — identidad", en:"Used for permanent characteristics, identity, origin, time: 'Soy alto', 'Es la una'"},
+      {es:"Estar — estado", en:"Used for location, temporary states, feelings: 'Estoy cansado', 'Madrid está en España'"},
+      {es:"Estar + gerundio", en:"Present continuous: 'Estoy estudiando' — I am studying"},
+      {es:"Ser + adjetivo", en:"An inherent trait: 'Es inteligente' — She's intelligent (as a rule)"},
+      {es:"Estar + adjetivo", en:"A temporary state or change: 'Está enfermo' — He's (currently) ill"}
+    ],
+    phrases:[
+      {es:"Soy español, pero estoy en Irlanda.", en:"I am Spanish, but I am in Ireland."},
+      {es:"Ella es simpática, pero hoy está triste.", en:"She's nice (by nature), but today she's sad."}
+    ],
+    quiz:[
+      {q:"Which verb do you use for someone's nationality?", opts:["ser","estar","tener","hacer"], a:0},
+      {q:"'Madrid ___ en España' (location) uses…", opts:["es","son","está","están"], a:2},
+      {q:"'___ las tres de la tarde' (telling time) uses…", opts:["Es","Son","Está","Están"], a:1},
+      {q:"Which is correct for a temporary feeling?", opts:["Soy cansado","Estoy cansado","Soy cansada de","Estoy de cansado"], a:1},
+      {q:"'Ella ___ muy inteligente' (a permanent trait) uses…", opts:["es","está","son","están"], a:0}
+    ]
+  },
+  {
+    id:2, es:"Pretérito vs Imperfecto", en:"Past tenses: Pretérito vs Imperfecto",
+    intro:"The single biggest grammar upgrade from Junior Cycle — telling a completed event apart from an ongoing or habitual one.",
+    vocab:[
+      {es:"Pretérito", en:"A completed action in the past: 'Ayer comí paella.'"},
+      {es:"Imperfecto", en:"An ongoing or habitual past action: 'Cuando era niño, jugaba mucho.'"},
+      {es:"Pretérito para interrupciones", en:"The action that interrupts: 'Estaba durmiendo cuando sonó el teléfono.'"},
+      {es:"Imperfecto para el fondo", en:"Sets the scene: 'Hacía sol y los pájaros cantaban.'"},
+      {es:"Imperfecto irregulares", en:"ser → era, ir → iba, ver → veía — the only three irregular ones"}
+    ],
+    phrases:[
+      {es:"Ayer fui al cine.", en:"Yesterday I went to the cinema. (completed — pretérito)"},
+      {es:"De pequeño, vivía en Cork.", en:"As a child, I lived in Cork. (habitual — imperfecto)"}
+    ],
+    quiz:[
+      {q:"'Ayer comí paella' uses which tense?", opts:["pretérito","imperfecto","futuro","condicional"], a:0},
+      {q:"Which tense describes habitual past actions?", opts:["pretérito","imperfecto","presente","subjuntivo"], a:1},
+      {q:"In 'Cuando era niño, jugaba mucho', 'jugaba' is imperfecto because it describes…", opts:["A single completed event","A habitual past action","A future plan","A command"], a:1},
+      {q:"In 'Estaba durmiendo cuando sonó el teléfono', 'sonó' is pretérito because it…", opts:["Sets the background scene","Interrupts an ongoing action","Describes age","Is a command"], a:1},
+      {q:"The correct imperfecto of 'ser' for 'yo' is…", opts:["fui","era","soy","seré"], a:1}
+    ]
+  },
+  {
+    id:3, es:"El Futuro y El Condicional", en:"The future & conditional tenses",
+    intro:"Talking about what will happen and what would happen — essential for the 'plans and opinions' part of the oral and essay.",
+    vocab:[
+      {es:"Futuro simple", en:"What will happen, added to the infinitive: 'Estudiaré medicina.'"},
+      {es:"Condicional", en:"What would happen: 'Me gustaría viajar.'"},
+      {es:"Futuro de probabilidad", en:"Guessing about the present: 'Serán las diez.' (It's probably ten.)"},
+      {es:"Raíces irregulares", en:"tener → tendr-, hacer → har-, poder → podr- (same stem for futuro and condicional)"},
+      {es:"Me gustaría…", en:"A very common, polite way to express a wish"}
+    ],
+    phrases:[
+      {es:"El año que viene, estudiaré en la universidad.", en:"Next year, I will study at university."},
+      {es:"Me gustaría ser médico.", en:"I would like to be a doctor."}
+    ],
+    quiz:[
+      {q:"'Estudiaré medicina' is which tense?", opts:["futuro","condicional","pretérito","imperfecto"], a:0},
+      {q:"'Me gustaría viajar' is which tense?", opts:["futuro","condicional","presente","pretérito"], a:1},
+      {q:"The irregular futuro stem of 'tener' is…", opts:["tener-","tendr-","tenir-","tuvo-"], a:1},
+      {q:"'Me gustaría' is a polite way to say…", opts:["I will","I would like","I have","I did"], a:1},
+      {q:"'Serán las diez' (guessing the time) uses futuro for…", opts:["A definite plan","Probability","A past habit","A command"], a:1}
+    ]
+  },
+  {
+    id:4, es:"El Subjuntivo", en:"Introducing the subjunctive",
+    intro:"A genuinely new structure at this level — used after wishes, doubts and emotions, and worth a lot in Higher Level answers.",
+    vocab:[
+      {es:"El subjuntivo", en:"Used after expressions of wish, doubt, emotion or influence: 'Espero que tengas suerte.'"},
+      {es:"Que + subjuntivo", en:"Most subjunctive clauses follow 'que': 'Quiero que vengas.'"},
+      {es:"Subjuntivo regular", en:"Swap -ar endings to -e, -er/-ir endings to -a: hablar → hable"},
+      {es:"Es importante que…", en:"A common trigger phrase: It's important that…"},
+      {es:"Espero que…", en:"A common trigger phrase: I hope that…"}
+    ],
+    phrases:[
+      {es:"Espero que apruebes el examen.", en:"I hope you pass the exam."},
+      {es:"Es importante que estudies todos los días.", en:"It's important that you study every day."}
+    ],
+    quiz:[
+      {q:"The subjunctive usually follows which word?", opts:["y","que","pero","muy"], a:1},
+      {q:"'Espero que tengas suerte' expresses…", opts:["A fact","A hope","A command","A past event"], a:1},
+      {q:"The present subjunctive 'yo' form of 'hablar' is…", opts:["hablo","hable","hablé","hablaré"], a:1},
+      {q:"'Es importante que ___ todos los días' (estudiar)", opts:["estudias","estudies","estudiarás","estudiaste"], a:1},
+      {q:"Subjunctive is typically triggered by expressions of…", opts:["Wish, doubt or emotion","Simple fact","Location","Time only"], a:0}
+    ]
+  },
+  {
+    id:5, es:"Por vs Para", en:"Por vs Para",
+    intro:"Two words for 'for' in English, but with clearly different jobs in Spanish — a classic exam trap.",
+    vocab:[
+      {es:"Por — razón/duración", en:"Used for reason, duration, exchange, movement through: 'Gracias por tu ayuda.'"},
+      {es:"Para — propósito/destino", en:"Used for purpose, destination, deadline, recipient: 'Esto es para ti.'"},
+      {es:"Por + razón", en:"'Lo hice por amor.' — I did it because of love."},
+      {es:"Para + propósito", en:"'Estudio para aprender.' — I study in order to learn."},
+      {es:"Para + fecha límite", en:"'Lo necesito para el lunes.' — I need it by Monday."}
+    ],
+    phrases:[
+      {es:"Caminamos por el parque.", en:"We walked through the park."},
+      {es:"Este regalo es para mi madre.", en:"This gift is for my mother."}
+    ],
+    quiz:[
+      {q:"'Gracias ___ tu ayuda' (reason) uses…", opts:["por","para","con","de"], a:0},
+      {q:"'Esto es ___ ti' (recipient) uses…", opts:["por","para","en","a"], a:1},
+      {q:"'Lo necesito ___ el lunes' (deadline) uses…", opts:["por","para","desde","hasta"], a:1},
+      {q:"'Caminamos ___ el parque' (movement through) uses…", opts:["por","para","a","en"], a:0},
+      {q:"Which preposition expresses purpose or goal?", opts:["por","para","con","sin"], a:1}
+    ]
+  },
+  {
+    id:6, es:"Relaciones Personales", en:"Personal relationships",
+    intro:"Vocabulary for talking about family, friendships and how you get on with people — a staple oral exam topic.",
+    vocab:[
+      {es:"llevarse bien/mal con", en:"To get on well/badly with"},
+      {es:"la pareja", en:"partner / couple"},
+      {es:"discutir", en:"to argue"},
+      {es:"apoyar", en:"to support"},
+      {es:"la amistad", en:"friendship"},
+      {es:"confiar en", en:"to trust"}
+    ],
+    phrases:[
+      {es:"Me llevo muy bien con mis padres.", en:"I get on very well with my parents."},
+      {es:"La amistad es muy importante para mí.", en:"Friendship is very important to me."}
+    ],
+    quiz:[
+      {q:"'llevarse bien con' means…", opts:["To argue with","To get on well with","To trust","To move away from"], a:1},
+      {q:"'discutir' means…", opts:["To discuss calmly","To argue","To support","To trust"], a:1},
+      {q:"'confiar en' means…", opts:["To argue with","To trust","To avoid","To forget"], a:1},
+      {q:"'apoyar' means…", opts:["To oppose","To support","To ignore","To criticise"], a:1},
+      {q:"'la amistad' means…", opts:["Partnership","Friendship","Argument","Marriage"], a:1}
+    ]
+  },
+  {
+    id:7, es:"La Educación y el Futuro", en:"Education & future plans",
+    intro:"Talking about exams, university and career goals — comes up in almost every LC Spanish oral.",
+    vocab:[
+      {es:"aprobar un examen", en:"to pass an exam"},
+      {es:"suspender un examen", en:"to fail an exam"},
+      {es:"la carrera universitaria", en:"university degree/course"},
+      {es:"solicitar una plaza", en:"to apply for a place"},
+      {es:"tener éxito", en:"to be successful"},
+      {es:"graduarse", en:"to graduate"}
+    ],
+    phrases:[
+      {es:"Espero aprobar todos mis exámenes.", en:"I hope to pass all my exams."},
+      {es:"Quiero estudiar una carrera en el extranjero.", en:"I want to study a degree abroad."}
+    ],
+    quiz:[
+      {q:"'aprobar un examen' means…", opts:["To fail an exam","To pass an exam","To take an exam","To mark an exam"], a:1},
+      {q:"'suspender un examen' means…", opts:["To pass an exam","To fail an exam","To postpone an exam","To enjoy an exam"], a:1},
+      {q:"'la carrera universitaria' means…", opts:["School subject","University degree","Sports race","Job interview"], a:1},
+      {q:"'tener éxito' means…", opts:["To fail","To be successful","To be tired","To be late"], a:1},
+      {q:"'graduarse' means…", opts:["To enrol","To graduate","To repeat a year","To drop out"], a:1}
+    ]
+  },
+  {
+    id:8, es:"El Mundo del Trabajo", en:"The world of work",
+    intro:"Vocabulary for jobs, interviews and careers — another very common essay and oral topic.",
+    vocab:[
+      {es:"el sueldo", en:"salary"},
+      {es:"el/la jefe/a", en:"boss"},
+      {es:"la entrevista de trabajo", en:"job interview"},
+      {es:"el currículum", en:"CV / résumé"},
+      {es:"a tiempo parcial/completo", en:"part-time / full-time"},
+      {es:"el desempleo", en:"unemployment"}
+    ],
+    phrases:[
+      {es:"Busco un trabajo a tiempo parcial.", en:"I'm looking for a part-time job."},
+      {es:"Tengo una entrevista de trabajo mañana.", en:"I have a job interview tomorrow."}
+    ],
+    quiz:[
+      {q:"'el sueldo' means…", opts:["The boss","The salary","The interview","The CV"], a:1},
+      {q:"'a tiempo parcial' means…", opts:["Full-time","Part-time","Unemployed","Retired"], a:1},
+      {q:"'el desempleo' means…", opts:["Employment","Unemployment","Salary","Interview"], a:1},
+      {q:"'el currículum' means…", opts:["The interview","The CV/résumé","The salary","The contract"], a:1},
+      {q:"'la entrevista de trabajo' means…", opts:["The salary","The job interview","The CV","The office"], a:1}
+    ]
+  },
+  {
+    id:9, es:"La Tecnología y las Redes Sociales", en:"Technology & social media",
+    intro:"A very current topic — screen time, social media and its effects come up often in reading comprehensions.",
+    vocab:[
+      {es:"las redes sociales", en:"social media"},
+      {es:"subir una foto", en:"to upload a photo"},
+      {es:"estar conectado/a", en:"to be online/connected"},
+      {es:"la pantalla", en:"screen"},
+      {es:"descargar una aplicación", en:"to download an app"},
+      {es:"el ciberacoso", en:"cyberbullying"}
+    ],
+    phrases:[
+      {es:"Paso demasiado tiempo en las redes sociales.", en:"I spend too much time on social media."},
+      {es:"Es importante desconectar de vez en cuando.", en:"It's important to disconnect sometimes."}
+    ],
+    quiz:[
+      {q:"'las redes sociales' means…", opts:["Social media","Networking events","Phone contracts","Video games"], a:0},
+      {q:"'subir una foto' means…", opts:["To delete a photo","To upload a photo","To print a photo","To edit a photo"], a:1},
+      {q:"'descargar una aplicación' means…", opts:["To delete an app","To download an app","To update an app","To buy a phone"], a:1},
+      {q:"'el ciberacoso' means…", opts:["Online shopping","Cyberbullying","Video calling","Online gaming"], a:1},
+      {q:"'estar conectado/a' means…", opts:["To be offline","To be online/connected","To be lost","To be tired"], a:1}
+    ]
+  },
+  {
+    id:10, es:"El Medio Ambiente", en:"The environment",
+    intro:"Climate change and environmental vocabulary — a frequent theme in both the written paper and the aural.",
+    vocab:[
+      {es:"el calentamiento global", en:"global warming"},
+      {es:"reciclar", en:"to recycle"},
+      {es:"la contaminación", en:"pollution"},
+      {es:"las energías renovables", en:"renewable energy"},
+      {es:"el cambio climático", en:"climate change"},
+      {es:"ahorrar energía", en:"to save energy"}
+    ],
+    phrases:[
+      {es:"Es importante reciclar y ahorrar energía.", en:"It's important to recycle and save energy."},
+      {es:"El cambio climático afecta a todo el planeta.", en:"Climate change affects the whole planet."}
+    ],
+    quiz:[
+      {q:"'el calentamiento global' means…", opts:["Global cooling","Global warming","Global trade","Global travel"], a:1},
+      {q:"'reciclar' means…", opts:["To pollute","To recycle","To waste","To burn"], a:1},
+      {q:"'las energías renovables' means…", opts:["Fossil fuels","Renewable energy","Nuclear waste","Electric cars"], a:1},
+      {q:"'la contaminación' means…", opts:["Cleanliness","Pollution","Recycling","Protection"], a:1},
+      {q:"'ahorrar energía' means…", opts:["To waste energy","To save energy","To sell energy","To generate energy"], a:1}
+    ]
+  },
+  {
+    id:11, es:"La Salud y el Bienestar", en:"Health & wellbeing",
+    intro:"Healthy living vocabulary — a common personal-opinion topic in the written and oral exams.",
+    vocab:[
+      {es:"llevar una vida sana", en:"to lead a healthy life"},
+      {es:"hacer ejercicio", en:"to exercise"},
+      {es:"una dieta equilibrada", en:"a balanced diet"},
+      {es:"el estrés", en:"stress"},
+      {es:"dejar de fumar", en:"to quit smoking"},
+      {es:"descansar", en:"to rest"}
+    ],
+    phrases:[
+      {es:"Intento llevar una vida sana.", en:"I try to lead a healthy life."},
+      {es:"Es importante descansar y hacer ejercicio.", en:"It's important to rest and exercise."}
+    ],
+    quiz:[
+      {q:"'llevar una vida sana' means…", opts:["To lead a busy life","To lead a healthy life","To lead a boring life","To lead a short life"], a:1},
+      {q:"'el estrés' means…", opts:["Rest","Stress","Exercise","Diet"], a:1},
+      {q:"'dejar de fumar' means…", opts:["To start smoking","To quit smoking","To smoke more","To sell cigarettes"], a:1},
+      {q:"'una dieta equilibrada' means…", opts:["A strict diet","A balanced diet","An unhealthy diet","A liquid diet"], a:1},
+      {q:"'descansar' means…", opts:["To work","To rest","To run","To argue"], a:1}
+    ]
+  },
+  {
+    id:12, es:"Viajes y la Actualidad", en:"Travel & current affairs",
+    intro:"Holiday vocabulary plus the language of news and current events — useful for both everyday topics and the more serious ones.",
+    vocab:[
+      {es:"hacer las maletas", en:"to pack (suitcases)"},
+      {es:"el alojamiento", en:"accommodation"},
+      {es:"las noticias", en:"the news"},
+      {es:"estar al tanto de", en:"to be up to date with"},
+      {es:"el titular", en:"headline"},
+      {es:"la actualidad", en:"current affairs"}
+    ],
+    phrases:[
+      {es:"Me gusta estar al tanto de la actualidad.", en:"I like to keep up with current affairs."},
+      {es:"Hicimos las maletas y salimos temprano.", en:"We packed our bags and left early."}
+    ],
+    quiz:[
+      {q:"'hacer las maletas' means…", opts:["To unpack","To pack (suitcases)","To book a flight","To check in"], a:1},
+      {q:"'el alojamiento' means…", opts:["Transport","Accommodation","Food","Currency"], a:1},
+      {q:"'estar al tanto de' means…", opts:["To be unaware of","To be up to date with","To be tired of","To be far from"], a:1},
+      {q:"'el titular' means…", opts:["The article","The headline","The journalist","The photo"], a:1},
+      {q:"'la actualidad' means…", opts:["History","Current affairs","The future","The weather"], a:1}
+    ]
+  }
+];
+
+let progress = {};
+let quizState = {};
+let currentView = "home";
+
+async function loadProgress(){
+  try{ const r = await window.storage.get('lc-spanish-progress'); if(r && r.value) progress = JSON.parse(r.value); }
+  catch(e){ progress = {}; }
+}
+async function saveProgress(){
+  try{ await window.storage.set('lc-spanish-progress', JSON.stringify(progress)); }
+  catch(e){ console.error('Could not save progress', e); }
+}
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-ES';
+  u.rate = 0.92;
+  const voices = window.speechSynthesis.getVoices();
+  const esVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('es'));
+  if(esVoice) u.voice = esVoice;
+  window.speechSynthesis.speak(u);
+}
+function renderNav(){
+  const list = document.getElementById('navList');
+  let html = `<li><button class="nav-item ${currentView==='home'?'active':''}" onclick="goTo('home')"><span class="nav-num">·</span> Start here</button></li>`;
+  UNITS.forEach(u => {
+    const active = currentView === u.id;
+    html += `<li><button class="nav-item ${active?'active':''}" onclick="goTo(${u.id})">
+      <span class="nav-num">${String(u.id).padStart(2,'0')}</span>
+      <span>${u.en}</span>
+      ${progress[u.id] ? '<span class="done-dot"></span>' : ''}
+    </button></li>`;
+  });
+  list.innerHTML = html;
+}
+function renderMosaic(){
+  const mosaic = document.getElementById('mosaic');
+  let html = '';
+  UNITS.forEach(u => { html += `<div class="cell ${progress[u.id]?'on':''}"></div>`; });
+  mosaic.innerHTML = html;
+  document.getElementById('progressCount').textContent = UNITS.filter(u => progress[u.id]).length;
+}
+function renderHome(){
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Start here</h2>`;
+  let cards = '';
+  UNITS.forEach(u => {
+    cards += `<div class="start-card" onclick="goTo(${u.id})">
+      <div class="n">${String(u.id).padStart(2,'0')} ${progress[u.id] ? '· done' : ''}</div>
+      <h3>${u.en}</h3>
+      <div class="es">${u.es}</div>
+    </div>`;
+  });
+  document.getElementById('content').innerHTML = `
+    <div class="hero">
+      <div class="eyebrow">A path for two, at one pace</div>
+      <h2>Take Spanish into Leaving Cert territory, together.</h2>
+      <p>These twelve units build directly on Junior Cycle Spanish — the past tenses, future, and an introduction to the subjunctive, alongside the topic vocabulary that dominates the Leaving Cert written paper and oral exam: relationships, education, work, technology, the environment, health, and current affairs.</p>
+      <div class="hero-note">
+        <b>Worth knowing:</b> Leaving Cert Spanish is examined at Higher and Ordinary level with the same learning outcomes for both, so this content suits either — the difference is mainly in depth and accuracy expected. This covers the recurring building blocks, not the full two-year course.
+      </div>
+    </div>
+    <div class="section-title">All twelve units</div>
+    <div class="start-grid">${cards}</div>
+  `;
+}
+function renderUnit(id){
+  const u = UNITS.find(x => x.id === id);
+  document.getElementById('crumb').innerHTML = `<h2 style="font-size:1.1rem;">Unit ${String(id).padStart(2,'0')}</h2>`;
+
+  let vocabHtml = '';
+  u.vocab.forEach((v, i) => {
+    vocabHtml += `
+      <div class="flip-card" id="fc-${id}-${i}" onclick="flipCard(${id},${i})">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <button class="speak-btn" onclick="event.stopPropagation(); speak('${v.es.replace(/'/g,"\\'")}')">&#128266;</button>
+            <div class="es">${v.es}</div>
+            <div class="hint">tap to flip</div>
+          </div>
+          <div class="flip-face flip-back">
+            <button class="speak-btn" onclick="event.stopPropagation(); speak('${v.es.replace(/'/g,"\\'")}')">&#128266;</button>
+            <div class="en">${v.en}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  let phraseHtml = '';
+  u.phrases.forEach(p => {
+    phraseHtml += `
+      <div class="phrase-row">
+        <button class="speak-btn" onclick="speak('${p.es.replace(/'/g,"\\'")}')">&#128266;</button>
+        <div class="es">${p.es}</div>
+        <div class="en">${p.en}</div>
+      </div>`;
+  });
+
+  if(!quizState[id]) quizState[id] = { answers:{}, checked:false };
+  let quizHtml = '';
+  u.quiz.forEach((q, qi) => {
+    const st = quizState[id];
+    let optsHtml = '';
+    q.opts.forEach((opt, oi) => {
+      let cls = 'q-option';
+      if(st.answers[qi] === oi) cls += ' selected';
+      if(st.checked){
+        if(oi === q.a) cls += ' correct';
+        else if(st.answers[qi] === oi && oi !== q.a) cls += ' incorrect';
+      }
+      optsHtml += `<label class="${cls}" onclick="selectAnswer(${id},${qi},${oi})">
+        <input type="radio" name="q-${id}-${qi}" ${st.answers[qi]===oi?'checked':''} ${st.checked?'disabled':''}> ${opt}
+      </label>`;
+    });
+    quizHtml += `<div class="q-item"><div class="q-prompt">${qi+1}. ${q.q}</div><div class="q-options">${optsHtml}</div></div>`;
+  });
+
+  let scoreHtml = '';
+  if(quizState[id].checked){
+    let correctCount = 0;
+    u.quiz.forEach((q,qi) => { if(quizState[id].answers[qi] === q.a) correctCount++; });
+    scoreHtml = `<div class="quiz-score">Score: ${correctCount} / ${u.quiz.length}</div>`;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="unit-head">
+      <div class="eyebrow">Unit ${String(id).padStart(2,'0')} of 12</div>
+      <h2>${u.en}</h2>
+      <div class="es-title">${u.es}</div>
+      <p class="intro">${u.intro}</p>
+    </div>
+
+    <div class="section-title">Vocabulary &amp; grammar — tap a card to flip, tap &#128266; to hear it</div>
+    <div class="vocab-grid">${vocabHtml}</div>
+
+    <div class="section-title">Key phrases</div>
+    <div class="phrase-list">${phraseHtml}</div>
+
+    <div class="section-title">Quick quiz</div>
+    <div class="quiz-box">
+      ${quizHtml}
+      <div class="quiz-actions">
+        <button class="primary" onclick="checkQuiz(${id})">${quizState[id].checked ? 'Re-check' : 'Check answers'}</button>
+        <button class="ghost" onclick="resetQuiz(${id})">Try again</button>
+        ${scoreHtml}
+      </div>
+    </div>
+
+    <div class="complete-row">
+      <label><input type="checkbox" ${progress[id] ? 'checked' : ''} onchange="toggleComplete(${id}, this.checked)"> Mark this unit as done together</label>
+      <span class="note">Ticking this just tracks your own progress here — it isn't linked to any school.</span>
+    </div>
+
+    <div class="unit-footer-nav">
+      <button class="ghost" ${id===1?'disabled style="opacity:0.4"':''} onclick="goTo(${id-1})">&larr; Previous unit</button>
+      <button class="ghost" ${id===12?'disabled style="opacity:0.4"':''} onclick="goTo(${id+1})">Next unit &rarr;</button>
+    </div>
+  `;
+}
+function goTo(view){ currentView = view; renderNav(); if(view==='home') renderHome(); else renderUnit(view); window.scrollTo({top:0, behavior:'instant'}); }
+function flipCard(unitId, idx){ document.getElementById(`fc-${unitId}-${idx}`).classList.toggle('flipped'); }
+function selectAnswer(unitId, qi, oi){ if(quizState[unitId].checked) return; quizState[unitId].answers[qi] = oi; renderUnit(unitId); }
+function checkQuiz(unitId){ quizState[unitId].checked = true; renderUnit(unitId); }
+function resetQuiz(unitId){ quizState[unitId] = { answers:{}, checked:false }; renderUnit(unitId); }
+async function toggleComplete(unitId, val){ progress[unitId] = val; await saveProgress(); renderNav(); renderMosaic(); }
+
+(async function init(){
+  await loadProgress();
+  if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged = () => {}; }
+  renderNav(); renderMosaic(); renderHome();
+})();
+</script>
+</body>
+</html>
