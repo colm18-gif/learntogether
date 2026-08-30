@@ -419,7 +419,7 @@
       <p>A shared Junior Cycle Spanish path</p>
     </div>
     <ul class="nav-list" id="navList"></ul>
-    <div class="sidebar-footer">Keyed to the topics most Irish 1st‑year Spanish classes cover first — check the actual order against your daughter's book if it differs.</div>
+    <div class="sidebar-footer">Keyed to the topics most Irish 1st‑year Spanish classes cover first — check the actual order against your child's book if it differs.</div>
   </nav>
 
   <main>
@@ -551,7 +551,7 @@ const UNITS = [
   },
   {
     id:6, es:"El instituto", en:"School",
-    intro:"Classroom objects, subjects, and saying what you do and don't like — directly useful in her actual classroom.",
+    intro:"Classroom objects, subjects, and saying what you do and don't like — directly useful in their actual classroom.",
     vocab:[
       {es:"el aula",en:"classroom"},{es:"el profesor / la profesora",en:"teacher"},
       {es:"el libro",en:"book"},{es:"el cuaderno",en:"copybook"},{es:"la mochila",en:"schoolbag"},
@@ -773,10 +773,10 @@ function renderHome(){
   document.getElementById('content').innerHTML = `
     <div class="hero">
       <div class="eyebrow">A path for two, at one pace</div>
-      <h2>Learn Spanish alongside her — in the same order her class will meet it.</h2>
-      <p>These twelve units follow the topics almost every Irish first-year Spanish class covers early on: greetings, numbers, family, colours, school life, and on through food, town and weather. Work through one unit together each week or two, and you'll rarely be more than a step away from what she's doing in class.</p>
+      <h2>Learn Spanish alongside your child — in the same order their class will meet it.</h2>
+      <p>These twelve units follow the topics almost every Irish first-year Spanish class covers early on: greetings, numbers, family, colours, school life, and on through food, town and weather. Work through one unit together each week or two, and you'll rarely be more than a step away from what they're doing in class.</p>
       <div class="hero-note">
-        <b>Worth checking:</b> the official Junior Cycle specification lets each school choose its own theme order and textbook, so the exact sequence your niece — sorry, your daughter — meets these in may differ slightly. If her book jumps straight to school or family first, just use the sidebar to jump to that unit instead of unit 1.
+        <b>Worth checking:</b> the official Junior Cycle specification lets each school choose its own theme order and textbook, so the exact sequence your child meets these in may differ slightly. If their book jumps straight to school or family first, just use the sidebar to jump to that unit instead of unit 1.
       </div>
     </div>
     <div class="section-title">All twelve units</div>
@@ -877,7 +877,7 @@ function renderUnit(id){
         <input type="checkbox" ${progress[id] ? 'checked' : ''} onchange="toggleComplete(${id}, this.checked)">
         Mark this unit as done together
       </label>
-      <span class="note">Ticking this just tracks your own progress here — it isn't linked to her school.</span>
+      <span class="note">Ticking this just tracks your own progress here — it isn't linked to their school.</span>
     </div>
 
     <div class="unit-footer-nav">
