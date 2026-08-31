@@ -1510,7 +1510,12 @@ async function toggleComplete(unitId, val){
   }
   renderNav();
   renderMosaic();
-  renderHome();
+  (function(){
+    var m = location.hash.match(/^#u(\d+)$/);
+    var id = m ? +m[1] : null;
+    if(id && UNITS.some(function(u){ return u.id === id; })) goTo(id);
+    else renderHome();
+  })();
 })();
 </script>
 </body>

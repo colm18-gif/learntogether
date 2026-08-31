@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBA Help — Learning Together</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f9f6f0;
+    --paper-line: #e3e8f0;
+    --margin: #c84b45;
+    --ink: #1a2129;
+    --soft: #525c6a;
+    --cover: #1d3557;
+    --cover-deep: #0f1d30;
+    --highlight: #e9a327;
+    --card-bg: #ffffff;
+    --line: #e4dcd0;
+    --radius: 12px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+
+    --c-english: #c84b45;
+    --c-maths: #1d3557;
+    --c-history: #9e7937;
+    --c-geography: #2e7d44;
+    --c-business: #6b439c;
+    --c-spanish: #d96b27;
+    --c-science: #4a3f8c;
+    --c-technology: #9a552d;
+    --c-engineering: #2f7b7e;
+    --c-graphics: #b8456f;
+    --c-homeec: #7c8a3a;
+    --c-music: #46648c;
+    --c-woodtech: #5a4632;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size: 100% 36px;
+    background-position: 0 140px;
+  }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 100px; }
+
+  header { padding: 48px 0 32px; position: relative; }
+  header::before {
+    content: ""; position: absolute; left: 48px; top: 0; bottom: -10px;
+    width: 2px; background: var(--margin); opacity: 0.35;
+  }
+  .header-inner { padding-left: 80px; }
+
+  .site-name {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--margin);
+    margin: 0 0 6px; letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; display: inline-block;
+  }
+  a.site-name:hover { color: var(--cover-deep); }
+
+  .back { display: block; margin: 4px 0 18px; color: var(--soft); font-size: 0.85rem; text-decoration: none; }
+  .back:hover { color: var(--cover); }
+
+  h1, h2, h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    line-height: 1.25; color: var(--cover-deep); margin: 0;
+  }
+  h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.01em; max-width: 700px; }
+  .lead { max-width: 640px; color: var(--soft); font-size: 1.08rem; margin: 16px 0 0; }
+
+  main { padding-left: 80px; }
+
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.4rem; margin-bottom: 14px; }
+
+  .explainer {
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px 30px; box-shadow: var(--shadow-sm);
+  }
+  .explainer p { color: var(--soft); font-size: 0.98rem; margin: 0 0 14px; }
+  .explainer p:last-child { margin-bottom: 0; }
+
+  .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .checklist li {
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 16px 20px; display: flex; gap: 14px; align-items: flex-start;
+    box-shadow: var(--shadow-sm);
+  }
+  .checklist .num {
+    flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--cover); color: #fff; font-weight: 700; font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .checklist b { display: block; color: var(--cover-deep); font-size: 0.98rem; margin-bottom: 2px; }
+  .checklist span { color: var(--soft); font-size: 0.92rem; }
+
+  .cba-row {
+    display: flex; align-items: flex-start; gap: 18px;
+    background: var(--card-bg); border: 1px solid var(--line); border-left-width: 6px;
+    border-radius: var(--radius); padding: 18px 22px; margin-bottom: 12px; box-shadow: var(--shadow-sm);
+  }
+  .cba-row .tab {
+    flex: 0 0 auto; width: 40px; height: 40px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Playfair Display", serif; font-weight: 700; font-size: 0.85rem; color: #fff;
+  }
+  .cba-row h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .cba-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .cba-link { color: var(--cover); font-size: 0.9rem; text-decoration: underline; text-underline-offset: 3px; }
+  .cba-link:hover { color: var(--cover-deep); }
+
+  .c-english { border-left-color: var(--c-english); } .c-english .tab { background: var(--c-english); }
+  .c-maths { border-left-color: var(--c-maths); } .c-maths .tab { background: var(--c-maths); }
+  .c-history { border-left-color: var(--c-history); } .c-history .tab { background: var(--c-history); }
+  .c-geography { border-left-color: var(--c-geography); } .c-geography .tab { background: var(--c-geography); }
+  .c-business { border-left-color: var(--c-business); } .c-business .tab { background: var(--c-business); }
+  .c-spanish { border-left-color: var(--c-spanish); } .c-spanish .tab { background: var(--c-spanish); }
+  .c-science { border-left-color: var(--c-science); } .c-science .tab { background: var(--c-science); }
+  .c-technology { border-left-color: var(--c-technology); } .c-technology .tab { background: var(--c-technology); }
+  .c-engineering { border-left-color: var(--c-engineering); } .c-engineering .tab { background: var(--c-engineering); }
+  .c-graphics { border-left-color: var(--c-graphics); } .c-graphics .tab { background: var(--c-graphics); }
+  .c-homeec { border-left-color: var(--c-homeec); } .c-homeec .tab { background: var(--c-homeec); }
+  .c-music { border-left-color: var(--c-music); } .c-music .tab { background: var(--c-music); }
+  .c-woodtech { border-left-color: var(--c-woodtech); } .c-woodtech .tab { background: var(--c-woodtech); font-size: 0.75rem; }
+
+  .note {
+    margin-top: 16px; color: var(--soft); font-size: 0.88rem; padding: 14px 18px;
+    border: 1px dashed var(--line); border-radius: var(--radius);
+  }
+
+  footer { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--soft); font-size: 0.88rem; }
+  footer a { color: var(--cover); }
+
+  @media(max-width: 768px) {
+    header::before { left: 20px; }
+    .header-inner, main { padding-left: 36px; }
+    h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="header-inner">
+    <a class="site-name" href="index.html">Learn Together</a>
+    <a class="back" href="index.html">&larr; All subjects</a>
+    <h1>Need help with a CBA?</h1>
+    <p class="lead">Classroom-Based Assessments can feel like a mystery if you didn't grow up with them. Here's what they are, a checklist for getting started, and a direct link into every subject's CBA units.</p>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="explainer">
+    <p><b>A Classroom-Based Assessment (CBA)</b> is a piece of work your teenager completes during normal class time, set and assessed by their own teacher rather than by a state exam. Every Junior Cycle subject has two: CBA&nbsp;1 is usually done in second year, CBA&nbsp;2 in third year, and each is given time in class across a number of weeks rather than sat in one sitting.</p>
+    <p>Instead of a percentage or grade, a CBA is described using a small number of quality levels (your teenager's school can tell you exactly which descriptors they use). After CBA&nbsp;2, students complete a short, formal <b>Assessment Task</b> reflecting on that CBA, which is the part that does feed into the final state-certified result.</p>
+    <p>Because exact dates, formats and local arrangements vary by school and can change year to year, this page explains the general shape of CBAs — always check the specifics (deadlines, submission format, exact marking approach) with your teenager's teacher.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Where to start</h2>
+  <ol class="checklist">
+    <li><span class="num">1</span><span><b>Understand the brief.</b> <span>Read the actual task sheet your teenager brought home — CBA briefs vary by school and by year, so the unit pages below are a guide to the skills involved, not a substitute for the real brief.</span></span></li>
+    <li><span class="num">2</span><span><b>Know what has to be produced.</b> <span>Is it a written piece, a spoken presentation, a practical project, a portfolio of work? Get this clear before starting.</span></span></li>
+    <li><span class="num">3</span><span><b>Get started early.</b> <span>CBAs run over several weeks of class time — starting the research, planning or first draft early avoids a last-minute scramble.</span></span></li>
+    <li><span class="num">4</span><span><b>Keep the right evidence.</b> <span>Drafts, notes, corrections and photos of practical work all count as evidence of the process, not just the finished piece.</span></span></li>
+    <li><span class="num">5</span><span><b>Check everything is covered.</b> <span>Before handing it in, go back to the brief and confirm every requirement has been addressed.</span></span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>CBA units by subject</h2>
+  <div class="cba-row c-english">
+    <span class="tab">Eng</span>
+    <span class="body">
+      <h3>English</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-english.html#u22">Oral Communication Project</a><a class="cba-link" href="junior-cycle-english.html#u23">Collection of Student Texts</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-maths">
+    <span class="tab">Mth</span>
+    <span class="body">
+      <h3>Maths</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-maths.html#u21">Mathematical Investigation CBA 1</a><a class="cba-link" href="junior-cycle-maths.html#u22">Statistical Investigation CBA 2</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-history">
+    <span class="tab">His</span>
+    <span class="body">
+      <h3>History</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-history.html#u24">CBA 1: The Past in My Place</a><a class="cba-link" href="junior-cycle-history.html#u25">CBA 2: A Life in Time</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-geography">
+    <span class="tab">Geo</span>
+    <span class="body">
+      <h3>Geography</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-geography.html#u22">Geography in the News: CBA 1</a><a class="cba-link" href="junior-cycle-geography.html#u23">My Geography: CBA 2</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-business">
+    <span class="tab">Bus</span>
+    <span class="body">
+      <h3>Business</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-business-studies.html#u24">Business in Action: CBA 1</a><a class="cba-link" href="junior-cycle-business-studies.html#u25">Business Decision-Making: CBA 2</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-science">
+    <span class="tab">Sci</span>
+    <span class="body">
+      <h3>Science</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-science.html#u23">Extended Experimental Investigation</a><a class="cba-link" href="junior-cycle-science.html#u24">Science in Society Investigation</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-technology">
+    <span class="tab">Tec</span>
+    <span class="body">
+      <h3>Applied Technology</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-applied-technology.html#u23">Controlled Systems in Context: CBA 1</a><a class="cba-link" href="junior-cycle-applied-technology.html#u24">Self-Analysis and Evaluation: CBA 2</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-engineering">
+    <span class="tab">Egr</span>
+    <span class="body">
+      <h3>Engineering</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-engineering.html#u23">Engineering in Action: CBA 1</a><a class="cba-link" href="junior-cycle-engineering.html#u24">Research and Development: CBA 2</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-graphics">
+    <span class="tab">Gra</span>
+    <span class="body">
+      <h3>Graphics</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-graphics.html#u22">Communicating Through Sketching: CBA 1</a><a class="cba-link" href="junior-cycle-graphics.html#u23">Graphical Presentation Skills: CBA 2</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-homeec">
+    <span class="tab">HEc</span>
+    <span class="body">
+      <h3>Home Economics</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-home-economics.html#u21">Food Literacy Skills Brief: CBA 2</a><a class="cba-link" href="junior-cycle-home-economics.html#u22">Creative Textiles: CBA 1</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-music">
+    <span class="tab">Mus</span>
+    <span class="body">
+      <h3>Music</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-music.html#u23">Composition Portfolio: CBA 1</a><a class="cba-link" href="junior-cycle-music.html#u24">Programme Note: CBA 2</a></div>
+    </span>
+  </div>
+
+  <div class="cba-row c-woodtech">
+    <span class="tab">WdT</span>
+    <span class="body">
+      <h3>Wood Technology</h3>
+      <div class="cba-links"><a class="cba-link" href="junior-cycle-wood-technology.html#u21">Wood Science in Our Environment: CBA 1</a><a class="cba-link" href="junior-cycle-wood-technology.html#u22">Student Self-Analysis and Evaluation: CBA 2</a></div>
+    </span>
+  </div>
+  <p class="note">Spanish, Together doesn't yet have dedicated CBA units in this pathway — check back as the site is updated, or see the subject's other units for related speaking and portfolio skills.</p>
+</section>
+
+</main>
+
+<footer>
+  <p>These resources are designed to complement, not replace, classroom teaching. Always check with the teacher for the exact CBA brief, timeline and expectations in your school.</p>
+  <p><a href="index.html">&larr; Back to all subjects</a></p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -91,6 +91,10 @@
   }
   a.site-name:hover { color: var(--cover-deep); }
 
+  .quicknav { margin: 0 0 16px; font-size: 0.85rem; }
+  .quicknav a { color: var(--soft); text-decoration: none; margin-right: 16px; }
+  .quicknav a:hover { color: var(--cover); text-decoration: underline; }
+
   .cta-row {
     display: flex;
     flex-wrap: wrap;
@@ -244,6 +248,24 @@
   .coming h3 { font-size: 1.1rem; margin-bottom: 4px; color: var(--soft); font-style: italic; }
   .coming p { margin: 0; color: var(--soft); font-size: 0.9rem; }
 
+  .cba-band {
+    margin-top: 24px;
+    background: var(--cover-deep);
+    color: #efe6d4;
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+  }
+  .cba-band h3 { color: #f8f2e4; font-size: 1.2rem; margin-bottom: 4px; }
+  .cba-band p { margin: 0; color: #d8ccb3; font-size: 0.92rem; max-width: 480px; }
+  .cba-band .cta-primary { background: var(--highlight); color: var(--cover-deep); flex-shrink: 0; }
+  .cba-band .cta-primary:hover { background: #f0b23f; }
+
   .features {
     margin-top: 60px;
     background: var(--card-bg);
@@ -356,6 +378,79 @@
   .contact-form .form-status.ok { color: var(--c-geography); display: block; }
   .contact-form .form-status.err { color: var(--c-english); display: block; }
 
+  .finder {
+    margin-top: 28px;
+    max-width: 640px;
+    position: relative;
+  }
+  .finder-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--soft);
+    margin-bottom: 8px;
+  }
+  .finder-box { position: relative; }
+  .finder-box input {
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+  .finder-box input:focus {
+    outline: none;
+    border-color: var(--cover);
+    box-shadow: 0 0 0 3px rgba(29,53,87,0.12);
+  }
+  .finder-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    max-height: 360px;
+    overflow-y: auto;
+    z-index: 20;
+  }
+  .finder-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--line);
+  }
+  .finder-row:last-child { border-bottom: none; }
+  .finder-row:hover, .finder-row.active { background: rgba(0,0,0,0.03); }
+  .finder-tab {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #fff;
+  }
+  .finder-text { min-width: 0; }
+  .finder-text b { display: block; font-size: 0.92rem; color: var(--cover-deep); font-weight: 600; }
+  .finder-text small { display: block; color: var(--soft); font-size: 0.8rem; margin-top: 1px; }
+  .finder-empty { padding: 14px; color: var(--soft); font-size: 0.9rem; }
+
   @media(max-width: 768px) {
     header::before { left: 20px; }
     .header-inner, main { padding-left: 36px; }
@@ -376,12 +471,21 @@
 <header>
   <div class="header-inner">
     <a class="site-name" href="/">Learn Together</a>
+    <nav class="quicknav"><a href="#subjects">Subjects</a><a href="cbas.html">CBAs</a><a href="#how-it-works">How it works</a><a href="#about">About</a></nav>
     <h1>Help your teenager with Junior Cycle — even if you haven't opened the curriculum in years.</h1>
     <p class="lead">Free, plain-language study guides for parents, guardians and students. Pick a subject, find this week's topic, and work through it together — no textbook, no refresher course, no guesswork required.</p>
 
     <div class="cta-row">
       <a class="cta cta-primary" href="#subjects">Find a subject</a>
       <a class="cta cta-secondary" href="#how-it-works">How it works</a>
+    </div>
+
+    <div class="finder" id="finder">
+      <label class="finder-label" for="finder-input">Or search for a topic</label>
+      <div class="finder-box">
+        <input type="text" id="finder-input" placeholder="e.g. Algebra, Poetry, CBA, Persuasive Writing…" autocomplete="off">
+        <div class="finder-results" id="finder-results" hidden></div>
+      </div>
     </div>
 
     <div class="hero-row">
@@ -548,6 +652,14 @@
 
 </div>
 
+<div class="cba-band">
+  <div>
+    <h3>Need help with a CBA?</h3>
+    <p>What a Classroom-Based Assessment actually is, a checklist for getting started, and a direct link into every subject's CBA units.</p>
+  </div>
+  <a class="cta cta-primary" href="cbas.html">Explore CBAs</a>
+</div>
+
 <section class="features" id="how-it-works">
   <h2>How these pathways help</h2>
   <p class="sub">Every unit is built the same way, so once you know how one works, you know them all.</p>
@@ -560,7 +672,7 @@
   </ol>
 </section>
 
-<section class="about">
+<section class="about" id="about">
   <h2>About Learn Together</h2>
   <p>Learn Together is an independent, non-commercial project built to give parents and guardians a plain-language way to support Junior Cycle study at home — it isn't a school, exam board or official curriculum publisher.</p>
   <p>Each pathway is written to follow the strands and learning outcomes of the relevant NCCA Junior Cycle specification, but the guides are a companion to classroom teaching, not a replacement for it — your teenager's teacher remains the best guide to the exact sequence, depth and methods expected in their school and for their exam year.</p>
@@ -621,6 +733,69 @@
 })();
 </script>
 </footer>
+<script>
+const SUBJECT_INDEX = {"english":{"label":"English","file":"junior-cycle-english.html","tab":"Eng","colorclass":"c-english","units":[{"i":0,"t":"Word Classes","s":"Writing"},{"i":1,"t":"Punctuation Essentials","s":"Writing"},{"i":2,"t":"Sentence Structure","s":"Writing"},{"i":3,"t":"Reading for Meaning","s":"Reading"},{"i":4,"t":"Literary Devices I","s":"Reading"},{"i":5,"t":"Literary Devices II","s":"Reading"},{"i":6,"t":"Elements of Fiction","s":"Reading"},{"i":7,"t":"Poetry Toolkit","s":"Reading"},{"i":8,"t":"Drama and Performance","s":"Reading and Oral Language"},{"i":9,"t":"Personal Creative Writing","s":"Writing"},{"i":10,"t":"Persuasive and Argumentative Writing","s":"Writing"},{"i":11,"t":"Functional Writing","s":"Writing"},{"i":12,"t":"Media Literacy","s":"Reading and Oral Language"},{"i":13,"t":"Note-Taking and Summarising","s":"Reading"},{"i":14,"t":"Debating and Public Speaking","s":"Oral Language"},{"i":15,"t":"Editing and Proofreading","s":"Writing"},{"i":16,"t":"Close Reading and Annotation","s":"Reading"},{"i":17,"t":"Character, Identity and Relationships","s":"Reading"},{"i":18,"t":"Setting, Atmosphere and Place","s":"Reading and Writing"},{"i":19,"t":"Theme, Motif and Symbol","s":"Reading"},{"i":20,"t":"Language, Power and Identity","s":"Reading and Oral Language"},{"i":21,"t":"Research and Source Skills","s":"Reading and Writing"},{"i":22,"t":"Oral Communication Project","s":"CBA 1 Planner"},{"i":23,"t":"Collection of Student Texts","s":"CBA 2 Planner"},{"i":24,"t":"Assessment Task and Reflection","s":"Assessment Task"},{"i":25,"t":"Integrated Text Study","s":"Reading, Writing and Oral Language"}]},"maths":{"label":"Maths","file":"junior-cycle-maths.html","tab":"Mth","colorclass":"c-maths","units":[{"i":0,"t":"Directed Numbers and Order of Operations","s":"Number"},{"i":1,"t":"Fractions, Decimals and Percentages","s":"Number"},{"i":2,"t":"Ratio, Proportion and Rates","s":"Number"},{"i":3,"t":"Indices and Standard Form","s":"Number"},{"i":4,"t":"Rounding, Estimation and Significant Figures","s":"Number"},{"i":5,"t":"Expressions and Substitution","s":"Algebra and Functions"},{"i":6,"t":"Solving Equations and Inequalities","s":"Algebra and Functions"},{"i":7,"t":"Sequences, Patterns and Generalisation","s":"Algebra and Functions"},{"i":8,"t":"Graphs and Functions","s":"Algebra and Functions"},{"i":9,"t":"Angles, Triangles and Polygons","s":"Geometry and Trigonometry"},{"i":10,"t":"Area, Perimeter, Surface Area and Volume","s":"Geometry and Trigonometry"},{"i":11,"t":"Coordinate Geometry","s":"Geometry and Trigonometry"},{"i":12,"t":"Right-Angled Triangles","s":"Geometry and Trigonometry"},{"i":13,"t":"Transformations, Symmetry and Congruence","s":"Geometry and Trigonometry"},{"i":14,"t":"Statistics: Averages and Spread","s":"Statistics and Probability"},{"i":15,"t":"Probability and Chance","s":"Statistics and Probability"},{"i":16,"t":"Displaying and Interpreting Data","s":"Statistics and Probability"},{"i":17,"t":"Problem-Solving Strategies","s":"Unifying Strand"},{"i":18,"t":"Mathematical Communication","s":"Unifying Strand"},{"i":19,"t":"Connections and Modelling","s":"Unifying Strand"},{"i":20,"t":"Investigation: Patterns and Proof","s":"Unifying Strand"},{"i":21,"t":"Mathematical Investigation CBA 1","s":"CBA Planner"},{"i":22,"t":"Statistical Investigation CBA 2","s":"CBA Planner"},{"i":23,"t":"Financial Mathematics","s":"Number and Algebra"},{"i":24,"t":"Measurement, Scale and Accuracy","s":"Number and Geometry"},{"i":25,"t":"Review, Mixed Practice and Transfer","s":"All strands"}]},"history":{"label":"History","file":"junior-cycle-history.html","tab":"His","colorclass":"c-history","units":[{"i":0,"t":"The Work of the Historian","s":"Nature of History"},{"i":1,"t":"Reading the Evidence","s":"Nature of History"},{"i":2,"t":"Ancient and Early Ireland","s":"History of Ireland"},{"i":3,"t":"Vikings and Normans in Ireland","s":"History of Ireland"},{"i":4,"t":"Plantations and Tudor Conquest","s":"History of Ireland"},{"i":5,"t":"The Great Famine","s":"History of Ireland"},{"i":6,"t":"The Road to Independence","s":"History of Ireland"},{"i":7,"t":"Ireland Since Independence","s":"History of Ireland"},{"i":8,"t":"The Irish Diaspora","s":"History of Ireland"},{"i":9,"t":"Women in Twentieth-Century Ireland","s":"History of Ireland"},{"i":10,"t":"Ancient Civilisations","s":"Europe and the Wider World"},{"i":11,"t":"Medieval Life and Society","s":"Europe and the Wider World"},{"i":12,"t":"Renaissance and Reformation","s":"Europe and the Wider World"},{"i":13,"t":"Exploration, Conquest and Colonisation","s":"Europe and the Wider World"},{"i":14,"t":"Age of Revolutions","s":"Europe and the Wider World"},{"i":15,"t":"Industrial Revolution","s":"Europe and the Wider World"},{"i":16,"t":"World War I","s":"Europe and the Wider World"},{"i":17,"t":"World War II and the Holocaust","s":"Europe and the Wider World"},{"i":18,"t":"The 1960s: Ireland and the Wider World","s":"Ireland and Wider World"},{"i":19,"t":"The Cold War","s":"Europe and the Wider World"},{"i":20,"t":"Technology and Historical Change","s":"Europe and the Wider World"},{"i":21,"t":"International Co-operation: UN and EU","s":"Europe and the Wider World"},{"i":22,"t":"Patterns of Change in Everyday Life","s":"Europe and the Wider World"},{"i":23,"t":"Local and Family History","s":"Nature of History"},{"i":24,"t":"CBA 1: The Past in My Place","s":"CBA Project Planner"},{"i":25,"t":"CBA 2: A Life in Time","s":"CBA Project Planner"}]},"geography":{"label":"Geography","file":"junior-cycle-geography.html","tab":"Geo","colorclass":"c-geography","units":[{"i":0,"t":"Earth Structure and Plate Tectonics","s":"Exploring the Physical World"},{"i":1,"t":"Rocks, Weathering and Soils","s":"Exploring the Physical World"},{"i":2,"t":"Rivers and Fluvial Landscapes","s":"Exploring the Physical World"},{"i":3,"t":"Coasts and Marine Landscapes","s":"Exploring the Physical World"},{"i":4,"t":"Glaciation and Ice Landscapes","s":"Exploring the Physical World"},{"i":5,"t":"Climate and Weather","s":"Exploring the Physical World"},{"i":6,"t":"Extreme Weather and Natural Hazards","s":"Exploring the Physical World"},{"i":7,"t":"Energy Resources","s":"Exploring the Physical World"},{"i":8,"t":"Maps, Scale and Geographical Skills","s":"Geographical Skills"},{"i":9,"t":"People and Natural Disasters","s":"Interaction with the Physical World"},{"i":10,"t":"Managing Rivers, Coasts and Landscapes","s":"Interaction with the Physical World"},{"i":11,"t":"Agriculture and Food Systems","s":"Interaction with the Physical World"},{"i":12,"t":"Tourism, Transport and Landscapes","s":"Interaction with the Physical World"},{"i":13,"t":"Climate Change and Sustainability","s":"Interaction with the Physical World"},{"i":14,"t":"Water, Resources and Environmental Quality","s":"Interaction with the Physical World"},{"i":15,"t":"Population Patterns and Change","s":"People, Place and Change"},{"i":16,"t":"Migration, Identity and Place","s":"People, Place and Change"},{"i":17,"t":"Settlement and Urban Change","s":"People, Place and Change"},{"i":18,"t":"Development and Global Inequality","s":"People, Place and Change"},{"i":19,"t":"Globalisation and Interdependence","s":"People, Place and Change"},{"i":20,"t":"Ireland: Physical and Human Geography","s":"People, Place and Change"},{"i":21,"t":"Fieldwork Methods and Data","s":"Geographical Skills"},{"i":22,"t":"Geography in the News: CBA 1","s":"CBA Planner"},{"i":23,"t":"My Geography: CBA 2","s":"CBA Planner"},{"i":24,"t":"Geographical Decision-Making","s":"Geographical Skills and Sustainability"},{"i":25,"t":"Review: Connected Geography","s":"All strands"}]},"business":{"label":"Business","file":"junior-cycle-business-studies.html","tab":"Bus","colorclass":"c-business","units":[{"i":0,"t":"Needs, Wants and Resources","s":"Personal Finance"},{"i":1,"t":"Income, Expenditure and Budgets","s":"Personal Finance"},{"i":2,"t":"Saving and Borrowing","s":"Personal Finance"},{"i":3,"t":"Personal Taxes and Charges","s":"Personal Finance"},{"i":4,"t":"Insurance and Risk","s":"Personal Finance"},{"i":5,"t":"Consumer Rights and Responsibilities","s":"Personal Finance"},{"i":6,"t":"Financial Institutions and Digital Money","s":"Personal Finance"},{"i":7,"t":"The Financial Life Cycle","s":"Personal Finance"},{"i":8,"t":"Types of Enterprise","s":"Enterprise"},{"i":9,"t":"Employment, Work and Volunteering","s":"Enterprise"},{"i":10,"t":"Enterprising Skills and Entrepreneurship","s":"Enterprise"},{"i":11,"t":"Market Research","s":"Enterprise"},{"i":12,"t":"Marketing Mix","s":"Enterprise"},{"i":13,"t":"Business Plans and Operations","s":"Enterprise"},{"i":14,"t":"Business Documents","s":"Enterprise"},{"i":15,"t":"Technology, E-commerce and Ethics","s":"Enterprise"},{"i":16,"t":"Enterprise and the Community","s":"Enterprise"},{"i":17,"t":"Economic Systems and Resources","s":"Our Economy"},{"i":18,"t":"Demand, Supply and Price","s":"Our Economy"},{"i":19,"t":"Government and the Economy","s":"Our Economy"},{"i":20,"t":"Employment, Unemployment and Skills","s":"Our Economy"},{"i":21,"t":"Inflation, Interest and Exchange Rates","s":"Our Economy"},{"i":22,"t":"International Trade and Globalisation","s":"Our Economy"},{"i":23,"t":"Sustainable Business and the Circular Economy","s":"Enterprise and Our Economy"},{"i":24,"t":"Business in Action: CBA 1","s":"CBA Planner"},{"i":25,"t":"Business Decision-Making: CBA 2","s":"CBA Planner"}]},"science":{"label":"Science","file":"junior-cycle-science.html","tab":"Sci","colorclass":"c-science","units":[{"i":0,"t":"Working Like a Scientist","s":"Nature of Science"},{"i":1,"t":"Planning Fair Tests","s":"Nature of Science"},{"i":2,"t":"Measurement, Data and Graphs","s":"Nature of Science"},{"i":3,"t":"Forces and Motion","s":"Physical World"},{"i":4,"t":"Energy and Energy Transfers","s":"Physical World"},{"i":5,"t":"Electricity and Circuits","s":"Physical World"},{"i":6,"t":"Light, Sound and Waves","s":"Physical World"},{"i":7,"t":"Matter and Particle Theory","s":"Chemical World"},{"i":8,"t":"Atoms, Elements and Compounds","s":"Chemical World"},{"i":9,"t":"Chemical Reactions","s":"Chemical World"},{"i":10,"t":"Acids, Bases and pH","s":"Chemical World"},{"i":11,"t":"Materials, Metals and Plastics","s":"Chemical World"},{"i":12,"t":"Cells and Microscopy","s":"Biological World"},{"i":13,"t":"Human Body Systems","s":"Biological World"},{"i":14,"t":"Plant Biology and Photosynthesis","s":"Biological World"},{"i":15,"t":"Ecosystems and Biodiversity","s":"Biological World"},{"i":16,"t":"Genetics, Evolution and Adaptation","s":"Biological World"},{"i":17,"t":"Earth Structure and Rocks","s":"Earth and Space"},{"i":18,"t":"Plate Tectonics and Natural Hazards","s":"Earth and Space"},{"i":19,"t":"Weather, Climate and Atmosphere","s":"Earth and Space"},{"i":20,"t":"Earth, Moon and Sun","s":"Earth and Space"},{"i":21,"t":"Space, Stars and the Universe","s":"Earth and Space"},{"i":22,"t":"Scientific Communication and Evidence","s":"Nature of Science"},{"i":23,"t":"Extended Experimental Investigation","s":"CBA 1 Planner"},{"i":24,"t":"Science in Society Investigation","s":"CBA 2 Planner"},{"i":25,"t":"Review: Connected Science","s":"All strands"}]},"technology":{"label":"Applied Technology","file":"junior-cycle-applied-technology.html","tab":"Tec","colorclass":"c-technology","units":[{"i":0,"t":"Technology, Design and Society","s":"Technology in Context"},{"i":1,"t":"Workshop Safety and Risk Assessment","s":"Health and Safety"},{"i":2,"t":"The Design Process","s":"Design Process"},{"i":3,"t":"Research and User Needs","s":"Design Process"},{"i":4,"t":"Sketching and Technical Communication","s":"Communication"},{"i":5,"t":"Measurement and Accuracy","s":"Communication and Manufacture"},{"i":6,"t":"Properties of Materials","s":"Materials"},{"i":7,"t":"Timber and Wood Products","s":"Materials and Processing"},{"i":8,"t":"Metals and Metal Processes","s":"Materials and Processing"},{"i":9,"t":"Plastics and Polymers","s":"Materials and Processing"},{"i":10,"t":"Manufacturing Processes","s":"Manufacture"},{"i":11,"t":"Mechanisms and Motion","s":"Mechanisms"},{"i":12,"t":"Structures and Forces","s":"Structures"},{"i":13,"t":"Energy and Power","s":"Energy Systems"},{"i":14,"t":"Electricity and Electronic Components","s":"Electronics"},{"i":15,"t":"Inputs, Sensors and Outputs","s":"Control Systems"},{"i":16,"t":"Programmable Control","s":"Control Systems"},{"i":17,"t":"Pneumatics and Fluid Power","s":"Control Systems"},{"i":18,"t":"System Modelling and Testing","s":"Control Systems"},{"i":19,"t":"CAD and Digital Manufacture","s":"Digital Design and Manufacture"},{"i":20,"t":"Sustainable Design and Lifecycle","s":"Sustainability"},{"i":21,"t":"Project Planning and Time Management","s":"Project Work"},{"i":22,"t":"Testing, Evaluation and Improvement","s":"Project Work"},{"i":23,"t":"Controlled Systems in Context: CBA 1","s":"CBA 1 Planner"},{"i":24,"t":"Self-Analysis and Evaluation: CBA 2","s":"CBA 2 Planner"},{"i":25,"t":"Review: Applied Technology in Action","s":"Integrated Review"}]},"engineering":{"label":"Engineering","file":"junior-cycle-engineering.html","tab":"Egr","colorclass":"c-engineering","units":[{"i":0,"t":"Engineering and the Designed World","s":"Engineering Knowledge"},{"i":1,"t":"Workshop Safety and Risk Management","s":"Developing and Manufacturing"},{"i":2,"t":"Forces, Loads and Equilibrium","s":"Processes and Principles"},{"i":3,"t":"Stress, Strain and Material Behaviour","s":"Processes and Principles"},{"i":4,"t":"Structures, Trusses and Stability","s":"Processes and Principles"},{"i":5,"t":"Energy, Work and Power","s":"Processes and Principles"},{"i":6,"t":"Mechanisms and Motion","s":"Processes and Principles"},{"i":7,"t":"Materials: Metals and Polymers","s":"Developing and Manufacturing"},{"i":8,"t":"Materials: Timber, Composites and Smart Materials","s":"Developing and Manufacturing"},{"i":9,"t":"Manufacturing Processes","s":"Developing and Manufacturing"},{"i":10,"t":"Engineering Drawings and Communication","s":"Communicating"},{"i":11,"t":"Design Briefs and Specifications","s":"Design Application"},{"i":12,"t":"Research, Ideation and Concept Development","s":"Design Application"},{"i":13,"t":"Prototyping, Modelling and Testing","s":"Design Application"},{"i":14,"t":"Sustainable Engineering and Ethics","s":"Engineering Knowledge"},{"i":15,"t":"Electrical Principles and Circuits","s":"Mechatronics"},{"i":16,"t":"Electronic Components and Sensors","s":"Mechatronics"},{"i":17,"t":"Inputs, Outputs and Feedback","s":"Mechatronics"},{"i":18,"t":"Programming and Control","s":"Mechatronics"},{"i":19,"t":"Pneumatics and Fluid Systems","s":"Mechatronics"},{"i":20,"t":"CAD, CAM and Digital Manufacture","s":"Communicating and Manufacturing"},{"i":21,"t":"Project Planning and Quality Control","s":"Design Application"},{"i":22,"t":"Testing, Evaluation and Improvement","s":"Design Application"},{"i":23,"t":"Engineering in Action: CBA 1","s":"CBA 1 Planner"},{"i":24,"t":"Research and Development: CBA 2","s":"CBA 2 Planner"},{"i":25,"t":"Review: Engineering for People and Planet","s":"Integrated Review"}]},"graphics":{"label":"Graphics","file":"junior-cycle-graphics.html","tab":"Gra","colorclass":"c-graphics","units":[{"i":0,"t":"Seeing and Communicating Visually","s":"Applied Graphics"},{"i":1,"t":"Sketching for Ideas","s":"Applied Graphics"},{"i":2,"t":"Line, Tone and Texture","s":"2D Graphics"},{"i":3,"t":"Lettering and Layout","s":"2D Graphics"},{"i":4,"t":"Measurement, Scale and Dimensioning","s":"2D Graphics"},{"i":5,"t":"Geometric Construction","s":"2D Graphics"},{"i":6,"t":"Orthographic Projection","s":"2D Graphics"},{"i":7,"t":"Plans, Elevations and Sections","s":"2D Graphics"},{"i":8,"t":"Developments and Surface Area","s":"2D Graphics"},{"i":9,"t":"Isometric Drawing","s":"3D Graphics"},{"i":10,"t":"Oblique and Pictorial Drawing","s":"3D Graphics"},{"i":11,"t":"One-Point Perspective","s":"3D Graphics"},{"i":12,"t":"Two-Point Perspective","s":"3D Graphics"},{"i":13,"t":"Solids, Intersections and Penetration","s":"3D Graphics"},{"i":14,"t":"Spatial Reasoning and Visualisation","s":"3D Graphics"},{"i":15,"t":"CAD and Digital Modelling","s":"Applied Graphics"},{"i":16,"t":"Design Process and Briefs","s":"Applied Graphics"},{"i":17,"t":"Materials, Processes and Manufacture","s":"Applied Graphics"},{"i":18,"t":"Human Factors and Universal Design","s":"Applied Graphics"},{"i":19,"t":"Sustainability and the Built World","s":"Applied Graphics"},{"i":20,"t":"Graphic Presentation and Visual Impact","s":"Applied Graphics"},{"i":21,"t":"Research and Analysis","s":"Applied Graphics"},{"i":22,"t":"Communicating Through Sketching: CBA 1","s":"CBA 1 Planner"},{"i":23,"t":"Graphical Presentation Skills: CBA 2","s":"CBA 2 Planner"},{"i":24,"t":"Problem Solving and Project Preparation","s":"Integrated Practice"},{"i":25,"t":"Review: Visual Thinking in Action","s":"Integrated Review"}]},"homeec":{"label":"Home Economics","file":"junior-cycle-home-economics.html","tab":"HEc","colorclass":"c-homeec","units":[{"i":0,"t":"Healthy and Sustainable Living","s":"Food, Health and Culinary Skills"},{"i":1,"t":"Food Safety and Hygiene","s":"Food, Health and Culinary Skills"},{"i":2,"t":"Nutrients and Balanced Diets","s":"Food, Health and Culinary Skills"},{"i":3,"t":"Digestion, Health and Food Choice","s":"Food, Health and Culinary Skills"},{"i":4,"t":"Meal Planning and Food Literacy","s":"Food, Health and Culinary Skills"},{"i":5,"t":"Practical Food Skills","s":"Food, Health and Culinary Skills"},{"i":6,"t":"Food Provenance and Sustainability","s":"Food, Health and Culinary Skills"},{"i":7,"t":"Food Labels and Consumer Information","s":"Food, Health and Culinary Skills"},{"i":8,"t":"Family, Relationships and Wellbeing","s":"Responsible Family Living"},{"i":9,"t":"Child Development and Care","s":"Responsible Family Living"},{"i":10,"t":"Resource Management and Household Skills","s":"Responsible Family Living"},{"i":11,"t":"Consumer Choices and Rights","s":"Responsible Family Living"},{"i":12,"t":"Housing, Home and Community","s":"Responsible Family Living"},{"i":13,"t":"Textile Fibres and Fabric Properties","s":"Textiles and Craft"},{"i":14,"t":"Fabric Construction and Finishes","s":"Textiles and Craft"},{"i":15,"t":"Textile Care and Laundry","s":"Textiles and Craft"},{"i":16,"t":"Design Principles and Visual Communication","s":"Textiles and Craft"},{"i":17,"t":"Creative Textile Techniques","s":"Textiles and Craft"},{"i":18,"t":"Sustainable Textiles and Fashion","s":"Textiles and Craft"},{"i":19,"t":"Cultural Food and Textile Traditions","s":"Integrated Learning"},{"i":20,"t":"Health Promotion and Lifestyle Choices","s":"Food, Health and Family Living"},{"i":21,"t":"Food Literacy Skills Brief: CBA 2","s":"CBA 2 Planner"},{"i":22,"t":"Creative Textiles: CBA 1","s":"CBA 1 Planner"},{"i":23,"t":"Practical Food Skills Examination","s":"Practical Preparation"},{"i":24,"t":"Review: Home Economics for Life","s":"Integrated Review"}]},"music":{"label":"Music","file":"junior-cycle-music.html","tab":"Mus","colorclass":"c-music","units":[{"i":0,"t":"Music as Sound and Expression","s":"Procedural Knowledge"},{"i":1,"t":"Pulse, Beat and Metre","s":"Procedural Knowledge"},{"i":2,"t":"Rhythm and Duration","s":"Procedural Knowledge"},{"i":3,"t":"Pitch, Melody and Scales","s":"Procedural Knowledge"},{"i":4,"t":"Harmony and Chords","s":"Procedural Knowledge"},{"i":5,"t":"Texture and Timbre","s":"Procedural Knowledge"},{"i":6,"t":"Dynamics, Articulation and Expression","s":"Procedural Knowledge"},{"i":7,"t":"Form and Structure","s":"Procedural Knowledge"},{"i":8,"t":"Notation and Music Literacy","s":"Procedural Knowledge"},{"i":9,"t":"Voice and Vocal Performance","s":"Procedural Knowledge"},{"i":10,"t":"Instrumental Performance","s":"Procedural Knowledge"},{"i":11,"t":"Listening and Aural Skills","s":"Procedural Knowledge"},{"i":12,"t":"Improvisation","s":"Innovate and Ideate"},{"i":13,"t":"Composing from a Motif","s":"Innovate and Ideate"},{"i":14,"t":"Songwriting and Lyrics","s":"Innovate and Ideate"},{"i":15,"t":"Arranging and Remixing","s":"Innovate and Ideate"},{"i":16,"t":"Music Technology and Production","s":"Innovate and Ideate"},{"i":17,"t":"Irish Traditional Music","s":"Culture and Context"},{"i":18,"t":"Music of the Baroque, Classical and Romantic Eras","s":"Culture and Context"},{"i":19,"t":"Blues, Jazz and Popular Music","s":"Culture and Context"},{"i":20,"t":"World Music and Cultural Context","s":"Culture and Context"},{"i":21,"t":"Music for Film, Games and Media","s":"Culture and Context"},{"i":22,"t":"Music, Identity and Society","s":"Culture and Context"},{"i":23,"t":"Composition Portfolio: CBA 1","s":"CBA 1 Planner"},{"i":24,"t":"Programme Note: CBA 2","s":"CBA 2 Planner"},{"i":25,"t":"Performance Preparation and Review","s":"Integrated Practice"}]},"woodtech":{"label":"Wood Technology","file":"junior-cycle-wood-technology.html","tab":"WdT","colorclass":"c-woodtech","units":[{"i":0,"t":"Wood Technology and Responsible Making","s":"Principles and Practices"},{"i":1,"t":"Workshop Safety and Risk Awareness","s":"Principles and Practices"},{"i":2,"t":"Measuring, Marking Out and Accuracy","s":"Principles and Practices"},{"i":3,"t":"Hand Tools: Cutting and Shaping","s":"Principles and Practices"},{"i":4,"t":"Machine Tools and Safe Operation","s":"Principles and Practices"},{"i":5,"t":"Joining Wood: Joints and Fixings","s":"Principles and Practices"},{"i":6,"t":"Adhesives, Clamping and Assembly","s":"Principles and Practices"},{"i":7,"t":"Finishing and Surface Preparation","s":"Principles and Practices"},{"i":8,"t":"Timber as a Natural Resource","s":"Wood Science and Materials"},{"i":9,"t":"Tree Growth and Wood Structure","s":"Wood Science and Materials"},{"i":10,"t":"Hardwoods and Softwoods","s":"Wood Science and Materials"},{"i":11,"t":"Seasoning and Moisture Content","s":"Wood Science and Materials"},{"i":12,"t":"Wood Movement and Defects","s":"Wood Science and Materials"},{"i":13,"t":"Manufactured Boards","s":"Wood Science and Materials"},{"i":14,"t":"Material Selection for Purpose","s":"Wood Science and Materials"},{"i":15,"t":"Design Thinking and User Needs","s":"Design Thinking"},{"i":16,"t":"Research, Ideas and Innovation","s":"Design Thinking"},{"i":17,"t":"Sketching, Modelling and Communication","s":"Design Thinking"},{"i":18,"t":"Planning and Managing a Project","s":"Design Thinking"},{"i":19,"t":"Sustainable Design and Circular Making","s":"Design Thinking"},{"i":20,"t":"Manufacture, Quality and Evaluation","s":"Principles and Practices"},{"i":21,"t":"Wood Science in Our Environment: CBA 1","s":"CBA 1 Planner"},{"i":22,"t":"Student Self-Analysis and Evaluation: CBA 2","s":"CBA 2 Planner"},{"i":23,"t":"Design and Make Project Preparation","s":"Integrated Practice"},{"i":24,"t":"Repair, Reuse and Making for Community","s":"Integrated Practice"},{"i":25,"t":"Review: From Tree to Artefact","s":"Integrated Review"}]},"spanish":{"label":"Spanish","file":"spanish-para-dos.html","tab":"Esp","colorclass":"c-spanish","units":[{"i":1,"t":"Saludos y presentaciones (Greetings & introductions)","s":"Cimientos — Foundations"},{"i":2,"t":"Los números, la fecha y la hora (Numbers, dates & telling time)","s":"Cimientos — Foundations"},{"i":3,"t":"Datos personales y nacionalidades (Personal details & nationalities)","s":"Cimientos — Foundations"},{"i":4,"t":"La familia y la descripción física (Family & physical description)","s":"Cimientos — Foundations"},{"i":5,"t":"Los colores y los adjetivos (Colours & adjective agreement)","s":"Cimientos — Foundations"},{"i":6,"t":"El instituto: asignaturas y horario (School: subjects & timetable)","s":"El Colegio y la Vida Diaria — School & Daily Life"},{"i":7,"t":"La rutina diaria y los verbos reflexivos (Daily routine & reflexive verbs)","s":"El Colegio y la Vida Diaria — School & Daily Life"},{"i":8,"t":"El aula y las capacidades (The classroom & expressing ability)","s":"El Colegio y la Vida Diaria — School & Daily Life"},{"i":9,"t":"La casa: habitaciones y muebles (The house: rooms & furniture)","s":"La Casa y el Entorno — Home & Environment"},{"i":10,"t":"Las tareas domésticas y las obligaciones (Chores & saying what you have to do)","s":"La Casa y el Entorno — Home & Environment"},{"i":11,"t":"El pueblo, la ciudad y las direcciones (Town, city & directions)","s":"La Casa y el Entorno — Home & Environment"},{"i":12,"t":"El tiempo y las estaciones (Weather & the seasons)","s":"La Casa y el Entorno — Home & Environment"},{"i":13,"t":"La comida y las comidas del día (Food & the meals of the day)","s":"La Comida — Food"},{"i":14,"t":"De compras: comida y cantidades (Food shopping & quantities)","s":"La Comida — Food"},{"i":15,"t":"Los pasatiempos, los deportes y 'gustar' (Hobbies, sports & the verb 'gustar')","s":"El Tiempo Libre — Free Time"},{"i":16,"t":"La tecnología y las redes sociales (Technology & social media)","s":"El Tiempo Libre — Free Time"},{"i":17,"t":"La música, el cine y la televisión (Music, film & television)","s":"El Tiempo Libre — Free Time"},{"i":18,"t":"El cuerpo y la salud (The body & health)","s":"El Cuerpo y la Ropa — Body & Clothes"},{"i":19,"t":"La ropa y las compras (Clothes & shopping)","s":"El Cuerpo y la Ropa — Body & Clothes"},{"i":20,"t":"Las vacaciones, el transporte y el alojamiento (Holidays, transport & accommodation)","s":"Viajes y Celebraciones — Travel & Celebrations"},{"i":21,"t":"Las celebraciones y las fiestas (Celebrations & festivals)","s":"Viajes y Celebraciones — Travel & Celebrations"},{"i":22,"t":"Los animales y la naturaleza (Animals, nature & the environment)","s":"Mirando al Futuro — Looking Ahead"},{"i":23,"t":"Las profesiones y 'ir a + infinitivo' (Jobs & the near future tense)","s":"Mirando al Futuro — Looking Ahead"},{"i":24,"t":"El pretérito: hablar del pasado (The preterite: talking about the past)","s":"Mirando al Futuro — Looking Ahead"}]}};
+(function(){
+  var allUnits = [];
+  Object.keys(SUBJECT_INDEX).forEach(function(key){
+    var subj = SUBJECT_INDEX[key];
+    subj.units.forEach(function(u){
+      allUnits.push({subject:subj.label, file:subj.file, tab:subj.tab, colorclass:subj.colorclass, i:u.i, t:u.t, s:u.s});
+    });
+  });
+  var finder = document.getElementById('finder');
+  var input = document.getElementById('finder-input');
+  var results = document.getElementById('finder-results');
+  if(!finder || !input || !results) return;
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function render(list){
+    if(!list.length){
+      results.innerHTML = '<div class="finder-empty">No topics found — try a different word, or browse subjects below.</div>';
+      results.hidden = false;
+      return;
+    }
+    results.innerHTML = list.slice(0,8).map(function(u){
+      return '<a class="finder-row" href="'+u.file+'#u'+u.i+'">'
+        + '<span class="finder-tab" style="background:var(--'+u.colorclass+')">'+escapeHtml(u.tab)+'</span>'
+        + '<span class="finder-text"><b>'+escapeHtml(u.t)+'</b><small>'+escapeHtml(u.subject)+' · '+escapeHtml(u.s)+'</small></span>'
+        + '</a>';
+    }).join('');
+    results.hidden = false;
+  }
+
+  function search(q){
+    q = q.trim().toLowerCase();
+    if(!q){ results.hidden = true; results.innerHTML=''; return; }
+    var matches = allUnits.filter(function(u){
+      return u.t.toLowerCase().indexOf(q) !== -1
+        || u.s.toLowerCase().indexOf(q) !== -1
+        || u.subject.toLowerCase().indexOf(q) !== -1;
+    });
+    render(matches);
+  }
+
+  input.addEventListener('input', function(){ search(input.value); });
+  input.addEventListener('focus', function(){ if(input.value.trim()) search(input.value); });
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      var first = results.querySelector('.finder-row');
+      if(first){ window.location.href = first.getAttribute('href'); }
+    } else if(e.key === 'Escape'){
+      results.hidden = true;
+      input.blur();
+    }
+  });
+  document.addEventListener('click', function(e){
+    if(!finder.contains(e.target)) results.hidden = true;
+  });
+})();
+</script>
 </main>
 </div>
 </body>
