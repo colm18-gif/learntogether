@@ -1,147 +1,309 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Together — Family Curriculum Companions</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Junior Cycle Pathways — Learning Together</title>
 <style>
   :root{
-    --paper:#F2ECDD; --card:#FBF8F1; --ink:#2B2418; --ink-soft:#6B6152; --line:#DCD2B8;
-    --ochre:#D9A441; --clay:#B5592D;
+    --paper:#f6f1e4;
+    --paper-line:#cfd9ea;
+    --margin:#b5453f;
+    --ink:#232a2f;
+    --soft:#5b6470;
+    --cover:#1f3a5c;
+    --cover-deep:#16283f;
+    --highlight:#d99a2b;
+    --card-bg:#fffdf8;
+    --line:#ddd3bd;
+    --radius:10px;
+
+    --c-english:#b5453f;
+    --c-maths:#1f3a5c;
+    --c-history:#8a6a2f;
+    --c-geography:#3c6e4a;
+    --c-business:#6a4c93;
+    --c-spanish:#c1642f;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{ background:var(--paper); color:var(--ink); font-family:'Work Sans',sans-serif; -webkit-font-smoothing:antialiased; }
-  body::before{ content:""; position:fixed; inset:0; pointer-events:none; opacity:0.5;
-    background-image: radial-gradient(circle at 1px 1px, rgba(43,36,24,0.06) 1px, transparent 1.6px);
-    background-size:22px 22px; z-index:0; }
-  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:600; margin:0; color:#2B2418; }
-  main{ position:relative; z-index:1; max-width:1080px; margin:0 auto; padding: 56px 32px 90px; }
 
-  .hero{ text-align:left; margin-bottom:46px; }
-  .hero .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--clay); margin-bottom:14px; }
-  .hero h1{ font-size:2.6rem; max-width:720px; line-height:1.12; }
-  .hero p{ max-width:640px; color:var(--ink-soft); line-height:1.6; margin-top:16px; font-size:1.05rem; }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
 
-  .legend{ display:flex; gap:22px; margin:30px 0 8px; flex-wrap:wrap; font-size:0.85rem; color:var(--ink-soft); }
-  .legend span{ display:inline-flex; align-items:center; gap:7px; }
-  .dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
-  .dot.live{ background:#3E7A4F; }
-  .dot.soon{ background:#C9BE9C; }
+  /* faint copybook ruling across the whole page */
+  body{
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size:100% 34px;
+    background-position:0 128px;
+  }
 
-  .level-title{ font-family:'Fraunces',serif; font-size:1.3rem; margin: 40px 0 16px; display:flex; align-items:center; gap:12px; }
-  .level-title .tag{ font-family:'IBM Plex Mono',monospace; font-size:0.7rem; background:var(--clay); color:#fff; padding:3px 9px; border-radius:20px; }
-  .level-title::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 100px}
 
-  .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap:14px; }
-  .card{ position:relative; border-radius:14px; padding:18px 18px 16px; border:1px solid var(--line); background:var(--card);
-    transition: transform 0.15s ease, box-shadow 0.15s ease; text-decoration:none; color:inherit; display:block; }
-  .card.live{ cursor:pointer; }
-  .card.live:hover{ transform: translateY(-3px); box-shadow: 0 10px 24px rgba(43,36,24,0.1); }
-  .card.soon{ opacity:0.6; }
-  .swatch{ width:26px; height:26px; border-radius:7px; margin-bottom:12px; }
-  .card h3{ font-size:1.02rem; }
-  .card .status{ margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; display:flex; align-items:center; gap:6px; color:var(--ink-soft); }
-  .card.live .status{ color:#3E7A4F; }
+  header{
+    padding:56px 0 34px;
+    position:relative;
+  }
+  header:before{
+    /* the red margin rule, copybook-style */
+    content:"";
+    position:absolute;
+    left:64px;
+    top:0;
+    bottom:-6px;
+    width:2px;
+    background:var(--margin);
+    opacity:.55;
+  }
+  .header-inner{padding-left:88px}
 
-  .note-box{ margin-top:56px; background:#fff; border:1px dashed var(--ochre); border-radius:14px; padding:22px 26px; }
-  .note-box h3{ font-size:1.05rem; margin-bottom:8px; }
-  .note-box p{ color:var(--ink-soft); line-height:1.6; margin:0; font-size:0.95rem; }
+  h1,h2,h3{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;line-height:1.18;color:var(--cover-deep);margin:0}
+  h1{font-size:2.5rem;letter-spacing:-.01em}
+  .lead{max-width:560px;color:var(--soft);font-size:1.05rem;margin:14px 0 0}
 
+  .hero-row{display:flex;align-items:center;gap:28px;margin-top:36px}
+  .hero-copy{flex:1;min-width:0}
+  .hero-copy p{color:var(--soft);margin:0;max-width:480px}
+  .hero-art{flex:0 0 auto;width:190px}
+  .hero-art svg{width:100%;height:auto;display:block}
+
+  main{padding-left:88px}
+
+  .subject-list{margin-top:44px;display:grid;gap:2px}
+
+  .card{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-left-width:6px;
+    border-radius:4px;
+    padding:20px 22px;
+    text-decoration:none;
+    color:inherit;
+    transition:transform .12s ease;
+  }
+  .card:hover{transform:translateX(3px)}
+  .card:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
+
+  .card .tab{
+    flex:0 0 auto;
+    width:34px;height:34px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;
+    font-size:1rem;
+    color:#fff;
+  }
+  .card .body{min-width:0}
+  .card h3{font-size:1.15rem;margin-bottom:5px}
+  .card p{margin:0;color:var(--soft);font-size:.94rem;max-width:60ch}
+  .card .meta{margin-top:9px;font-size:.8rem;color:var(--soft);font-style:italic}
+
+  .c-english{border-left-color:var(--c-english)}.c-english .tab{background:var(--c-english)}
+  .c-maths{border-left-color:var(--c-maths)}.c-maths .tab{background:var(--c-maths)}
+  .c-history{border-left-color:var(--c-history)}.c-history .tab{background:var(--c-history)}
+  .c-geography{border-left-color:var(--c-geography)}.c-geography .tab{background:var(--c-geography)}
+  .c-business{border-left-color:var(--c-business)}.c-business .tab{background:var(--c-business)}
+  .c-spanish{border-left-color:var(--c-spanish)}.c-spanish .tab{background:var(--c-spanish)}
+
+  .coming{
+    border:1px dashed var(--line);
+    border-radius:4px;
+    padding:20px 22px;
+    display:flex;align-items:center;gap:18px;
+  }
+  .coming .tab{
+    flex:0 0 auto;width:34px;height:34px;border-radius:50%;
+    border:1px dashed var(--soft);
+  }
+  .coming h3{font-size:1.05rem;margin-bottom:4px;color:var(--soft);font-weight:normal;font-style:italic}
+  .coming p{margin:0;color:var(--soft);font-size:.88rem}
+
+  .features{margin-top:56px}
+  .features h2{font-size:1.4rem;margin-bottom:6px}
+  .features .sub{color:var(--soft);font-size:.92rem;margin:0 0 18px}
+  .features ol{margin:0;padding-left:0;list-style:none;counter-reset:none}
+  .features li{
+    display:flex;gap:16px;
+    padding:14px 0;
+    border-top:1px solid var(--line);
+  }
+  .features li:last-child{border-bottom:1px solid var(--line)}
+  .features b{color:var(--cover-deep);font-family:Georgia,serif;font-weight:normal;flex:0 0 150px}
+  .features span{color:var(--soft)}
+
+  footer{
+    margin-top:52px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    color:var(--soft);
+    font-size:.86rem;
+    font-style:italic;
+    max-width:60ch;
+  }
   .contact-link{
-    position:fixed; bottom:20px; right:22px; z-index:2;
-    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--ink-soft);
-    background:var(--card); border:1px solid var(--line); border-radius:20px;
-    padding:7px 14px; text-decoration:none; opacity:0.75;
-    transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    display:inline-block;
+    margin-top:14px;
+    font-style:normal;
+    font-size:.82rem;
+    color:var(--soft);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:1px;
   }
-  .contact-link:hover{ opacity:1; color:var(--accent-deep, var(--clay)); border-color:var(--clay); }
+  .contact-link:hover{color:var(--cover-deep);border-bottom-color:var(--cover-deep)}
+
+  @media(max-width:640px){
+    header:before{left:26px}
+    .header-inner,main{padding-left:46px}
+    h1{font-size:2rem}
+    .hero-row{flex-direction:column;align-items:flex-start}
+    .hero-art{width:140px}
+    .features li{flex-direction:column;gap:2px}
+    .features b{flex:none}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{transition:none}
+  }
 </style>
 </head>
 <body>
+<div class="wrap">
+
+<header>
+  <div class="header-inner">
+    <h1>Junior Cycle Pathways</h1>
+    <p class="lead">Shared, parent‑friendly pathways for Junior Cycle subjects. Each one breaks the course into small units with plain explanations, worked examples, a short task and a quick quiz — so you can support learning at the kitchen table without needing to be a subject expert.</p>
+
+    <div class="hero-row">
+      <div class="hero-copy">
+        <p>Six subjects are ready below. Dip into the unit that matches this week's homework, or work through one in order as a revision pathway.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <!-- stack of colour-coded copybooks -->
+          <g>
+            <rect x="18" y="108" width="150" height="16" rx="2" fill="#c1642f"/>
+            <rect x="26" y="94" width="150" height="16" rx="2" fill="#6a4c93"/>
+            <rect x="14" y="80" width="150" height="16" rx="2" fill="#3c6e4a"/>
+            <rect x="30" y="66" width="150" height="16" rx="2" fill="#8a6a2f"/>
+            <rect x="20" y="52" width="150" height="16" rx="2" fill="#1f3a5c"/>
+            <rect x="10" y="38" width="150" height="16" rx="2" fill="#b5453f"/>
+          </g>
+          <!-- open book on top -->
+          <g transform="translate(35,4)">
+            <path d="M0 20 C 20 8, 45 8, 65 20 L 65 30 C 45 18, 20 18, 0 30 Z" fill="#fffdf8" stroke="#ddd3bd"/>
+            <path d="M65 20 C 85 8, 110 8, 130 20 L 130 30 C 110 18, 85 18, 65 30 Z" fill="#fffdf8" stroke="#ddd3bd"/>
+            <line x1="65" y1="20" x2="65" y2="30" stroke="#ddd3bd"/>
+            <line x1="10" y1="21" x2="55" y2="12" stroke="#cfd9ea" stroke-width="1"/>
+            <line x1="12" y1="25" x2="57" y2="16" stroke="#cfd9ea" stroke-width="1"/>
+            <line x1="75" y1="12" x2="120" y2="21" stroke="#cfd9ea" stroke-width="1"/>
+            <line x1="73" y1="16" x2="118" y2="25" stroke="#cfd9ea" stroke-width="1"/>
+          </g>
+          <!-- pencil -->
+          <g transform="rotate(38 150 20)">
+            <rect x="140" y="10" width="70" height="9" rx="2" fill="var(--highlight,#d99a2b)"/>
+            <polygon points="210,10 222,14.5 210,19" fill="#4a3223"/>
+            <rect x="140" y="10" width="8" height="9" fill="#e7c8a3"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
 <main>
-  <div class="hero">
-    <div class="eyebrow">A shared curriculum, one subject at a time</div>
-    <h1>Study Together</h1>
-    <p>A growing set of companions for parents and guardians who want to work through their child's Junior Cycle and Leaving Certificate subjects alongside them — same curriculum, same pace, no need to remember it all from school yourself.</p>
+<div class="subject-list">
+
+  <a class="card c-english" href="junior-cycle-english-complete.html">
+    <span class="tab">Eng</span>
+    <span class="body">
+      <h3>English, Line by Line</h3>
+      <p>Build confidence in reading, writing and oral communication through grammar, literary techniques, creative and functional writing, media literacy and the two English CBAs.</p>
+      <span class="meta">26 units — Oral Language, Reading, Writing</span>
+    </span>
+  </a>
+
+  <a class="card c-maths" href="junior-cycle-maths-complete.html">
+    <span class="tab">Mth</span>
+    <span class="body">
+      <h3>Maths, Step by Step</h3>
+      <p>Work through Number, Algebra, Geometry and Trigonometry, Statistics and Probability, plus problem solving, modelling and the two Maths CBAs.</p>
+      <span class="meta">26 units — building blocks, representation, communication</span>
+    </span>
+  </a>
+
+  <a class="card c-history" href="junior-cycle-history-complete.html">
+    <span class="tab">His</span>
+    <span class="body">
+      <h3>History, Uncovered</h3>
+      <p>Develop the skills of the historian while exploring Irish, European and wider‑world history from early Ireland to the modern era, with source work and CBA support.</p>
+      <span class="meta">26 units — Nature of History, Ireland, Europe &amp; Wider World</span>
+    </span>
+  </a>
+
+  <a class="card c-geography" href="junior-cycle-geography-complete.html">
+    <span class="tab">Geo</span>
+    <span class="body">
+      <h3>Geography, Connected</h3>
+      <p>Investigate physical processes, human interaction with the environment, and people, place and change through maps, data, fieldwork and sustainability thinking.</p>
+      <span class="meta">26 units — physical world, interaction, people &amp; place</span>
+    </span>
+  </a>
+
+  <a class="card c-business" href="junior-cycle-business-studies-complete.html">
+    <span class="tab">Bus</span>
+    <span class="body">
+      <h3>Business, In Practice</h3>
+      <p>Apply business concepts to real decisions in personal finance, enterprise and the economy, with practical documents, research, marketing and CBA planning.</p>
+      <span class="meta">26 units — Personal Finance, Enterprise, Our Economy</span>
+    </span>
+  </a>
+
+  <a class="card c-spanish" href="spanish-para-dos-1.html">
+    <span class="tab">Esp</span>
+    <span class="body">
+      <h3>Spanish, Together</h3>
+      <p>A shared Junior Cycle Spanish pathway with vocabulary, phrases, grammar focus, speaking and writing tasks, quizzes and intercultural learning across three years.</p>
+      <span class="meta">24 units — 8 topic modules</span>
+    </span>
+  </a>
+
+  <div class="coming">
+    <span class="tab" aria-hidden="true"></span>
+    <span class="body">
+      <h3>More subjects on the way</h3>
+      <p>Additional Junior Cycle subjects are being expanded into the same step‑by‑step format. Check back for updates as new pathways are added.</p>
+    </span>
   </div>
 
-  <div class="legend">
-    <span><span class="dot live"></span> Live now</span>
-    <span><span class="dot soon"></span> Coming soon</span>
-  </div>
+</div>
 
-  <div class="level-title"><span class="tag">Junior Cycle</span></div>
-  <div class="grid" id="jcGrid"></div>
+<section class="features">
+  <h2>How these pathways help</h2>
+  <p class="sub">Every unit is built the same way, so once you know how one works, you know them all.</p>
+  <ol>
+    <li><b>Clear structure</b><span>Each subject is broken into short units that match classroom learning without requiring a textbook on the table.</span></li>
+    <li><b>Plain explanations</b><span>Key ideas are defined in everyday language, with worked examples and "watch out" notes for common mistakes.</span></li>
+    <li><b>Active practice</b><span>Every unit includes a short task to do together and a quick quiz to check understanding.</span></li>
+    <li><b>Portfolio ready</b><span>Suggestions for evidence to save — drafts, corrections, research, presentations, reflections — support the Classroom‑Based Assessments.</span></li>
+    <li><b>Flexible use</b><span>Jump to the unit that matches this week's topic, or move sequentially as a revision pathway.</span></li>
+  </ol>
+</section>
 
-  <div class="level-title"><span class="tag">Leaving Certificate</span></div>
-  <div class="grid" id="lcGrid"></div>
-
-  <div class="note-box">
-    <h3>How this is being built</h3>
-    <p>Each subject is built from the real NCCA / State Examinations Commission specification rather than a general summary, so the sequence and content match what's actually taught — with a note wherever a school's own order might differ. New subjects are added a couple at a time; this page will update as each one goes live.</p>
-  </div>
+<footer>
+These resources are designed to complement, not replace, classroom teaching. Always check with the teacher for the exact level, sequence and methods expected in your school.
+<br>
+<a class="contact-link" href="mailto:colm@aiaugmentedreading.com">Questions or feedback? Get in touch</a>
+</footer>
 </main>
-
-<a class="contact-link" href="mailto:colm@aiaugmentedreading.com">Contact</a>
-
-<script>
-const PALETTE = ["#2C5F7C","#3B6E4F","#7A2E3D","#3B3F7A","#2A6F72","#6B4A2B","#4B6B3A","#26415C","#5B4B8A","#1F4E4A","#C0603D","#1F6E52"];
-
-const JC = [
-  {name:"English", live:true, href:"junior-cycle-english.html"},
-  {name:"Irish", live:true, href:"junior-cycle-irish.html"},
-  {name:"Mathematics", live:true, href:"junior-cycle-maths.html"},
-  {name:"Science", live:false},
-  {name:"French", live:false},
-  {name:"History", live:true, href:"junior-cycle-history.html"},
-  {name:"Geography", live:false},
-  {name:"Business Studies", live:false},
-  {name:"Home Economics", live:false},
-  {name:"Art, Craft & Design", live:false},
-  {name:"Spanish", live:true, href:"spanish-para-dos.html"}
-];
-
-const LC = [
-  {name:"English", live:false},
-  {name:"Irish", live:false},
-  {name:"Mathematics", live:false},
-  {name:"Biology", live:false},
-  {name:"Business", live:false},
-  {name:"French", live:false},
-  {name:"Geography", live:false},
-  {name:"Home Economics", live:false},
-  {name:"Chemistry", live:false},
-  {name:"Accounting", live:false},
-  {name:"Spanish", live:true, href:"leaving-cert-spanish.html"}
-];
-
-function renderGrid(elId, subjects){
-  const el = document.getElementById(elId);
-  let html = '';
-  subjects.forEach((s, i) => {
-    const color = PALETTE[i % PALETTE.length];
-    if(s.live){
-      html += `<a class="card live" href="${s.href}">
-        <div class="swatch" style="background:${color}"></div>
-        <h3>${s.name}</h3>
-        <div class="status">&#9679; Live now</div>
-      </a>`;
-    } else {
-      html += `<div class="card soon">
-        <div class="swatch" style="background:${color}; opacity:0.45"></div>
-        <h3>${s.name}</h3>
-        <div class="status">Coming soon</div>
-      </div>`;
-    }
-  });
-  el.innerHTML = html;
-}
-
-renderGrid('jcGrid', JC);
-renderGrid('lcGrid', LC);
-</script>
+</div>
 </body>
 </html>
