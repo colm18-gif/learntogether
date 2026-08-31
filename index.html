@@ -33,6 +33,11 @@
     --c-spanish: #d96b27;
     --c-science: #4a3f8c;
     --c-technology: #9a552d;
+    --c-engineering: #2f7b7e;
+    --c-graphics: #b8456f;
+    --c-homeec: #7c8a3a;
+    --c-music: #46648c;
+    --c-woodtech: #5a4632;
   }
 
   * { box-sizing: border-box; }
@@ -81,17 +86,44 @@
     margin: 0 0 16px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+  }
+  a.site-name:hover { color: var(--cover-deep); }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 24px;
   }
 
-  .site-intro {
-    max-width: 680px;
-    color: var(--soft);
-    font-size: 1.15rem;
-    line-height: 1.65;
-    margin: 0 0 32px;
-    padding-bottom: 32px;
-    border-bottom: 2px dashed var(--line);
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 999px;
+    transition: all 0.15s ease;
   }
+
+  .cta-primary {
+    background: var(--cover);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+  .cta-primary:hover { background: var(--cover-deep); transform: translateY(-1px); }
+
+  .cta-secondary {
+    background: transparent;
+    color: var(--cover);
+    border: 1.5px solid var(--line);
+  }
+  .cta-secondary:hover { border-color: var(--cover); }
 
   h1, h2, h3 {
     font-family: "Playfair Display", Georgia, serif;
@@ -100,8 +132,8 @@
     margin: 0;
   }
 
-  h1 { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.02em; }
-  .lead { max-width: 640px; color: var(--soft); font-size: 1.08rem; margin: 16px 0 0; }
+  h1 { font-size: 2.35rem; font-weight: 700; letter-spacing: -0.01em; max-width: 720px; }
+  .lead { max-width: 640px; color: var(--soft); font-size: 1.1rem; margin: 16px 0 0; }
 
   .hero-row {
     display: flex;
@@ -188,6 +220,11 @@
   .c-spanish { border-left-color: var(--c-spanish); }.c-spanish .tab { background: var(--c-spanish); }
   .c-science { border-left-color: var(--c-science); }.c-science .tab { background: var(--c-science); }
   .c-technology { border-left-color: var(--c-technology); }.c-technology .tab { background: var(--c-technology); }
+  .c-engineering { border-left-color: var(--c-engineering); }.c-engineering .tab { background: var(--c-engineering); }
+  .c-graphics { border-left-color: var(--c-graphics); }.c-graphics .tab { background: var(--c-graphics); }
+  .c-homeec { border-left-color: var(--c-homeec); }.c-homeec .tab { background: var(--c-homeec); }
+  .c-music { border-left-color: var(--c-music); }.c-music .tab { background: var(--c-music); }
+  .c-woodtech { border-left-color: var(--c-woodtech); }.c-woodtech .tab { background: var(--c-woodtech); font-size: 0.8rem; }
 
   .coming {
     background: transparent;
@@ -228,6 +265,17 @@
   }
   .features b { color: var(--cover-deep); font-weight: 600; font-size: 0.95rem; }
   .features span { color: var(--soft); font-size: 0.95rem; }
+
+  .about {
+    margin-top: 32px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+  .about h2 { font-size: 1.4rem; margin-bottom: 14px; }
+  .about p { color: var(--soft); font-size: 0.95rem; margin: 0 0 12px; max-width: 720px; }
+  .about p:last-child { margin-bottom: 0; }
 
   footer {
     margin-top: 52px;
@@ -311,7 +359,7 @@
   @media(max-width: 768px) {
     header::before { left: 20px; }
     .header-inner, main { padding-left: 36px; }
-    h1 { font-size: 2.2rem; }
+    h1 { font-size: 1.8rem; }
     .hero-row { flex-direction: column; align-items: flex-start; }
     .hero-art { width: 130px; }
     .features li { grid-template-columns: 1fr; gap: 4px; }
@@ -327,14 +375,18 @@
 
 <header>
   <div class="header-inner">
-    <p class="site-name">Learn Together</p>
-    <p class="site-intro">A set of free study companions for parents and guardians — plain-language, step‑by‑step guides you can sit down with alongside your teenager, subject by subject, without needing to relearn the curriculum yourself.</p>
-    <h1>Junior Cycle Pathways</h1>
-    <p class="lead">Shared, parent‑friendly pathways for Junior Cycle subjects. Each one breaks the course into small units with plain explanations, worked examples, a short task and a quick quiz — so you can support learning at the kitchen table without needing to be a subject expert.</p>
+    <a class="site-name" href="/">Learn Together</a>
+    <h1>Help your teenager with Junior Cycle — even if you haven't opened the curriculum in years.</h1>
+    <p class="lead">Free, plain-language study guides for parents, guardians and students. Pick a subject, find this week's topic, and work through it together — no textbook, no refresher course, no guesswork required.</p>
+
+    <div class="cta-row">
+      <a class="cta cta-primary" href="#subjects">Find a subject</a>
+      <a class="cta cta-secondary" href="#how-it-works">How it works</a>
+    </div>
 
     <div class="hero-row">
       <div class="hero-copy">
-        <p> Eight subjects are ready below. Dip into the unit that matches this week's homework, or work through one in order as a revision pathway.</p>
+        <p>Thirteen subjects are ready below. Dip into the unit that matches this week's homework, or work through one in order as a revision pathway.</p>
       </div>
       <div class="hero-art" aria-hidden="true">
         <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
@@ -367,7 +419,7 @@
 </header>
 
 <main>
-<div class="subject-list">
+<div class="subject-list" id="subjects">
 
   <a class="card c-english" href="junior-cycle-english.html">
     <span class="tab">Eng</span>
@@ -441,6 +493,51 @@
     </span>
   </a>
 
+  <a class="card c-engineering" href="junior-cycle-engineering.html">
+    <span class="tab">Egr</span>
+    <span class="body">
+      <h3>Engineering, In Action</h3>
+      <p>Explore forces, materials, mechanisms, electronics and manufacturing through hands-on design, prototyping and problem solving, with structured support for both CBAs.</p>
+      <span class="meta">26 units — Structures &amp; Materials, Mechanisms &amp; Control, Design &amp; Manufacture</span>
+    </span>
+  </a>
+
+  <a class="card c-graphics" href="junior-cycle-graphics.html">
+    <span class="tab">Gra</span>
+    <span class="body">
+      <h3>Graphics, Visual Thinking</h3>
+      <p>Develop sketching, technical drawing, CAD and spatial reasoning skills through 2D and 3D graphics, design communication and real-world problem solving.</p>
+      <span class="meta">26 units — 2D Graphics, 3D Graphics, Design &amp; Communication</span>
+    </span>
+  </a>
+
+  <a class="card c-homeec" href="junior-cycle-home-economics.html">
+    <span class="tab">HEc</span>
+    <span class="body">
+      <h3>Home Economics</h3>
+      <p>Build practical life skills across food, health, textiles and resource management, with food safety, nutrition, sustainability and family wellbeing throughout.</p>
+      <span class="meta">25 units — Food, Health &amp; Culinary Skills, Responsible Family Living, Textiles &amp; Craft</span>
+    </span>
+  </a>
+
+  <a class="card c-music" href="junior-cycle-music.html">
+    <span class="tab">Mus</span>
+    <span class="body">
+      <h3>Music, Heard and Made</h3>
+      <p>Develop listening, performing and composing skills across rhythm, melody, harmony and form, exploring genres from Irish traditional to popular music.</p>
+      <span class="meta">26 units — Procedural Knowledge, Innovate &amp; Ideate, Culture &amp; Context</span>
+    </span>
+  </a>
+
+  <a class="card c-woodtech" href="junior-cycle-wood-technology.html">
+    <span class="tab">WdT</span>
+    <span class="body">
+      <h3>Wood Technology</h3>
+      <p>Cover workshop safety, hand and machine tools, timber science and joinery alongside design thinking and sustainable making, with structured support for both CBAs.</p>
+      <span class="meta">26 units — Principles &amp; Practices, Wood Science &amp; Materials, Design Thinking</span>
+    </span>
+  </a>
+
   <div class="coming">
     <span class="tab" aria-hidden="true"></span>
     <span class="body">
@@ -451,7 +548,7 @@
 
 </div>
 
-<section class="features">
+<section class="features" id="how-it-works">
   <h2>How these pathways help</h2>
   <p class="sub">Every unit is built the same way, so once you know how one works, you know them all.</p>
   <ol>
@@ -461,6 +558,13 @@
     <li><b>Portfolio ready</b><span>Suggestions for evidence to save — drafts, corrections, research, presentations, reflections — support the Classroom‑Based Assessments.</span></li>
     <li><b>Flexible use</b><span>Jump to the unit that matches this week's topic, or move sequentially as a revision pathway.</span></li>
   </ol>
+</section>
+
+<section class="about">
+  <h2>About Learn Together</h2>
+  <p>Learn Together is an independent, non-commercial project built to give parents and guardians a plain-language way to support Junior Cycle study at home — it isn't a school, exam board or official curriculum publisher.</p>
+  <p>Each pathway is written to follow the strands and learning outcomes of the relevant NCCA Junior Cycle specification, but the guides are a companion to classroom teaching, not a replacement for it — your teenager's teacher remains the best guide to the exact sequence, depth and methods expected in their school and for their exam year.</p>
+  <p>The site is a work in progress: new subjects and units are still being added, and if you spot something that's unclear, incorrect or out of date, the quickest way to flag it is the contact form below.</p>
 </section>
 
 <footer>
