@@ -2,241 +2,319 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Junior Cycle Pathways — Learning Together</title>
+<!-- Google Fonts for Modern Typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --paper:#f6f1e4;
-    --paper-line:#cfd9ea;
-    --margin:#b5453f;
-    --ink:#232a2f;
-    --soft:#5b6470;
-    --cover:#1f3a5c;
-    --cover-deep:#16283f;
-    --highlight:#d99a2b;
-    --card-bg:#fffdf8;
-    --line:#ddd3bd;
-    --radius:10px;
+  :root {
+    --paper: #f9f6f0;
+    --paper-line: #e3e8f0;
+    --margin: #c84b45;
+    --ink: #1a2129;
+    --soft: #525c6a;
+    --cover: #1d3557;
+    --cover-deep: #0f1d30;
+    --highlight: #e9a327;
+    --card-bg: #ffffff;
+    --line: #e4dcd0;
+    --radius: 12px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
 
-    --c-english:#b5453f;
-    --c-maths:#1f3a5c;
-    --c-history:#8a6a2f;
-    --c-geography:#3c6e4a;
-    --c-business:#6a4c93;
-    --c-spanish:#c1642f;
+    --c-english: #c84b45;
+    --c-maths: #1d3557;
+    --c-history: #9e7937;
+    --c-geography: #2e7d44;
+    --c-business: #6b439c;
+    --c-spanish: #d96b27;
   }
 
-  *{box-sizing:border-box}
-  html,body{margin:0}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size: 100% 36px;
+    background-position: 0 140px;
   }
 
-  /* faint copybook ruling across the whole page */
-  body{
-    background-image:
-      linear-gradient(var(--paper-line) 1px, transparent 1px);
-    background-size:100% 34px;
-    background-position:0 128px;
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
   }
 
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 100px}
-
-  header{
-    padding:56px 0 34px;
-    position:relative;
-  }
-  header:before{
-    /* the red margin rule, copybook-style */
-    content:"";
-    position:absolute;
-    left:64px;
-    top:0;
-    bottom:-6px;
-    width:2px;
-    background:var(--margin);
-    opacity:.55;
-  }
-  .site-name{
-    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
-    font-size:2rem;
-    color:var(--margin);
-    margin:0 0 12px;
-    letter-spacing:-.01em;
-  }
-  .site-intro{
-    max-width:600px;
-    color:var(--soft);
-    font-size:1.15rem;
-    line-height:1.6;
-    margin:0 0 40px;
-    padding-bottom:36px;
-    border-bottom:1px solid var(--line);
+  header {
+    padding: 64px 0 40px;
+    position: relative;
   }
 
-  .header-inner{padding-left:88px}
-
-  h1,h2,h3{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;line-height:1.18;color:var(--cover-deep);margin:0}
-  h1{font-size:2.5rem;letter-spacing:-.01em}
-  .lead{max-width:560px;color:var(--soft);font-size:1.05rem;margin:14px 0 0}
-
-  .hero-row{display:flex;align-items:center;gap:28px;margin-top:36px}
-  .hero-copy{flex:1;min-width:0}
-  .hero-copy p{color:var(--soft);margin:0;max-width:480px}
-  .hero-art{flex:0 0 auto;width:190px}
-  .hero-art svg{width:100%;height:auto;display:block}
-
-  main{padding-left:88px}
-
-  .subject-list{margin-top:44px;display:grid;gap:2px}
-
-  .card{
-    display:flex;
-    align-items:flex-start;
-    gap:18px;
-    background:var(--card-bg);
-    border:1px solid var(--line);
-    border-left-width:6px;
-    border-radius:4px;
-    padding:20px 22px;
-    text-decoration:none;
-    color:inherit;
-    transition:transform .12s ease;
+  header::before {
+    content: "";
+    position: absolute;
+    left: 48px;
+    top: 0;
+    bottom: -10px;
+    width: 2px;
+    background: var(--margin);
+    opacity: 0.35;
   }
-  .card:hover{transform:translateX(3px)}
-  .card:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
 
-  .card .tab{
-    flex:0 0 auto;
-    width:34px;height:34px;
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-family:Georgia,serif;
-    font-size:1rem;
-    color:#fff;
-  }
-  .card .body{min-width:0}
-  .card h3{font-size:1.15rem;margin-bottom:5px}
-  .card p{margin:0;color:var(--soft);font-size:.94rem;max-width:60ch}
-  .card .meta{margin-top:9px;font-size:.8rem;color:var(--soft);font-style:italic}
+  .header-inner { padding-left: 80px; }
 
-  .c-english{border-left-color:var(--c-english)}.c-english .tab{background:var(--c-english)}
-  .c-maths{border-left-color:var(--c-maths)}.c-maths .tab{background:var(--c-maths)}
-  .c-history{border-left-color:var(--c-history)}.c-history .tab{background:var(--c-history)}
-  .c-geography{border-left-color:var(--c-geography)}.c-geography .tab{background:var(--c-geography)}
-  .c-business{border-left-color:var(--c-business)}.c-business .tab{background:var(--c-business)}
-  .c-spanish{border-left-color:var(--c-spanish)}.c-spanish .tab{background:var(--c-spanish)}
+  .site-name {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--margin);
+    margin: 0 0 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
 
-  .coming{
-    border:1px dashed var(--line);
-    border-radius:4px;
-    padding:20px 22px;
-    display:flex;align-items:center;gap:18px;
+  .site-intro {
+    max-width: 680px;
+    color: var(--soft);
+    font-size: 1.15rem;
+    line-height: 1.65;
+    margin: 0 0 32px;
+    padding-bottom: 32px;
+    border-bottom: 2px dashed var(--line);
   }
-  .coming .tab{
-    flex:0 0 auto;width:34px;height:34px;border-radius:50%;
-    border:1px dashed var(--soft);
-  }
-  .coming h3{font-size:1.05rem;margin-bottom:4px;color:var(--soft);font-weight:normal;font-style:italic}
-  .coming p{margin:0;color:var(--soft);font-size:.88rem}
 
-  .features{margin-top:56px}
-  .features h2{font-size:1.4rem;margin-bottom:6px}
-  .features .sub{color:var(--soft);font-size:.92rem;margin:0 0 18px}
-  .features ol{margin:0;padding-left:0;list-style:none;counter-reset:none}
-  .features li{
-    display:flex;gap:16px;
-    padding:14px 0;
-    border-top:1px solid var(--line);
+  h1, h2, h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    line-height: 1.25;
+    color: var(--cover-deep);
+    margin: 0;
   }
-  .features li:last-child{border-bottom:1px solid var(--line)}
-  .features b{color:var(--cover-deep);font-family:Georgia,serif;font-weight:normal;flex:0 0 150px}
-  .features span{color:var(--soft)}
 
-  footer{
-    margin-top:52px;
-    padding-top:20px;
-    border-top:1px solid var(--line);
-    color:var(--soft);
-    font-size:.86rem;
-    font-style:italic;
-    max-width:60ch;
-  }
-  .contact-link{
-    display:inline-block;
-    margin-top:14px;
-    font-style:normal;
-    font-size:.82rem;
-    color:var(--soft);
-    text-decoration:none;
-    border-bottom:1px solid var(--line);
-    padding-bottom:1px;
-    cursor:pointer;
-    background:none;
-    border-top:none;border-left:none;border-right:none;
-    font-family:inherit;
-    padding-left:0;
-  }
-  .contact-link:hover{color:var(--cover-deep);border-bottom-color:var(--cover-deep)}
+  h1 { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.02em; }
+  .lead { max-width: 640px; color: var(--soft); font-size: 1.08rem; margin: 16px 0 0; }
 
-  .contact-form{
-    margin-top:18px;
-    max-width:420px;
-    display:none;
+  .hero-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 36px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 24px 28px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(228, 220, 208, 0.6);
   }
-  .contact-form.open{display:block}
-  .contact-form label{
-    display:block;
-    font-size:.82rem;
-    color:var(--soft);
-    margin:12px 0 4px;
+
+  .hero-copy { flex: 1; min-width: 0; }
+  .hero-copy p { color: var(--soft); margin: 0; font-size: 0.98rem; }
+  .hero-art { flex: 0 0 auto; width: 170px; }
+  .hero-art svg { width: 100%; height: auto; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); }
+
+  main { padding-left: 80px; }
+
+  .subject-list {
+    margin-top: 40px;
+    display: grid;
+    gap: 16px;
   }
-  .contact-form label:first-child{margin-top:0}
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-left-width: 6px;
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card:focus-visible { outline: 3px solid var(--highlight); outline-offset: 3px; }
+
+  .card .tab {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+  }
+
+  .card .body { flex: 1; min-width: 0; }
+  .card h3 { font-size: 1.25rem; margin-bottom: 6px; color: var(--cover-deep); }
+  .card p { margin: 0; color: var(--soft); font-size: 0.95rem; }
+  .card .meta {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--soft);
+    background: rgba(0,0,0,0.03);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* Subject Themes */
+  .c-english { border-left-color: var(--c-english); }.c-english .tab { background: var(--c-english); }
+  .c-maths { border-left-color: var(--c-maths); }.c-maths .tab { background: var(--c-maths); }
+  .c-history { border-left-color: var(--c-history); }.c-history .tab { background: var(--c-history); }
+  .c-geography { border-left-color: var(--c-geography); }.c-geography .tab { background: var(--c-geography); }
+  .c-business { border-left-color: var(--c-business); }.c-business .tab { background: var(--c-business); }
+  .c-spanish { border-left-color: var(--c-spanish); }.c-spanish .tab { background: var(--c-spanish); }
+
+  .coming {
+    background: transparent;
+    border: 2px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .coming .tab {
+    flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px;
+    border: 2px dashed var(--soft); opacity: 0.5;
+  }
+
+  .coming h3 { font-size: 1.1rem; margin-bottom: 4px; color: var(--soft); font-style: italic; }
+  .coming p { margin: 0; color: var(--soft); font-size: 0.9rem; }
+
+  .features {
+    margin-top: 60px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .features h2 { font-size: 1.6rem; margin-bottom: 6px; }
+  .features .sub { color: var(--soft); font-size: 0.95rem; margin: 0 0 24px; }
+  .features ol { margin: 0; padding-left: 0; list-style: none; }
+  .features li {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .features b { color: var(--cover-deep); font-weight: 600; font-size: 0.95rem; }
+  .features span { color: var(--soft); font-size: 0.95rem; }
+
+  footer {
+    margin-top: 52px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--soft);
+    font-size: 0.88rem;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cover);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .contact-link:hover { color: var(--cover-deep); }
+
+  .contact-form {
+    margin-top: 20px;
+    max-width: 460px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    display: none;
+  }
+  .contact-form.open { display: block; }
+  .contact-form label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--soft);
+    margin: 14px 0 6px;
+  }
+  .contact-form label:first-child { margin-top: 0; }
   .contact-form input,
-  .contact-form textarea{
-    width:100%;
-    font:inherit;
-    font-size:.92rem;
-    color:var(--ink);
-    background:var(--card-bg);
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:8px 10px;
+  .contact-form textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 0.92rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 12px;
   }
-  .contact-form textarea{resize:vertical;min-height:80px}
+  .contact-form textarea { resize: vertical; min-height: 90px; }
   .contact-form input:focus,
-  .contact-form textarea:focus{outline:2px solid var(--highlight);outline-offset:1px}
-  .contact-form button{
-    margin-top:14px;
-    font:inherit;
-    font-size:.88rem;
-    color:#fff;
-    background:var(--cover);
-    border:none;
-    border-radius:4px;
-    padding:9px 18px;
-    cursor:pointer;
+  .contact-form textarea:focus { outline: 2px solid var(--highlight); border-color: transparent; }
+  .contact-form button {
+    margin-top: 18px;
+    width: 100%;
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #fff;
+    background: var(--cover);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.15s ease;
   }
-  .contact-form button:hover{background:var(--cover-deep)}
-  .contact-form .form-note{font-size:.78rem;color:var(--soft);margin-top:10px}
-  .contact-form .form-status{font-size:.82rem;margin-top:10px;display:none}
-  .contact-form .form-status.ok{color:var(--c-geography);display:block}
-  .contact-form .form-status.err{color:var(--c-english);display:block}
+  .contact-form button:hover { background: var(--cover-deep); }
+  .contact-form .form-status { font-size: 0.85rem; margin-top: 12px; display: none; }
+  .contact-form .form-status.ok { color: var(--c-geography); display: block; }
+  .contact-form .form-status.err { color: var(--c-english); display: block; }
 
-  @media(max-width:640px){
-    header:before{left:26px}
-    .header-inner,main{padding-left:46px}
-    h1{font-size:2rem}
-    .hero-row{flex-direction:column;align-items:flex-start}
-    .hero-art{width:140px}
-    .features li{flex-direction:column;gap:2px}
-    .features b{flex:none}
+  @media(max-width: 768px) {
+    header::before { left: 20px; }
+    .header-inner, main { padding-left: 36px; }
+    h1 { font-size: 2.2rem; }
+    .hero-row { flex-direction: column; align-items: flex-start; }
+    .hero-art { width: 130px; }
+    .features li { grid-template-columns: 1fr; gap: 4px; }
   }
 
-  @media (prefers-reduced-motion: reduce){
-    .card{transition:none}
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
   }
 </style>
 </head>
@@ -256,28 +334,25 @@
       </div>
       <div class="hero-art" aria-hidden="true">
         <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
-          <!-- stack of colour-coded copybooks -->
           <g>
-            <rect x="18" y="108" width="150" height="16" rx="2" fill="#c1642f"/>
-            <rect x="26" y="94" width="150" height="16" rx="2" fill="#6a4c93"/>
-            <rect x="14" y="80" width="150" height="16" rx="2" fill="#3c6e4a"/>
-            <rect x="30" y="66" width="150" height="16" rx="2" fill="#8a6a2f"/>
-            <rect x="20" y="52" width="150" height="16" rx="2" fill="#1f3a5c"/>
-            <rect x="10" y="38" width="150" height="16" rx="2" fill="#b5453f"/>
+            <rect x="18" y="108" width="150" height="16" rx="2" fill="#d96b27"/>
+            <rect x="26" y="94" width="150" height="16" rx="2" fill="#6b439c"/>
+            <rect x="14" y="80" width="150" height="16" rx="2" fill="#2e7d44"/>
+            <rect x="30" y="66" width="150" height="16" rx="2" fill="#9e7937"/>
+            <rect x="20" y="52" width="150" height="16" rx="2" fill="#1d3557"/>
+            <rect x="10" y="38" width="150" height="16" rx="2" fill="#c84b45"/>
           </g>
-          <!-- open book on top -->
           <g transform="translate(35,4)">
-            <path d="M0 20 C 20 8, 45 8, 65 20 L 65 30 C 45 18, 20 18, 0 30 Z" fill="#fffdf8" stroke="#ddd3bd"/>
-            <path d="M65 20 C 85 8, 110 8, 130 20 L 130 30 C 110 18, 85 18, 65 30 Z" fill="#fffdf8" stroke="#ddd3bd"/>
-            <line x1="65" y1="20" x2="65" y2="30" stroke="#ddd3bd"/>
-            <line x1="10" y1="21" x2="55" y2="12" stroke="#cfd9ea" stroke-width="1"/>
-            <line x1="12" y1="25" x2="57" y2="16" stroke="#cfd9ea" stroke-width="1"/>
-            <line x1="75" y1="12" x2="120" y2="21" stroke="#cfd9ea" stroke-width="1"/>
-            <line x1="73" y1="16" x2="118" y2="25" stroke="#cfd9ea" stroke-width="1"/>
+            <path d="M0 20 C 20 8, 45 8, 65 20 L 65 30 C 45 18, 20 18, 0 30 Z" fill="#ffffff" stroke="#e4dcd0"/>
+            <path d="M65 20 C 85 8, 110 8, 130 20 L 130 30 C 110 18, 85 18, 65 30 Z" fill="#ffffff" stroke="#e4dcd0"/>
+            <line x1="65" y1="20" x2="65" y2="30" stroke="#e4dcd0"/>
+            <line x1="10" y1="21" x2="55" y2="12" stroke="#e3e8f0" stroke-width="1.5"/>
+            <line x1="12" y1="25" x2="57" y2="16" stroke="#e3e8f0" stroke-width="1.5"/>
+            <line x1="75" y1="12" x2="120" y2="21" stroke="#e3e8f0" stroke-width="1.5"/>
+            <line x1="73" y1="16" x2="118" y2="25" stroke="#e3e8f0" stroke-width="1.5"/>
           </g>
-          <!-- pencil -->
           <g transform="rotate(38 150 20)">
-            <rect x="140" y="10" width="70" height="9" rx="2" fill="var(--highlight,#d99a2b)"/>
+            <rect x="140" y="10" width="70" height="9" rx="2" fill="#e9a327"/>
             <polygon points="210,10 222,14.5 210,19" fill="#4a3223"/>
             <rect x="140" y="10" width="8" height="9" fill="#e7c8a3"/>
           </g>
@@ -367,8 +442,8 @@
 </section>
 
 <footer>
-These resources are designed to complement, not replace, classroom teaching. Always check with the teacher for the exact level, sequence and methods expected in your school.
-<br>
+<p style="margin: 0;">These resources are designed to complement, not replace, classroom teaching. Always check with the teacher for the exact level, sequence and methods expected in your school.</p>
+
 <button type="button" class="contact-link" id="contact-toggle" aria-expanded="false" aria-controls="contact-form">Questions or feedback? Get in touch</button>
 
 <form class="contact-form" id="contact-form" action="https://formspree.io/f/xppzqryj" method="POST">
