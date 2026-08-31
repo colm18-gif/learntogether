@@ -156,8 +156,57 @@
     text-decoration:none;
     border-bottom:1px solid var(--line);
     padding-bottom:1px;
+    cursor:pointer;
+    background:none;
+    border-top:none;border-left:none;border-right:none;
+    font-family:inherit;
+    padding-left:0;
   }
   .contact-link:hover{color:var(--cover-deep);border-bottom-color:var(--cover-deep)}
+
+  .contact-form{
+    margin-top:18px;
+    max-width:420px;
+    display:none;
+  }
+  .contact-form.open{display:block}
+  .contact-form label{
+    display:block;
+    font-size:.82rem;
+    color:var(--soft);
+    margin:12px 0 4px;
+  }
+  .contact-form label:first-child{margin-top:0}
+  .contact-form input,
+  .contact-form textarea{
+    width:100%;
+    font:inherit;
+    font-size:.92rem;
+    color:var(--ink);
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:8px 10px;
+  }
+  .contact-form textarea{resize:vertical;min-height:80px}
+  .contact-form input:focus,
+  .contact-form textarea:focus{outline:2px solid var(--highlight);outline-offset:1px}
+  .contact-form button{
+    margin-top:14px;
+    font:inherit;
+    font-size:.88rem;
+    color:#fff;
+    background:var(--cover);
+    border:none;
+    border-radius:4px;
+    padding:9px 18px;
+    cursor:pointer;
+  }
+  .contact-form button:hover{background:var(--cover-deep)}
+  .contact-form .form-note{font-size:.78rem;color:var(--soft);margin-top:10px}
+  .contact-form .form-status{font-size:.82rem;margin-top:10px;display:none}
+  .contact-form .form-status.ok{color:var(--c-geography);display:block}
+  .contact-form .form-status.err{color:var(--c-english);display:block}
 
   @media(max-width:640px){
     header:before{left:26px}
@@ -280,7 +329,7 @@
     <span class="tab" aria-hidden="true"></span>
     <span class="body">
       <h3>More subjects on the way</h3>
-      <p>Additional Junior Cycle and Leavinf Cert cycle subjects are being developed in the same step‑by‑step format. Check back for updates as new subjects and levels are added.</p>
+      <p>Additional Junior Cycle subjects are being expanded into the same step‑by‑step format. Check back for updates as new pathways are added.</p>
     </span>
   </div>
 
@@ -301,7 +350,57 @@
 <footer>
 These resources are designed to complement, not replace, classroom teaching. Always check with the teacher for the exact level, sequence and methods expected in your school.
 <br>
-<a class="contact-link" href="mailto:colm@aiaugmentedreading.com">Questions or feedback? Get in touch</a>
+<button type="button" class="contact-link" id="contact-toggle" aria-expanded="false" aria-controls="contact-form">Questions or feedback? Get in touch</button>
+
+<form class="contact-form" id="contact-form" action="https://formspree.io/f/xppzqryj" method="POST">
+  <label for="cf-name">Name</label>
+  <input type="text" id="cf-name" name="name" required>
+
+  <label for="cf-email">Email</label>
+  <input type="email" id="cf-email" name="_replyto" required>
+
+  <label for="cf-message">Message</label>
+  <textarea id="cf-message" name="message" required></textarea>
+
+  <button type="submit">Send message</button>
+  <p class="form-note">Goes straight to colm@aiaugmentedreading.com — no account or sign‑up needed on your end.</p>
+  <p class="form-status" id="cf-status"></p>
+</form>
+
+<script>
+(function(){
+  var toggle = document.getElementById('contact-toggle');
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('cf-status');
+  toggle.addEventListener('click', function(){
+    var open = form.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    status.className = 'form-status';
+    status.textContent = 'Sending…';
+    status.style.display = 'block';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if (res.ok) {
+        status.className = 'form-status ok';
+        status.textContent = 'Thanks — your message has been sent.';
+        form.reset();
+      } else {
+        status.className = 'form-status err';
+        status.textContent = 'Something went wrong. Please try again or email directly.';
+      }
+    }).catch(function(){
+      status.className = 'form-status err';
+      status.textContent = 'Something went wrong. Please try again or email directly.';
+    });
+  });
+})();
+</script>
 </footer>
 </main>
 </div>
